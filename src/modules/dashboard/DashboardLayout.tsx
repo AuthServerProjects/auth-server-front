@@ -4,6 +4,7 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { FiAlertCircle } from "react-icons/fi";
 import { FiCheckCircle } from "react-icons/fi";
 import LineChart from "../../components/charts/LineChart";
+import LogCardComponent from "./components/LogCardComponent";
 
 const DashboardLayout = () => {
   const series = [
@@ -16,7 +17,14 @@ const DashboardLayout = () => {
   const dataLabels = series[0].data.map((value) =>
     value.toLocaleString("fa-IR"),
   );
-  const categories: any = ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"];
+  const categories: any = [
+    "00:00",
+    "04:00",
+    "08:00",
+    "12:00",
+    "16:00",
+    "20:00",
+  ];
 
   return (
     <div className="p-1">
@@ -84,6 +92,13 @@ const DashboardLayout = () => {
               yFormatter={(val: any) => val.toLocaleString("fa-IR")}
             />
           </div>
+        </div>
+        <div className="bg-white border border-gray-50 mt-4 rounded-lg">
+          <div className="flex justify-between text-black border-b border-gray-50 p-4">
+            <div className="font-bold">فعالیت های اخیر</div>
+            <div className="cursor-pointer">مشاهده همه</div>
+          </div>
+          <LogCardComponent />
         </div>
       </div>
     </div>
