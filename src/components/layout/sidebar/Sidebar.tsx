@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { LuLayoutDashboard } from "react-icons/lu";
 import { FiUsers } from "react-icons/fi";
 import { FiServer } from "react-icons/fi";
@@ -7,10 +7,9 @@ import { LuBuilding2 } from "react-icons/lu";
 import { LuShield } from "react-icons/lu";
 import { LuKey } from "react-icons/lu";
 import { CgFileDocument } from "react-icons/cg";
-import { IoIosArrowBack } from "react-icons/io";
 import SelectBox from "../../selectBox/SelectBox";
 
-const Slidebar = () => {
+const Sidebar = () => {
   const generalMenu = [
     { id: 1, icon: <LuLayoutDashboard />, label: "داشبورد" },
     { id: 2, icon: <FiUsers />, label: "کاربران" },
@@ -39,10 +38,6 @@ const Slidebar = () => {
   return (
     // SideBar
     <div className="bg-white h-screen border-l border-gray-50 w-65">
-      <div className="flex border-b border-gray-50 justify-center items-center h-fit">
-        <img src="src/assets/BPM.svg" className="py-[11px]" />
-      </div>
-
       <div className="px-2">
         {/* General */}
         <div className="py-1.5 border-b border-gray-50">
@@ -67,13 +62,6 @@ const Slidebar = () => {
             <LuBuilding2 />
             <div>مدیریت کلاینت</div>
           </div>
-          {/* <div className="flex text-gray-300 border border-gray-50 rounded-lg py-2 px-4 items-center justify-between">
-          <div className="flex space-x-4 items-center">
-            <FiServer />
-            <div> Admin Panel </div>
-          </div>
-          <IoIosArrowBack />
-        </div> */}
 
           <SelectBox
             options={clientListOptions}
@@ -103,4 +91,4 @@ const Slidebar = () => {
   );
 };
 
-export default Slidebar;
+export default Sidebar;

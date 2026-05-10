@@ -1,13 +1,18 @@
-import React from "react";
 import Header from "../../components/layout/header/Header";
 import Sidebar from "../../components/layout/sidebar/Sidebar";
+import DashboardLayout from "./components/DashboardLayout";
 
 const DashboardMainPage = () => {
   return (
-    <div className="flex">
-      <Sidebar />
-      <Header />
-    </div>
+    <>
+      <div>
+        <Header />
+        <div className="flex">
+          <Sidebar />
+          <DashboardLayout />
+        </div>
+      </div>
+    </>
   );
 };
 
