@@ -1,6 +1,6 @@
 import Header from "../../components/layout/header/Header";
 import Sidebar from "../../components/layout/sidebar/Sidebar";
-import DashboardLayout from "./components/DashboardLayout";
+import DashboardLayout from "./DashboardLayout";
 
 const DashboardMainPage = () => {
   return (
