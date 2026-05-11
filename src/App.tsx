@@ -1,14 +1,12 @@
-import DashboardMainPage from './modules/dashboard/DashboardMainPage'
-import './App.css'
+import MainPage from "./modules/MainPage";
+import "./App.css";
 
 function App() {
-
   return (
     <>
-      <DashboardMainPage />
+      <MainPage />
     </>
-
-  )
+  );
 }
 
-export default App
+export default App;
