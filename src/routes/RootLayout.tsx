@@ -1,19 +1,19 @@
 import Header from "../components/layout/header/Header";
 import Sidebar from "../components/layout/sidebar/Sidebar";
-import DashboardMainPage from "./dashboard/DashboardMainPage";
+import { Outlet } from "react-router-dom";
 
-const MainPage = () => {
+const RootLayout = () => {
   return (
     <>
       <div>
         <Header />
         <div className="flex">
           <Sidebar />
-          <DashboardMainPage />
+          <Outlet />
         </div>
       </div>
     </>
   );
 };
 
-export default MainPage;
+export default RootLayout;

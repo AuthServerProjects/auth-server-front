@@ -8,22 +8,38 @@ import { LuShield } from "react-icons/lu";
 import { LuKey } from "react-icons/lu";
 import { CgFileDocument } from "react-icons/cg";
 import SelectBox from "../../selectBox/SelectBox";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const generalMenu = [
-    { id: 1, icon: <LuLayoutDashboard />, label: "داشبورد" },
-    { id: 2, icon: <FiUsers />, label: "کاربران" },
-    { id: 3, icon: <FiServer />, label: "کلاینت ها" },
-    { id: 4, icon: <FiClock />, label: "نشست ها" },
+    {
+      id: 1,
+      href: "/dashboard",
+      icon: <LuLayoutDashboard />,
+      label: "داشبورد",
+    },
+    { id: 2, href: "/users", icon: <FiUsers />, label: "کاربران" },
+    { id: 3, href: "/clients", icon: <FiServer />, label: "کلاینت ها" },
+    { id: 4, href: "/sessions", icon: <FiClock />, label: "نشست ها" },
   ];
 
   const clientMenu = [
-    { id: 5, icon: <LuLayoutDashboard />, label: "داشبورد" },
-    { id: 6, icon: <FiUsers />, label: "کاربران" },
-    { id: 7, icon: <LuShield />, label: "نقش ها" },
-    { id: 8, icon: <LuKey />, label: "مجوزها" },
-    { id: 9, icon: <FiClock />, label: "نشست ها" },
-    { id: 10, icon: <CgFileDocument />, label: "لاگ های حسابرسی" },
+    {
+      id: 5,
+      href: "/dashboard",
+      icon: <LuLayoutDashboard />,
+      label: "داشبورد",
+    },
+    { id: 6, href: "/users", icon: <FiUsers />, label: "کاربران" },
+    { id: 7, href: "/roles", icon: <LuShield />, label: "نقش ها" },
+    { id: 8, href: "/permissions", icon: <LuKey />, label: "مجوزها" },
+    { id: 9, href: "/sessions", icon: <FiClock />, label: "نشست ها" },
+    {
+      id: 10,
+      href: "/audit-logs",
+      icon: <CgFileDocument />,
+      label: "لاگ های حسابرسی",
+    },
   ];
 
   const clientListOptions = [
@@ -35,6 +51,13 @@ const Sidebar = () => {
   const [activeItem, setActiveItem] = useState<number | null>(null);
   const [selectedOption, setSelectedOption] = useState(null);
 
+  const navigate = useNavigate();
+
+  const handleChangeRoute = (id: number, href: string) => {
+    setActiveItem(id);
+    navigate(href);
+  };
+
   return (
     // SideBar
     <div className="bg-white h-screen border-l border-gray-50 w-65">
@@ -45,7 +68,7 @@ const Sidebar = () => {
             return (
               <div
                 key={item.id}
-                onClick={() => setActiveItem(item.id)}
+                onClick={() => handleChangeRoute(item.id, item.href)}
                 className={`flex text-gray-300 font-bold mx-1 my-1 items-center space-x-4 py-2.5 px-3 rounded-lg cursor-pointer 
                 ${activeItem === item.id ? "bg-gray-50" : "hover:bg-gray-30"}`}
               >
@@ -75,7 +98,7 @@ const Sidebar = () => {
               return (
                 <div
                   key={item.id}
-                  onClick={() => setActiveItem(item.id)}
+                  onClick={() => handleChangeRoute(item.id, item.href)}
                   className={`flex text-gray-300 font-bold mx-1.5 my-0.5 items-center space-x-4 py-2.5 px-3 rounded-lg cursor-pointer
           ${isActive ? "bg-gray-50" : "hover:bg-gray-30"}`}
                 >
