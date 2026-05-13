@@ -3,6 +3,7 @@ import RootLayout from "./RootLayout";
 import ErrorPage from "./ErrorPage";
 
 import Dashboard from "../modules/dashboard/DashboardMainPage";
+import UsersMainPage from "../modules/users/UsersMainPage";
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
+      { path: "users", element: <UsersMainPage /> },
       //   { path: "*", element: <NotFound /> },
     ],
   },
