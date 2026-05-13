@@ -27,9 +27,10 @@ function TableHeader<T>({
 
   return (
     <thead
-      className={["text-black", stickyHeader ? "sticky top-0 z-10" : ""].join(
-        " ",
-      )}
+      className={[
+        "text-black bg-gray-30",
+        stickyHeader ? "sticky top-0 z-10" : "",
+      ].join(" ")}
     >
       <tr>
         {columns

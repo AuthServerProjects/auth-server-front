@@ -72,7 +72,7 @@ const TablePagination = ({
               className={[
                 "min-w-[32px] px-2 py-1 rounded border",
                 p === page
-                  ? "bg-blue-500 text-white border-blue-500"
+                  ? "bg-gray-100 text-white border-gray-100"
                   : "border-gray-50 hover:bg-gray-50",
               ].join(" ")}
             >

@@ -91,6 +91,7 @@ const LogComponent = () => {
         showSizeChanger: true,
         onPageSizeChange: (s) => console.log(s),
       }}
+      className="rounded-t-lg"
     />
   );
 };

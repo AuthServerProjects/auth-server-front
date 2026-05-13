@@ -29,7 +29,7 @@ function Table<T>({
   return (
     <div
       className={[
-        "w-full bg-white rounded-lg border border-gray-50 overflow-hidden",
+        "w-full bg-white border border-gray-50 overflow-hidden rounded-b-lg",
         className ?? "",
       ].join(" ")}
     >
