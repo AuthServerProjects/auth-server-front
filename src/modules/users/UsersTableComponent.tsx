@@ -16,7 +16,7 @@ const UsersTableComponent = () => {
   const columns: Column<User>[] = [
     {
       key: "id",
-      title: "ردیف",
+      title: "شناسه",
       dataIndex: "id",
       width: 80,
       align: "center",

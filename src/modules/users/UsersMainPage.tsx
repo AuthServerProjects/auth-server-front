@@ -21,7 +21,7 @@ const UsersMainPage = () => {
         </button>
       </div>
 
-      <div className="flex flex-col w-full border border-gray-50 bg-white rounded-lg pt-4 mt-4">
+      <div className="flex flex-col w-full border border-gray-50 bg-white rounded-lg mt-4">
         <div className="flex justify-between p-4">
           <div className="relative">
             <LuSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
