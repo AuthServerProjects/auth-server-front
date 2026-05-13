@@ -1,5 +1,5 @@
 import { FiUsers } from "react-icons/fi";
-import { LuSearch, LuPlus } from "react-icons/lu";
+import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import UserComponent from "./UserComponent";
 
