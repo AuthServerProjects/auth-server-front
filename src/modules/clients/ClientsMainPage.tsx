@@ -1,4 +1,3 @@
-import { FiUsers } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import { FiServer } from "react-icons/fi";
@@ -28,7 +27,7 @@ const ClientsMainPage = () => {
             <LuSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
               type="text"
-              placeholder="جستجو با نام کاربری"
+              placeholder="جستجو با شناسه کلاینت"
               className="w-full py-2 pl-4 pr-10 border rounded-lg"
             />
           </div>
