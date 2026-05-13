@@ -1,7 +1,7 @@
 import { FiUsers } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
-import UserComponent from "./UserComponent";
+import UsersTableComponent from "./UsersTableComponent";
 
 const UsersMainPage = () => {
   return (
@@ -40,7 +40,7 @@ const UsersMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <UserComponent />
+        <UsersTableComponent />
       </div>
     </div>
   );

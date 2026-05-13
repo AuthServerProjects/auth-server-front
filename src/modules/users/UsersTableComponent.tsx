@@ -9,7 +9,7 @@ type User = {
   roles: [];
 };
 
-const UserComponent = () => {
+const UsersTableComponent = () => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
 
@@ -95,4 +95,4 @@ const UserComponent = () => {
   );
 };
 
-export default UserComponent;
+export default UsersTableComponent;
