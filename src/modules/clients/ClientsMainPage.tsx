@@ -1,7 +1,7 @@
 import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import { FiServer } from "react-icons/fi";
-import ClientsTableComponents from "./ClientsTableComponent";
+import ClientsTableComponent from "./ClientsTableComponent";
 
 const ClientsMainPage = () => {
   return (
@@ -40,7 +40,7 @@ const ClientsMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <ClientsTableComponents />
+        <ClientsTableComponent />
       </div>
     </div>
   );
