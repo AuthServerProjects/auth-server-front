@@ -7,6 +7,7 @@ import UsersMainPage from "../modules/users/UsersMainPage";
 import ClientsMainPage from "../modules/clients/ClientsMainPage";
 import SessionMainPage from "../modules/sessions/SessionMainPage";
 import RolesMainPage from "../modules/roles/RolesMainPage";
+import PermissionsMainPage from "../modules/permissions/PermissionsMainPage";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { path: "clients", element: <ClientsMainPage /> },
       { path: "sessions", element: <SessionMainPage /> },
       { path: "roles", element: <RolesMainPage /> },
+      { path: "permissions", element: <PermissionsMainPage /> },
       //   { path: "*", element: <NotFound /> },
     ],
   },
