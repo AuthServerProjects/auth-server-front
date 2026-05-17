@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table, { type Column, type SortState } from "../../components/tables";
 
-type User = {
+type Log = {
   id: number;
   time: string;
   action: string;
@@ -15,7 +15,7 @@ const LogsTableComponent = () => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
 
-  const columns: Column<User>[] = [
+  const columns: Column<Log>[] = [
     {
       key: "id",
       title: "شناسه",
@@ -69,7 +69,7 @@ const LogsTableComponent = () => {
     },
   ];
 
-  const data: User[] = [
+  const data: Log[] = [
     {
       id: 1,
       time: "2023-10-01 10:00:00",
@@ -91,7 +91,7 @@ const LogsTableComponent = () => {
   ];
 
   return (
-    <Table<User>
+    <Table<Log>
       columns={columns}
       data={data}
       rowKey="id"

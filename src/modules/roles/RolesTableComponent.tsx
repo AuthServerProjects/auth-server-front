@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table, { type Column, type SortState } from "../../components/tables";
 
-type User = {
+type Role = {
   id: number;
   roleName: string;
   status: "active" | "inactive";
@@ -12,7 +12,7 @@ const RolesTableComponent = () => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
 
-  const columns: Column<User>[] = [
+  const columns: Column<Role>[] = [
     {
       key: "id",
       title: "شناسه",
@@ -50,7 +50,7 @@ const RolesTableComponent = () => {
     },
   ];
 
-  const data: User[] = [
+  const data: Role[] = [
     {
       id: 1,
       roleName: "SUPER_ADMIN",
@@ -66,7 +66,7 @@ const RolesTableComponent = () => {
   ];
 
   return (
-    <Table<User>
+    <Table<Role>
       columns={columns}
       data={data}
       rowKey="id"

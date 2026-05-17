@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table, { type Column, type SortState } from "../../components/tables";
 
-type User = {
+type Session = {
   id: number;
   userName: string;
   client: string;
@@ -24,7 +24,7 @@ const SessionsTableComponent = () => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
 
-  const columns: Column<User>[] = [
+  const columns: Column<Session>[] = [
     {
       key: "id",
       title: "شناسه",
@@ -91,7 +91,7 @@ const SessionsTableComponent = () => {
     },
   ];
 
-  const data: User[] = [
+  const data: Session[] = [
     {
       id: 1,
       userName: "Rosa.sh.7",
@@ -115,7 +115,7 @@ const SessionsTableComponent = () => {
   ];
 
   return (
-    <Table<User>
+    <Table<Session>
       columns={columns}
       data={data}
       rowKey="id"

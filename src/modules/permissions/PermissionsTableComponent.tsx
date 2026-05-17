@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table, { type Column, type SortState } from "../../components/tables";
 
-type User = {
+type permission = {
   id: number;
   permissionName: string;
   description: string;
@@ -11,7 +11,7 @@ const PermissionsTableComponent = () => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
 
-  const columns: Column<User>[] = [
+  const columns: Column<permission>[] = [
     {
       key: "id",
       title: "شناسه",
@@ -35,7 +35,7 @@ const PermissionsTableComponent = () => {
     },
   ];
 
-  const data: User[] = [
+  const data: permission[] = [
     {
       id: 1,
       permissionName: "role:create",
@@ -49,7 +49,7 @@ const PermissionsTableComponent = () => {
   ];
 
   return (
-    <Table<User>
+    <Table<permission>
       columns={columns}
       data={data}
       rowKey="id"
