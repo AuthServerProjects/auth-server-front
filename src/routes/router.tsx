@@ -6,6 +6,7 @@ import DashboardMainPage from "../modules/dashboard/DashboardMainPage";
 import UsersMainPage from "../modules/users/UsersMainPage";
 import ClientsMainPage from "../modules/clients/ClientsMainPage";
 import SessionMainPage from "../modules/sessions/SessionMainPage";
+import RolesMainPage from "../modules/roles/RolesMainPage";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: "users", element: <UsersMainPage /> },
       { path: "clients", element: <ClientsMainPage /> },
       { path: "sessions", element: <SessionMainPage /> },
+      { path: "roles", element: <RolesMainPage /> },
       //   { path: "*", element: <NotFound /> },
     ],
   },
