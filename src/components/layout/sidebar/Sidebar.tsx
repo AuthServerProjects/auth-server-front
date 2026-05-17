@@ -34,12 +34,7 @@ const Sidebar = () => {
     { id: 7, href: "/roles", icon: <LuShield />, label: "نقش ها" },
     { id: 8, href: "/permissions", icon: <LuKey />, label: "مجوزها" },
     { id: 9, href: "/sessions", icon: <FiClock />, label: "نشست ها" },
-    {
-      id: 10,
-      href: "/audit-logs",
-      icon: <CgFileDocument />,
-      label: "لاگ های حسابرسی",
-    },
+    { id: 10, href: "/logs", icon: <CgFileDocument />, label: "لاگ ها" },
   ];
 
   const clientListOptions = [
