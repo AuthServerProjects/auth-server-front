@@ -1,7 +1,8 @@
 import { FiUsers } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
-import UsersTableComponent from "./UsersTableComponent";
+import UsersTable from "./components/UsersTable";
+import { mockUsers } from "./data";
 
 const UsersMainPage = () => {
   return (
@@ -40,7 +41,7 @@ const UsersMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <UsersTableComponent />
+        <UsersTable data={mockUsers} />
       </div>
     </div>
   );
