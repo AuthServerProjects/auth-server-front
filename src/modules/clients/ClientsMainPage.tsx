@@ -1,7 +1,8 @@
 import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import { FiServer } from "react-icons/fi";
-import ClientsTableComponent from "./ClientsTableComponent";
+import ClientsTable from "./components/ClientsTable";
+import { mockClients } from "../clients/data";
 
 const ClientsMainPage = () => {
   return (
@@ -40,7 +41,7 @@ const ClientsMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <ClientsTableComponent />
+        <ClientsTable data={mockClients} />
       </div>
     </div>
   );
