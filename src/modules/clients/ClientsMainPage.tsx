@@ -2,7 +2,7 @@ import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import { FiServer } from "react-icons/fi";
 import ClientsTable from "./components/ClientsTable";
-import { mockClients } from "../clients/data";
+import { mockClients } from "./clientsData";
 
 const ClientsMainPage = () => {
   return (

@@ -1,4 +1,4 @@
-import type { Client } from "../types";
+import type { Client } from "../clientTypes";
 import { LuPencil, LuKey } from "react-icons/lu";
 import { useClientActions } from "../hooks/useClientActions";
 import ActionMenu from "../../../components/actionMenu/ActionMenu";

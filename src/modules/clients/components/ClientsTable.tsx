@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table, { type SortState } from "../../../components/tables";
-import type { Client } from "../types";
-import { clientColumns } from "./Columns";
+import type { Client } from "../clientTypes";
+import { clientTableColumns } from "./ClientTableColumns";
 
 type Props = {
   data: Client[];
@@ -13,7 +13,7 @@ const ClientsTable = ({ data }: Props) => {
 
   return (
     <Table<Client>
-      columns={clientColumns}
+      columns={clientTableColumns}
       data={data}
       rowKey="id"
       striped

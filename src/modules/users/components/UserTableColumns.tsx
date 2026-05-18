@@ -1,5 +1,5 @@
 import type { Column } from "../../../components/tables";
-import type { User } from "../types";
+import type { User } from "../userTypes";
 import Badge from "../../../components/Badge/Badge";
 import UserActionsMenu from "./UserActionsMenu";
 

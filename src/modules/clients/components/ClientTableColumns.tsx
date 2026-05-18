@@ -1,8 +1,8 @@
-import type { Client } from "../types";
+import type { Client } from "../clientTypes";
 import ClientActionsMenu from "./ClientActionsMenu";
 import type { Column } from "../../../components/tables";
 
-export const clientColumns: Column<Client>[] = [
+export const clientTableColumns: Column<Client>[] = [
   {
     key: "id",
     title: "شناسه",

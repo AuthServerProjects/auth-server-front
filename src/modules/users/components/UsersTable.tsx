@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Table, { type SortState } from "../../../components/tables";
-import type { User } from "../types";
-import { userColumns } from "./columns";
+import type { User } from "../userTypes";
+import { userColumns } from "./UserTableColumns";
 
 type Props = {
   data: User[];

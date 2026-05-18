@@ -2,7 +2,7 @@ import { FiUsers } from "react-icons/fi";
 import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import UsersTable from "./components/UsersTable";
-import { mockUsers } from "./data";
+import { mockUsers } from "./usersData";
 
 const UsersMainPage = () => {
   return (

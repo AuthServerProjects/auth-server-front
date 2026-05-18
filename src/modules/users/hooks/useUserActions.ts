@@ -1,4 +1,4 @@
-import type { User } from "../types";
+import type { User } from "../userTypes";
 
 export const useUserActions = () => {
   const handleEdit = (user: User) => console.log("edit", user);
