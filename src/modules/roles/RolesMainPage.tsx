@@ -1,7 +1,8 @@
+import { mockRole } from "./roleData";
 import { LuSearch } from "react-icons/lu";
 import { LuShield } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
-import RolesTableComponent from "./RolesTableComponent";
+import RolesTable from "./components/RolesTable";
 
 const RolesMainPage = () => {
   return (
@@ -40,7 +41,7 @@ const RolesMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <RolesTableComponent />
+        <RolesTable data={mockRole} />
       </div>
     </div>
   );
