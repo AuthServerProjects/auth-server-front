@@ -19,7 +19,7 @@ const SessionsMainPage = () => {
           className="flex items-center gap-2 bg-gray-100 text-white px-4 py-2 rounded-lg whitespace-nowrap cursor-pointer"
         >
           <LuRefreshCcw />
-          بارخوانی
+          بازخوانی
         </button>
       </div>
 
