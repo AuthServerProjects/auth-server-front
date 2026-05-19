@@ -1,7 +1,8 @@
-import { LuSearch } from "react-icons/lu";
 import { LuKey } from "react-icons/lu";
+import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
-import PermissionsTableComponent from "./PermissionsTableComponent";
+import { mockPermission } from "./permissionsData";
+import PermissionsTable from "./components/PermissionsTable";
 
 const PermissionsMainPage = () => {
   return (
@@ -40,7 +41,7 @@ const PermissionsMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <PermissionsTableComponent />
+        <PermissionsTable data={mockPermission} />
       </div>
     </div>
   );
