@@ -2,7 +2,8 @@ import { LuSearch } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import { FiServer } from "react-icons/fi";
 import { LuRefreshCcw } from "react-icons/lu";
-import SessionsTableComponent from "./SessionsTableComponent";
+import SessionsTable from "./components/SessionsTable";
+import { mockSession } from "./sessionsData";
 
 const SessionsMainPage = () => {
   return (
@@ -41,7 +42,7 @@ const SessionsMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <SessionsTableComponent />
+        <SessionsTable data={mockSession} />
       </div>
     </div>
   );
