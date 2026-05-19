@@ -1,7 +1,8 @@
-import { LuSearch } from "react-icons/lu";
+import { LuRefreshCcw, LuSearch } from "react-icons/lu";
 import { CgFileDocument } from "react-icons/cg";
 import SVG from "../../components/SVG/SVG";
-import LogsTableComponent from "./LogsTableComponent";
+import LogsTable from "./components/LogsTable";
+import { mockLog } from "./logsData";
 
 const LogsMainPage = () => {
   return (
@@ -11,6 +12,14 @@ const LogsMainPage = () => {
           <CgFileDocument size={24} />
           <h2>مدیریت لاگها</h2>
         </div>
+        <button
+          type="button"
+          onClick={() => console.log("clicked")}
+          className="flex items-center gap-2 bg-gray-100 text-white px-4 py-2 rounded-lg whitespace-nowrap cursor-pointer"
+        >
+          <LuRefreshCcw />
+          بارخوانی
+        </button>
       </div>
 
       <div className="flex flex-col w-full border border-gray-50 bg-white rounded-lg mt-4">
@@ -32,7 +41,7 @@ const LogsMainPage = () => {
             خروجی اکسل
           </button>
         </div>
-        <LogsTableComponent />
+        <LogsTable data={mockLog} />
       </div>
     </div>
   );
