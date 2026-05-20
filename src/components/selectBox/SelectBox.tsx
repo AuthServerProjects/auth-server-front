@@ -1,4 +1,3 @@
-import React from "react";
 import Select from "react-select";
 
 interface selectBoxType {
@@ -7,11 +6,11 @@ interface selectBoxType {
   setSelectedOption: (value) => void;
 }
 
-const SelectBox: React.FC<selectBoxType> = ({
+const SelectBox = ({
   options,
   selectedOption,
   setSelectedOption,
-}) => {
+}: selectBoxType) => {
   return (
     <div>
       <Select

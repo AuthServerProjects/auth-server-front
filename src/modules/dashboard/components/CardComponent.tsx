@@ -5,12 +5,12 @@ interface CardComponentProps {
   iconClassName?: string;
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({
+const CardComponent = ({
   title = "",
   count = 0,
   icon,
   iconClassName = "",
-}) => {
+}: CardComponentProps) => {
   return (
     <div className="p-4 bg-white border border-gray-50 rounded-lg">
       <div className="flex justify-between items-center">
