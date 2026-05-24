@@ -48,14 +48,6 @@ const UserActionsMenu = ({ user }: Props) => {
       icon: <LuKey />,
       onClick: () => handleResetPassword(user),
     },
-    {
-      key: "toggle",
-      label: user.status === "active" ? "غیرفعال‌سازی" : "فعال‌سازی",
-      icon: <LuPowerOff />,
-      danger: user.status === "active",
-      divider: true,
-      onClick: () => handleToggleStatus(user),
-    },
   ];
 
   return <ActionMenu items={items} />;
