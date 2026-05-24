@@ -1,13 +1,7 @@
-import {
-  LuPencil,
-  LuServer,
-  LuShield,
-  LuKey,
-  LuPowerOff,
-} from "react-icons/lu";
 import type { User } from "../userTypes";
 import { useUserActions } from "../hooks/useUserActions";
 import ActionMenu from "../../../components/actionMenu/ActionMenu";
+import { LuPencil, LuServer, LuShield, LuKey } from "react-icons/lu";
 import type { ActionItem } from "../../../components/actionMenu/types";
 
 type Props = {
@@ -20,7 +14,6 @@ const UserActionsMenu = ({ user }: Props) => {
     handleAssignClient,
     handleManageRoles,
     handleResetPassword,
-    handleToggleStatus,
   } = useUserActions();
 
   const items: ActionItem[] = [
