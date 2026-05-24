@@ -1,25 +1,23 @@
-type Props =
-  | { type: "status"; value: "active" | "inactive" }
-  | { type: "result"; value: "success" | "failed" };
+type BadgeVariant = "success" | "danger" | "warning" | "neutral" | "info";
 
-const Badge = (props: Props) => {
-  let isSuccess = false;
-  let label = "";
+type BadgeProps = {
+  variant?: BadgeVariant;
+  label: string;
+  className?: string;
+};
 
-  if (props.type === "status") {
-    isSuccess = props.value === "active";
-    label = isSuccess ? "فعال" : "غیرفعال";
-  } else {
-    isSuccess = props.value === "success";
-    label = isSuccess ? "موفق" : "ناموفق";
-  }
+const variantClasses: Record<BadgeVariant, string> = {
+  success: "bg-green-100 text-green-700",
+  danger: "bg-red-100 text-red-700",
+  warning: "bg-yellow-100 text-yellow-700",
+  neutral: "bg-gray-100 text-gray-700",
+  info: "bg-blue-100 text-blue-700",
+};
 
+const Badge = ({ variant = "neutral", label, className = "" }: BadgeProps) => {
   return (
     <span
-      className={[
-        "px-2 py-1 rounded-full text-xs",
-        isSuccess ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700",
-      ].join(" ")}
+      className={`inline-flex px-2 py-1 rounded-full text-xs ${variantClasses[variant]} ${className}`}
     >
       {label}
     </span>
