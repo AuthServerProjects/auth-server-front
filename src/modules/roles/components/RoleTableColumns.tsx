@@ -1,7 +1,10 @@
 import type { Role } from "../roleTypes";
+import Switch from "../../../components/Switch";
 import type { Column } from "../../../components/tables";
 
-export const columns: Column<Role>[] = [
+export const getColumns = (
+  onStatusChange: (id: number, checked: boolean) => void,
+): Column<Role>[] => [
   {
     key: "id",
     title: "شناسه",
@@ -19,17 +22,12 @@ export const columns: Column<Role>[] = [
     title: "وضعیت",
     dataIndex: "status",
     align: "center",
-    render: (value) => (
-      <span
-        className={[
-          "px-2 py-1 rounded-full text-xs",
-          value === "active"
-            ? "bg-green-100 text-green-700"
-            : "bg-red-100 text-red-700",
-        ].join(" ")}
-      >
-        {value === "active" ? "فعال" : "غیرفعال"}
-      </span>
+    render: (value: boolean, record) => (
+      <Switch
+        label={value ? "فعال" : "غیرفعال"}
+        checked={value}
+        onCheckedChange={(checked) => onStatusChange(record.id, checked)}
+      />
     ),
   },
   {

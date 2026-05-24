@@ -1,10 +1,8 @@
-import type { Status } from "../../components/Badge/types";
-
 export type Session = {
   id: number;
   userName: string;
   client: string;
-  status: Status;
+  status: "Success" | "Failed";
   accessTokenIssuedAt: string;
   accessTokenExpiresAt: string;
   refreshTokenIssuedAt: string;

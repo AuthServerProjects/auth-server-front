@@ -1,10 +1,10 @@
-import CardComponent from "./components/CardComponent";
 import { CgCloseO } from "react-icons/cg";
-import { FiAlertTriangle } from "react-icons/fi";
 import { FiAlertCircle } from "react-icons/fi";
 import { FiCheckCircle } from "react-icons/fi";
-import LineChart from "../../components/charts/LineChart";
+import { FiAlertTriangle } from "react-icons/fi";
+import CardComponent from "./components/CardComponent";
 import LogComponenet from "./components/LogComponenet";
+import LineChart from "../../components/charts/LineChart";
 
 const DashboardMainPage = () => {
   const series = [

@@ -1,8 +1,8 @@
 import { LuSearch } from "react-icons/lu";
-import SVG from "../../components/SVG/SVG";
 import { FiServer } from "react-icons/fi";
-import ClientsTable from "./components/ClientsTable";
+import SVG from "../../components/SVG/SVG";
 import { mockClients } from "./clientsData";
+import ClientsTable from "./components/ClientsTable";
 
 const ClientsMainPage = () => {
   return (

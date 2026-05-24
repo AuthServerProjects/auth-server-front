@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Role } from "../roleTypes";
-import { columns } from "./RoleTableColumns";
+import { getColumns } from "./RoleTableColumns";
 import Table, { type SortState } from "../../../components/tables";
 
 type Props = {
@@ -10,11 +10,22 @@ type Props = {
 const RolesTable = ({ data }: Props) => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
+  const [roles, setRoles] = useState<Role[]>(data);
+
+  const handleStatusChange = (id: number, checked: boolean) => {
+    setRoles((prev) =>
+      prev.map((row) => (row.id === id ? { ...row, status: checked } : row)),
+    );
+    // TODO: API call here
+    console.log("toggle", id, checked);
+  };
+
+  const columns = getColumns(handleStatusChange);
 
   return (
     <Table<Role>
       columns={columns}
-      data={data}
+      data={roles}
       rowKey="id"
       striped
       sortBy={sortBy}

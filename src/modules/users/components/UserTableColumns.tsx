@@ -1,9 +1,11 @@
-import type { Column } from "../../../components/tables";
 import type { User } from "../userTypes";
-import Badge from "../../../components/Badge/Badge";
+import Switch from "../../../components/Switch";
 import UserActionsMenu from "./UserActionsMenu";
+import type { Column } from "../../../components/tables";
 
-export const userColumns: Column<User>[] = [
+export const getColumns = (
+  onStatusChange: (id: number, checked: boolean) => void,
+): Column<User>[] => [
   { key: "id", title: "شناسه", dataIndex: "id", width: 80, align: "center" },
   {
     key: "userName",
@@ -21,7 +23,13 @@ export const userColumns: Column<User>[] = [
     title: "وضعیت",
     dataIndex: "status",
     align: "center",
-    render: (value) => <Badge type="status" value={value as User["status"]} />,
+    render: (value: boolean, record) => (
+      <Switch
+        label={value ? "فعال" : "غیرفعال"}
+        checked={value}
+        onCheckedChange={(checked) => onStatusChange(record.id, checked)}
+      />
+    ),
   },
   {
     key: "roles",

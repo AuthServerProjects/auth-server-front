@@ -5,10 +5,10 @@ import {
   LuKey,
   LuPowerOff,
 } from "react-icons/lu";
-import ActionMenu from "../../../components/actionMenu/ActionMenu";
-import type { ActionItem } from "../../../components/actionMenu/types";
 import type { User } from "../userTypes";
 import { useUserActions } from "../hooks/useUserActions";
+import ActionMenu from "../../../components/actionMenu/ActionMenu";
+import type { ActionItem } from "../../../components/actionMenu/types";
 
 type Props = {
   user: User;

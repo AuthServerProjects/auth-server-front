@@ -1,4 +1,5 @@
 import type { Session } from "../sessionTypes";
+import Badge from "../../../components/Badge/Badge";
 import SessionActionsMenu from "./SessionActionsMenu";
 import type { Column } from "../../../components/tables";
 import { renderDate } from "../../../utils/convertDateToPersian";
@@ -26,18 +27,15 @@ export const columns: Column<Session>[] = [
     title: "وضعیت",
     dataIndex: "status",
     align: "center",
-    render: (value) => (
-      <span
-        className={[
-          "px-2 py-1 rounded-full text-xs",
-          value === "active"
-            ? "bg-green-100 text-green-700"
-            : "bg-red-100 text-red-700",
-        ].join(" ")}
-      >
-        {value === "active" ? "فعال" : "غیرفعال"}
-      </span>
-    ),
+    render: (value) => {
+      const isActive = value === "active";
+      return (
+        <Badge
+          variant={isActive ? "success" : "danger"}
+          label={isActive ? "فعال" : "غیرفعال"}
+        />
+      );
+    },
   },
   {
     key: "accessTokenIssuedAt",

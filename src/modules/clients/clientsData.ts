@@ -6,7 +6,7 @@ export const mockClients: Client[] = [
     clientId: "BNPL",
     permissions: ["AUTHORIZATION CODE ", "REFRESH TOKEN"],
     scopes: ["profile", "email"],
-    status: "active",
+    status: true,
     setting: [],
   },
   {
@@ -14,7 +14,7 @@ export const mockClients: Client[] = [
     clientId: "AdminPanel",
     permissions: ["AUTHORIZATION CODE"],
     scopes: ["openid"],
-    status: "inactive",
+    status: false,
     setting: [],
   },
 ];

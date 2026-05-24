@@ -4,13 +4,13 @@ export const mockRole: Role[] = [
   {
     id: 1,
     roleName: "SUPER_ADMIN",
-    status: "active",
+    status: true,
     permissions: [],
   },
   {
     id: 2,
     roleName: "MANAGER",
-    status: "inactive",
+    status: false,
     permissions: [],
   },
 ];

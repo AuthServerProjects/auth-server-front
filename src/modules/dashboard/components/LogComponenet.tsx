@@ -1,11 +1,12 @@
 import { useState } from "react";
 import Table, { type Column, type SortState } from "../../../components/tables";
+import Badge from "../../../components/Badge/Badge";
 
 type Log = {
   id: number;
   action: string;
   user: string;
-  status: "success" | "failed";
+  status: "Success" | "Failed";
   time: string;
 };
 
@@ -37,18 +38,15 @@ const LogComponent = () => {
       title: "وضعیت",
       dataIndex: "status",
       align: "center",
-      render: (value) => (
-        <span
-          className={[
-            "px-2 py-1 rounded-full text-xs",
-            value === "success"
-              ? "bg-green-100 text-green-700"
-              : "bg-red-100 text-red-700",
-          ].join(" ")}
-        >
-          {value === "success" ? "موفق" : "ناموفق"}
-        </span>
-      ),
+      render: (value) => {
+        const isSuccess = value === "Success";
+        return (
+          <Badge
+            variant={isSuccess ? "success" : "danger"}
+            label={isSuccess ? "موفق" : "ناموفق"}
+          />
+        );
+      },
     },
     {
       key: "time",
@@ -62,14 +60,14 @@ const LogComponent = () => {
       id: 1,
       action: "ورود",
       user: "989331782513",
-      status: "success",
+      status: "Success",
       time: "۱ دقیقه قبل",
     },
     {
       id: 2,
       action: "دریافت رمز",
       user: "989331782513",
-      status: "failed",
+      status: "Failed",
       time: "۱۰ دقیقه قبل",
     },
   ];

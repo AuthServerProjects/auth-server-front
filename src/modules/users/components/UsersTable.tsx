@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Table, { type SortState } from "../../../components/tables";
 import type { User } from "../userTypes";
-import { userColumns } from "./UserTableColumns";
+import { getColumns } from "./UserTableColumns";
+import Table, { type SortState } from "../../../components/tables";
 
 type Props = {
   data: User[];
@@ -10,11 +10,22 @@ type Props = {
 const UsersTable = ({ data }: Props) => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
+  const [users, setUsers] = useState<User[]>(data);
+
+  const handleStatusChange = (id: number, checked: boolean) => {
+    setUsers((prev) =>
+      prev.map((row) => (row.id === id ? { ...row, status: checked } : row)),
+    );
+    // TODO: API call here
+    console.log("toggle", id, checked);
+  };
+
+  const columns = getColumns(handleStatusChange);
 
   return (
     <Table<User>
-      columns={userColumns}
-      data={data}
+      columns={columns}
+      data={users}
       rowKey="id"
       striped
       sortBy={sortBy}

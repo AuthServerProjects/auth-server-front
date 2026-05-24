@@ -1,8 +1,8 @@
-import { LuRefreshCcw, LuSearch } from "react-icons/lu";
-import { CgFileDocument } from "react-icons/cg";
+import { mockLog } from "./logsData";
 import SVG from "../../components/SVG/SVG";
 import LogsTable from "./components/LogsTable";
-import { mockLog } from "./logsData";
+import { CgFileDocument } from "react-icons/cg";
+import { LuRefreshCcw, LuSearch } from "react-icons/lu";
 
 const LogsMainPage = () => {
   return (

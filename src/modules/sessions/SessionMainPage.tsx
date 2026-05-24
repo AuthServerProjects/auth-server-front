@@ -1,9 +1,9 @@
 import { LuSearch } from "react-icons/lu";
-import SVG from "../../components/SVG/SVG";
 import { FiServer } from "react-icons/fi";
+import SVG from "../../components/SVG/SVG";
+import { mockSession } from "./sessionsData";
 import { LuRefreshCcw } from "react-icons/lu";
 import SessionsTable from "./components/SessionsTable";
-import { mockSession } from "./sessionsData";
 
 const SessionsMainPage = () => {
   return (

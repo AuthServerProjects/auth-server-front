@@ -16,7 +16,7 @@ export const mockLog: Log[] = [
     action: "Logout",
     user: "admin",
     IpAddress: "192.168.1.1",
-    status: "Unsuccess",
+    status: "Failed",
     details: "User logged out successfully",
   },
 ];
