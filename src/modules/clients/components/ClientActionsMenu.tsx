@@ -23,6 +23,7 @@ const ClientActionsMenu = ({ client }: Props) => {
       label: "بازسازی سکرت",
       icon: <LuKey />,
       onClick: () => handleResetSecret(client),
+      danger: true,
     },
   ];
 
