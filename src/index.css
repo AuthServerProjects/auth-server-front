@@ -4,6 +4,7 @@
   --color-gray-30: #f8fafc;
   --color-gray-50: #e5e7eb;
   --color-gray-70: #64748b;
+  --color-gray-80: #d6d7db;
   --color-gray-100: #646e82;
   --color-gray-200: #334155;
   --color-gray-300: #475569;
@@ -11,7 +12,6 @@
   --color-black-100: #0F172A;
 
   --color-green-10: #13c999;
-  
 }
 
 @font-face {
@@ -21,12 +21,12 @@
 }
 
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
+  --text: #9ca3af;
+  --text-h: #0f172a;
+  --bg: #f8fafc;
+  --border: #ffffff;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
   --accent-bg: rgba(170, 59, 255, 0.1);
   --accent-border: rgba(170, 59, 255, 0.5);
   --social-bg: rgba(244, 243, 236, 0.5);

@@ -22,4 +22,9 @@ export default defineConfig({
       include: "**/*.svg",
     }),
   ],
+  server: {
+    allowedHosts: [],
+    host: "0.0.0.0",
+    port: 5174,
+  },
 });
