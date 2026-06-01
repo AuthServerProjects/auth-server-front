@@ -2,6 +2,9 @@ export type User = {
   id: number;
   userName: string;
   phoneNumber: string;
-  status: true | false;
+  status: boolean;
+  notLocked: boolean;
+  notExpired: boolean;
+  credentialsNotExpired: boolean;
   roles: string[];
 };

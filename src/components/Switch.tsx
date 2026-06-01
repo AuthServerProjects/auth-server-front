@@ -1,7 +1,7 @@
 import * as SwitchPrimitive from "@radix-ui/react-switch";
 
 type SwitchProps = {
-  checked?: boolean;
+  checked: boolean;
   onCheckedChange?: (checked: boolean) => void;
   label?: string;
   disabled?: boolean;
