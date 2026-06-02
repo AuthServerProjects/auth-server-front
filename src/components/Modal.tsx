@@ -6,9 +6,16 @@ type ModalProps = {
   onClose: () => void;
   title?: string;
   children: ReactNode;
+  maxWidth?: string;
 };
 
-const Modal = ({ open, onClose, title, children }: ModalProps) => {
+const Modal = ({
+  open,
+  onClose,
+  title,
+  children,
+  maxWidth = "max-w-md",
+}: ModalProps) => {
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -25,7 +32,7 @@ const Modal = ({ open, onClose, title, children }: ModalProps) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 mx-4"
+        className={`bg-white rounded-lg shadow-lg w-full  p-6 mx-4 ${maxWidth}`}
         onClick={(e) => e.stopPropagation()}
       >
         {title && (
