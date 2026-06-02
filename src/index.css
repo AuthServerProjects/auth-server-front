@@ -9,9 +9,11 @@
   --color-gray-200: #334155;
   --color-gray-300: #475569;
 
-  --color-black-100: #0F172A;
+  --color-black-100: #0f172a;
 
   --color-green-10: #13c999;
+  --color-green-20: #13c99914;
+  --color-green-30: #13c999;
 }
 
 @font-face {
