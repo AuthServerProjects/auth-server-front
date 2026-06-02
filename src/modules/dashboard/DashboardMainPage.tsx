@@ -26,34 +26,46 @@ const DashboardMainPage = () => {
     "20:00",
   ];
 
+  const cardComponents = [
+    {
+      title: "ناموفق (ساعت گذشته)",
+      count: 0,
+      icon: <FiAlertTriangle />,
+      iconClassName: "bg-red-100 text-red-500",
+    },
+    {
+      title: "ناموفق (امروز)",
+      count: 0,
+      icon: <FiAlertCircle />,
+      iconClassName: "bg-orange-100 text-orange-500",
+    },
+    {
+      title: "ورودهای موفق (امروز)",
+      count: 2,
+      icon: <FiCheckCircle />,
+      iconClassName: "bg-green-100 text-green-500",
+    },
+    {
+      title: "نشست های لغو شده (امروز)",
+      count: 0,
+      icon: <CgCloseO />,
+      iconClassName: "bg-gray-50 text-gray-300",
+    },
+  ];
+
   return (
     <div className="p-1">
       <div className="w-[86vw] h-screen p-4">
         <div className="grid grid-cols-4 gap-4">
-          <CardComponent
-            title="ناموفق (ساعت گذشته)"
-            count={0}
-            icon={<FiAlertTriangle />}
-            iconClassName="bg-red-100 text-red-500"
-          />
-          <CardComponent
-            title="ناموفق (امروز)"
-            count={0}
-            icon={<FiAlertCircle />}
-            iconClassName="bg-orange-100 text-orange-500"
-          />
-          <CardComponent
-            title="ورودهای موفق (امروز)"
-            count={2}
-            icon={<FiCheckCircle />}
-            iconClassName="bg-green-100 text-green-500"
-          />
-          <CardComponent
-            title="نشست های لغو شده (امروز)"
-            count={0}
-            icon={<CgCloseO />}
-            iconClassName="bg-gray-50 text-gray-300"
-          />
+          {cardComponents.map((card, index) => (
+            <CardComponent
+              key={index}
+              title={card.title}
+              count={card.count}
+              icon={card.icon}
+              iconClassName={card.iconClassName}
+            />
+          ))}
         </div>
         <div className="grid grid-cols-2 gap-4 mt-4">
           <div className="bg-white border border-gray-50 rounded-lg">
