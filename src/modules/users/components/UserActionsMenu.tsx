@@ -8,7 +8,11 @@ import AssignClientModal from "./AssignClientModal";
 import ActionMenu from "../../../components/actionMenu/ActionMenu";
 import type { ActionItem } from "../../../components/actionMenu/types";
 
-type ModalType = "editUser" | "assignClient" | "manageRoles";
+type ModalType =
+  | "editUser"
+  | "assignClient"
+  | "manageRoles"
+  | "unassignedFromClient";
 
 type ModalAction = {
   type: ModalType;
@@ -42,6 +46,13 @@ const UserActionsMenu = ({ user }: Props) => {
       icon: <LuShield />,
       onClick: () => setOpenModal({ type: "manageRoles", user }),
     },
+    {
+      key: "unassignedFromClient",
+      label: "حذف کاربر از کلاینت",
+      icon: <LuShield />,
+      onClick: () => setOpenModal({ type: "unassignedFromClient", user }),
+      danger: true,
+    },
   ];
 
   return (
@@ -65,6 +76,12 @@ const UserActionsMenu = ({ user }: Props) => {
       )}
       {openModal?.type === "manageRoles" && (
         <ManageRolesModal userId={openModal.user.id} onClose={close} />
+      )}
+      {openModal?.type === "unassignedFromClient" && (
+        <button
+          type="button"
+          onClick={() => console.log("unassignedFromClient")}
+        ></button>
       )}
     </>
   );
