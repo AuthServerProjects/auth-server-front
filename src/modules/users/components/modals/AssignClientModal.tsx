@@ -1,4 +1,5 @@
 import Modal from "../../../../components/Modal";
+import SVG from "../../../../components/SVG/SVG";
 import Card from "../CardComponent";
 
 const clients = [
@@ -29,12 +30,16 @@ const AssignClientModal = ({
         <form>
           <div className="w-full grid grid-cols-2">
             {clients.map((client) => (
-              <Card id={client.id} name={client.name} />
+              <Card
+                id={client.id}
+                name={client.name}
+                icon={<SVG name="userIcon" />}
+              />
             ))}
           </div>
           <div className="flex justify-end gap-2 mt-4">
             <button
-              type="button"
+              type="submit"
               onClick={() => console.log("approved")}
               className="bg-green-10 text-white w-full py-2 rounded-lg whitespace-nowrap cursor-pointer"
             >
@@ -43,7 +48,7 @@ const AssignClientModal = ({
             <button
               type="button"
               onClick={() => onClose()}
-              className="bg-gray-50 text-gray-100 px-8 py-2 rounded-lg whitespace-nowrap cursor-pointer"
+              className="bg-gray-50 text-black-80 px-8 py-2 rounded-lg whitespace-nowrap cursor-pointer"
             >
               انصراف
             </button>

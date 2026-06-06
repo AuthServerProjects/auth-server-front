@@ -1,12 +1,13 @@
-import { useState } from "react";
-import SVG from "../../../components/SVG/SVG";
+import { useState, type ReactNode } from "react";
+import SVG, { icons } from "../../../components/SVG/SVG";
 
 type CardProps = {
   id: number;
   name: string;
+  icon: ReactNode;
 };
 
-const CardComponent = ({ id, name }: CardProps) => {
+const CardComponent = ({ id, name, icon }: CardProps) => {
   const [selected, setSelected] = useState(false);
   return (
     <div
@@ -15,11 +16,7 @@ const CardComponent = ({ id, name }: CardProps) => {
         selected ? "bg-green-20" : "hover:bg-gray-30"
       }`}
     >
-      {selected ? (
-        <SVG name="tickIcon" className="text-green-30" />
-      ) : (
-        <SVG name="userIcon" className="text-gray-300" />
-      )}
+      {selected ? <SVG name="tickIcon" className="text-green-30" /> : icon}
       {name}
     </div>
   );

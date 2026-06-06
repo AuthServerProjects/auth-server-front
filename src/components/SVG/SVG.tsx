@@ -5,7 +5,7 @@ import userIcon from "../../assets/icons/user-square.svg?react";
 import tickIcon from "../../assets/icons/tick-square.svg?react";
 import DownloadIcon from "../../assets/icons/download.svg?react";
 
-const icons = {
+export const icons = {
   DownloadIcon,
   AddIcon,
   userIcon,
