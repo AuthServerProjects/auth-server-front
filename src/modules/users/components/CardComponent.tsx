@@ -1,12 +1,12 @@
 import { useState } from "react";
 import SVG from "../../../components/SVG/SVG";
 
-type ClientCardProps = {
+type CardProps = {
   id: number;
   name: string;
 };
 
-const ClientCard = ({ id, name }: ClientCardProps) => {
+const CardComponent = ({ id, name }: CardProps) => {
   const [selected, setSelected] = useState(false);
   return (
     <div
@@ -25,4 +25,4 @@ const ClientCard = ({ id, name }: ClientCardProps) => {
   );
 };
 
-export default ClientCard;
+export default CardComponent;

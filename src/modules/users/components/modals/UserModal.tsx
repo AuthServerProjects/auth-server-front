@@ -3,9 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import type { Control, FieldPath } from "react-hook-form";
 
-import type { User } from "../userTypes";
-import Modal from "../../../components/Modal";
-import Switch from "../../../components/Switch";
+import type { User } from "../../userTypes";
+import Modal from "../../../../components/Modal";
+import Switch from "../../../../components/Switch";
 
 const schema = z.object({
   userName: z.string().min(3, "نام کاربری حداقل ۳ کاراکتر باشد"),

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { LuPencil, LuServer, LuShield } from "react-icons/lu";
 
-import UserModal from "./UserModal";
+import UserModal from "./modals/UserModal";
 import type { User } from "../userTypes";
-import ManageRolesModal from "./ManageRolesModal";
-import AssignClientModal from "./AssignClientModal";
+import ManageRolesModal from "./modals/ManageRolesModal";
+import AssignClientModal from "./modals/AssignClientModal";
 import ActionMenu from "../../../components/actionMenu/ActionMenu";
 import type { ActionItem } from "../../../components/actionMenu/types";
 

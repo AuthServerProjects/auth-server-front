@@ -2,8 +2,8 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Modal from "../../../components/Modal";
-import SVG from "../../../components/SVG/SVG";
+import Modal from "../../../../components/Modal";
+import SVG from "../../../../components/SVG/SVG";
 
 const schema = z.object({
   phoneNumber: z.string().regex(/^\d{10,15}$/, "شماره تلفن معتبر نیست"),

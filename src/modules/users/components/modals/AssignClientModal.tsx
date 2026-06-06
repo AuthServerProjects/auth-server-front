@@ -1,5 +1,5 @@
-import Modal from "../../../components/Modal";
-import ClientCard from "./ClientCard";
+import Modal from "../../../../components/Modal";
+import Card from "../CardComponent";
 
 const clients = [
   { id: 1, name: "AdminPanel" },
@@ -29,7 +29,7 @@ const AssignClientModal = ({
         <form>
           <div className="w-full grid grid-cols-2">
             {clients.map((client) => (
-              <ClientCard id={client.id} name={client.name} />
+              <Card id={client.id} name={client.name} />
             ))}
           </div>
           <div className="flex justify-end gap-2 mt-4">

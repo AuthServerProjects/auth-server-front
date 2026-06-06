@@ -5,8 +5,8 @@ import { LuSearch } from "react-icons/lu";
 import { mockUsers } from "./usersData";
 import SVG from "../../components/SVG/SVG";
 import UsersTable from "./components/UsersTable";
-import AddUserModal from "./components/AddUserModal";
-import UserModal from "./components/UserModal";
+import AddUserModal from "./components/modals/AddUserModal";
+import UserModal from "./components/modals/UserModal";
 
 type ActiveModal = "search" | "create" | null;
 
