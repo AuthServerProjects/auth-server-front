@@ -19,13 +19,13 @@ type SVGProps = {
   className?: string;
 } & ReactSVGProps<SVGSVGElement>;
 
-export default function SVG({
+const SVG = ({
   name,
-  color = "currentColor",
+  color = "",
   size = 24,
   className,
   ...props
-}: SVGProps) {
+}: SVGProps) => {
   const Icon = icons[name];
 
   if (!Icon) {
@@ -45,3 +45,6 @@ export default function SVG({
     />
   );
 }
+
+
+export default SVG;
