@@ -5,6 +5,7 @@ import UserModal from "./modals/UserModal";
 import type { User } from "../userTypes";
 import ManageRolesModal from "./modals/ManageRolesModal";
 import AssignClientModal from "./modals/AssignClientModal";
+import ConfirmDialog from "../../../components/ConfirmDialog";
 import ActionMenu from "../../../components/actionMenu/ActionMenu";
 import type { ActionItem } from "../../../components/actionMenu/types";
 
@@ -12,7 +13,7 @@ type ModalType =
   | "editUser"
   | "assignClient"
   | "manageRoles"
-  | "unassignedFromClient";
+  | "unassignFromClient";
 
 type ModalAction = {
   type: ModalType;
@@ -26,6 +27,12 @@ type Props = {
 const UserActionsMenu = ({ user }: Props) => {
   const [openModal, setOpenModal] = useState<ModalAction>(null);
   const close = () => setOpenModal(null);
+
+  const handleUnassign = () => {
+    console.log("unassigned!", openModal?.user.id);
+    // TODO: API call
+    close();
+  };
 
   const items: ActionItem[] = [
     {
@@ -47,10 +54,10 @@ const UserActionsMenu = ({ user }: Props) => {
       onClick: () => setOpenModal({ type: "manageRoles", user }),
     },
     {
-      key: "unassignedFromClient",
+      key: "unassignFromClient",
       label: "حذف کاربر از کلاینت",
       icon: <LuShield />,
-      onClick: () => setOpenModal({ type: "unassignedFromClient", user }),
+      onClick: () => setOpenModal({ type: "unassignFromClient", user }),
       danger: true,
     },
   ];
@@ -67,6 +74,7 @@ const UserActionsMenu = ({ user }: Props) => {
           title="ویرایش کاربر"
         />
       )}
+
       {openModal?.type === "assignClient" && (
         <AssignClientModal
           userId={openModal.user.id}
@@ -77,11 +85,22 @@ const UserActionsMenu = ({ user }: Props) => {
       {openModal?.type === "manageRoles" && (
         <ManageRolesModal userId={openModal.user.id} onClose={close} />
       )}
-      {openModal?.type === "unassignedFromClient" && (
-        <button
-          type="button"
-          onClick={() => console.log("unassignedFromClient")}
-        ></button>
+
+      {openModal?.type === "unassignFromClient" && (
+        <ConfirmDialog
+          open
+          variant="danger"
+          title="حذف کاربر از کلاینت جاری"
+          description={
+            <>
+              آیا از حذف کاربر <strong>{openModal.user.userName}</strong> از
+              کلاینت جاری مطمئن هستید؟
+            </>
+          }
+          confirmText="حذف"
+          onConfirm={handleUnassign}
+          onClose={close}
+        />
       )}
     </>
   );
