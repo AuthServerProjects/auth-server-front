@@ -4,7 +4,7 @@ import { FiUsers } from "react-icons/fi";
 import { FiServer } from "react-icons/fi";
 import { FiClock } from "react-icons/fi";
 import { LuBuilding2 } from "react-icons/lu";
-import { LuShield } from "react-icons/lu";
+import { RiUserSettingsLine } from "react-icons/ri";
 import { LuKey } from "react-icons/lu";
 import { CgFileDocument } from "react-icons/cg";
 import SelectBox from "../../selectBox/SelectBox";
@@ -31,16 +31,16 @@ const Sidebar = () => {
       label: "داشبورد",
     },
     { id: 6, href: "/users", icon: <FiUsers />, label: "کاربران" },
-    { id: 7, href: "/roles", icon: <LuShield />, label: "نقش ها" },
+    { id: 7, href: "/roles", icon: <RiUserSettingsLine />, label: "نقش ها" },
     { id: 8, href: "/permissions", icon: <LuKey />, label: "مجوزها" },
     { id: 9, href: "/sessions", icon: <FiClock />, label: "نشست ها" },
     { id: 10, href: "/logs", icon: <CgFileDocument />, label: "لاگ ها" },
   ];
 
   const clientListOptions = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
+    { value: "Wallet", label: "Wallet" },
+    { value: "MyBpm", label: "MyBpm" },
+    { value: "PolPay", label: "PolPay" },
   ];
 
   const [activeItem, setActiveItem] = useState<number | null>(null);
