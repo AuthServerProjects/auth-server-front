@@ -4,6 +4,7 @@ import { type ReactNode, useEffect } from "react";
 type ModalProps = {
   open: boolean;
   onClose: () => void;
+  onCancel?: () => void;
   title?: string;
   children: ReactNode;
   maxWidth?: string;
@@ -12,6 +13,7 @@ type ModalProps = {
 const Modal = ({
   open,
   onClose,
+  onCancel,
   title,
   children,
   maxWidth = "max-w-md",
@@ -39,7 +41,7 @@ const Modal = ({
           <div className="flex items-center justify-between pb-2 mb-6 border-b border-gray-50">
             <h2 className="text-lg ">{title}</h2>
             <button
-              onClick={onClose}
+              onClick={onCancel ?? onClose}
               className="text-gray-500 hover:text-gray-800"
             >
               <IoClose size={24} />

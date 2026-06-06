@@ -42,8 +42,8 @@ const AssignClientModal = ({
             </button>
             <button
               type="button"
-              onClick={() => console.log("canceled")}
-              className="bg-gray-50 text-gray-300 px-8 py-2 rounded-lg whitespace-nowrap cursor-pointer"
+              onClick={() => onClose()}
+              className="bg-gray-50 text-gray-100 px-8 py-2 rounded-lg whitespace-nowrap cursor-pointer"
             >
               انصراف
             </button>

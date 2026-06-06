@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
+import type { Control, FieldPath } from "react-hook-form";
 
 import type { User } from "../userTypes";
 import Modal from "../../../components/Modal";
@@ -19,13 +20,13 @@ type FormValues = z.infer<typeof schema>;
 
 type Props = {
   isEdit: boolean;
-  isOpen?: boolean;
   onClose: () => void;
+  onCancel?: () => void;
   user?: User;
   title: string;
 };
 
-const UserModal = ({ isEdit, isOpen = true, onClose, user, title }: Props) => {
+const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
   const {
     register,
     handleSubmit,
@@ -34,26 +35,26 @@ const UserModal = ({ isEdit, isOpen = true, onClose, user, title }: Props) => {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      userName: user?.userName,
-      phoneNumber: user?.phoneNumber,
-      status: user?.status,
-      notLocked: user?.notLocked,
-      notExpired: user?.notExpired,
-      credentialsNotExpired: user?.credentialsNotExpired,
+      userName: user?.userName ?? "",
+      phoneNumber: user?.phoneNumber ?? "",
+      status: user?.status ?? true,
+      notLocked: user?.notLocked ?? true,
+      notExpired: user?.notExpired ?? true,
+      credentialsNotExpired: user?.credentialsNotExpired ?? true,
     },
   });
 
-  const onSubmit = async (data: FormValues) => {
+  const onSubmit = (data: FormValues) => {
     if (isEdit) {
-      console.log("save", { ...user, ...data });
-    } else {
       console.log("edit", { ...user, ...data });
+    } else {
+      console.log("create", data);
     }
     onClose();
   };
 
   return (
-    <Modal open={isOpen} onClose={onClose} title={title}>
+    <Modal open onClose={onClose} onCancel={onCancel} title={title}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         {/* Username */}
         <div>
@@ -63,6 +64,7 @@ const UserModal = ({ isEdit, isOpen = true, onClose, user, title }: Props) => {
           <input
             {...register("userName")}
             className="w-full text-gray-600 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-gray-70"
+            placeholder="نام کاربری را وارد کنید"
           />
           {errors.userName && (
             <p className="text-red-500 text-xs pt-2">
@@ -79,6 +81,7 @@ const UserModal = ({ isEdit, isOpen = true, onClose, user, title }: Props) => {
           <input
             {...register("phoneNumber")}
             className="w-full text-gray-600 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-70"
+            placeholder="98XXXXXXXXXX"
           />
           {errors.phoneNumber && (
             <p className="text-red-500 text-xs mt-1">
@@ -87,7 +90,6 @@ const UserModal = ({ isEdit, isOpen = true, onClose, user, title }: Props) => {
           )}
         </div>
 
-        {/* Divider */}
         <hr className="border-gray-50" />
 
         {/* Account settings */}
@@ -121,14 +123,14 @@ const UserModal = ({ isEdit, isOpen = true, onClose, user, title }: Props) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-5 py-2 rounded-lg bg-green-10 text-white hover:bg-green-800 disabled:opacity-50"
+            className="px-5 py-2 rounded-lg bg-green-10 text-white disabled:opacity-50"
           >
             ذخیره
           </button>
           <button
             type="button"
-            onClick={onClose}
-            className="px-5 py-2 rounded-lg bg-gray-80 text-gray-800 hover:bg-gray-70"
+            onClick={onCancel ?? onClose}
+            className="px-5 py-2 rounded-lg bg-gray-80 text-black-80"
           >
             انصراف
           </button>
@@ -140,15 +142,12 @@ const UserModal = ({ isEdit, isOpen = true, onClose, user, title }: Props) => {
 
 export default UserModal;
 
-/* --- small helper component for each switch row --- */
-
-import type { Control, FieldPath } from "react-hook-form";
+/* --- helper --- */
 
 type SwitchRowProps = {
   control: Control<FormValues>;
   name: FieldPath<FormValues>;
   title: string;
-  description?: string;
 };
 
 const SwitchRow = ({ control, name, title }: SwitchRowProps) => (
@@ -157,9 +156,7 @@ const SwitchRow = ({ control, name, title }: SwitchRowProps) => (
     name={name}
     render={({ field }) => (
       <div className="flex items-center justify-between">
-        <div>
-          <p className="flex text-sm font-medium text-gray-800 pb-4">{title}</p>
-        </div>
+        <p className="flex text-sm font-medium text-gray-800 pb-4">{title}</p>
         <Switch checked={!!field.value} onCheckedChange={field.onChange} />
       </div>
     )}

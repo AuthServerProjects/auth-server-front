@@ -4,20 +4,34 @@ import { LuSearch } from "react-icons/lu";
 
 import { mockUsers } from "./usersData";
 import SVG from "../../components/SVG/SVG";
-import UserModal from "./components/UserModal";
 import UsersTable from "./components/UsersTable";
+import AddUserModal from "./components/AddUserModal";
+import UserModal from "./components/UserModal";
+
+type ActiveModal = "search" | "create" | null;
 
 const UsersMainPage = () => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [active, setActive] = useState<ActiveModal>(null);
 
   return (
     <>
-      <UserModal
-        isOpen={openModal}
-        onClose={() => setOpenModal(false)}
-        title="ایجاد کاربر"
-        isEdit={false}
-      />
+      {/* Modals */}
+      {active === "search" && (
+        <AddUserModal
+          title="افزودن کاربر"
+          onClose={() => setActive(null)}
+          onAddNew={() => setActive("create")}
+        />
+      )}
+
+      {active === "create" && (
+        <UserModal
+          isEdit={false}
+          title="افزودن کاربر"
+          onClose={() => setActive(null)}
+          onCancel={() => setActive("search")}
+        />
+      )}
 
       <div className="flex flex-col w-full p-6">
         <div className="flex justify-between">
@@ -27,11 +41,11 @@ const UsersMainPage = () => {
           </div>
           <button
             type="button"
-            onClick={() => setOpenModal(true)}
+            onClick={() => setActive("search")}
             className="flex items-center gap-2 bg-gray-100 text-white px-4 py-2 rounded-lg whitespace-nowrap cursor-pointer"
           >
             <SVG name="AddIcon" />
-            ایجاد کاربر
+            افزودن کاربر
           </button>
         </div>
 
