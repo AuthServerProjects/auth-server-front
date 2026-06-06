@@ -27,7 +27,7 @@ const UsersMainPage = () => {
       {active === "create" && (
         <UserModal
           isEdit={false}
-          title="افزودن کاربر"
+          title="ایجاد کاربر"
           onClose={() => setActive(null)}
           onCancel={() => setActive("search")}
         />

@@ -58,7 +58,7 @@ const AddUserModal = ({ onClose, onAddNew, title }: Props) => {
           className="flex justify-center gap-2 w-full border border-gray-100 text-gray-100 rounded-lg px-3 py-2 whitespace-nowrap cursor-pointer"
         >
           <SVG name="AddIcon" />
-          افزودن کاربر جدید
+          ایجاد کاربر جدید
         </button>
 
         <div className="flex justify-end gap-2 mt-4">
