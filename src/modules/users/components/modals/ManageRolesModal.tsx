@@ -17,7 +17,6 @@ const ManageRolesModal = ({
   onClose,
 }: {
   userId: number;
-  clientId: number;
   onClose: () => void;
 }) => {
   return (
