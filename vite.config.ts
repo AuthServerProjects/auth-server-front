@@ -9,17 +9,16 @@ export default defineConfig({
     tailwindcss(),
     svgr({
       svgrOptions: {
-        icon: true, // makes SVGs scale with font-size by default
-        svgProps: {
-          fill: "currentColor", // enables Tailwind text-* color classes
-        },
+        icon: true,
         replaceAttrValues: {
+          "#fff": "currentColor",
+          "#ffffff": "currentColor",
+          white: "currentColor",
           "#000": "currentColor",
           "#000000": "currentColor",
           black: "currentColor",
         },
       },
-      include: "**/*.svg",
     }),
   ],
   server: {

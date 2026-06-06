@@ -1,35 +1,47 @@
-import { icons } from "./Icons";
-import clsx from "clsx";
+import type { SVGProps as ReactSVGProps } from "react";
 
-const SVG = ({
+import AddIcon from "../../assets/icons/add.svg?react";
+import userIcon from "../../assets/icons/user-square.svg?react";
+import tickIcon from "../../assets/icons/tick-square.svg?react";
+import DownloadIcon from "../../assets/icons/download.svg?react";
+
+const icons = {
+  DownloadIcon,
+  AddIcon,
+  userIcon,
+  tickIcon,
+} as const;
+
+type SVGProps = {
+  name: keyof typeof icons;
+  color?: string;
+  size?: number | string;
+  className?: string;
+} & ReactSVGProps<SVGSVGElement>;
+
+export default function SVG({
   name,
+  color = "currentColor",
   size = 24,
-  className = "",
-  color = "transparent",
+  className,
   ...props
-}) => {
-  const IconComponent = icons[name];
+}: SVGProps) {
+  const Icon = icons[name];
 
-  if (!IconComponent) {
-    if (import.meta.env.DEV) {
-      console.warn(
-        `[SVG] Icon "${name}" not found. Available: ${Object.keys(icons).join(", ")}`,
-      );
-    }
+  if (!Icon) {
+    console.warn(`SVG: no icon found for name "${name}"`);
     return null;
   }
 
   return (
-    <IconComponent
+    <Icon
       width={size}
       height={size}
-      className={clsx("inline-block shrink-0", className)}
-      style={color ? { color } : undefined}
+      stroke={color}
+      className={className}
       aria-hidden="true"
       focusable="false"
       {...props}
     />
   );
-};
-
-export default SVG;
+}
