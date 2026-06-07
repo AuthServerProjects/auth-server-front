@@ -22,7 +22,7 @@ export const getColumns = (
     title: "وضعیت",
     dataIndex: "status",
     align: "center",
-    render: (value: boolean, record) => (
+    render: (value, record) => (
       <Switch
         label={value ? "فعال" : "غیرفعال"}
         checked={value}

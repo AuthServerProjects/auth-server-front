@@ -4,26 +4,36 @@ export type SortOrder = "asc" | "desc";
 
 export type ColumnAlign = "left" | "right" | "center";
 
-export type Column<T> = {
-  /** شناسه یکتای ستون */
+/** ستونی که به یک فیلد از داده وصل است */
+type DataColumn<T, K extends keyof T> = {
   key: string;
-  /** عنوان نمایش داده شده در هدر */
   title: ReactNode;
-  /** اسم فیلد توی آبجکت داده */
-  dataIndex?: keyof T;
-  /** رندر سفارشی سلول */
-  render?: (value: unknown, row: T, index: number) => ReactNode;
-  /** عرض ستون */
+  dataIndex: K;
+  render?: (value: T[K], row: T, index: number) => ReactNode;
   width?: string | number;
-  /** ترازبندی محتوا */
   align?: ColumnAlign;
-  /** قابلیت سورت */
   sortable?: boolean;
-  /** کلاس css سفارشی */
   className?: string;
-  /** مخفی کردن ستون */
   hidden?: boolean;
 };
+
+/** ستونی که فیلد داده ندارد (مثل ستون عملیات) */
+type DisplayColumn<T> = {
+  key: string;
+  title: ReactNode;
+  dataIndex?: undefined;
+  render: (value: undefined, row: T, index: number) => ReactNode;
+  width?: string | number;
+  align?: ColumnAlign;
+  sortable?: false;
+  className?: string;
+  hidden?: boolean;
+};
+
+/** ستون = یا به یک فیلد وصل است یا فقط نمایشی */
+export type Column<T> =
+  | { [K in keyof T]: DataColumn<T, K> }[keyof T]
+  | DisplayColumn<T>;
 
 export type SortState = {
   key: string;
@@ -41,31 +51,21 @@ export type PaginationProps = {
 };
 
 export type TableProps<T> = {
-  /** تعریف ستون‌ها */
   columns: Column<T>[];
-  /** داده‌ها */
   data: T[];
-  /** کلید یکتای هر ردیف */
   rowKey: keyof T | ((row: T) => string | number);
 
-  /** وضعیت لودینگ */
   loading?: boolean;
-  /** متن یا کامپوننت حالت خالی */
   emptyText?: ReactNode;
 
-  /** کلیک روی ردیف */
   onRowClick?: (row: T, index: number) => void;
-  /** کلاس سفارشی برای هر ردیف */
   rowClassName?: (row: T, index: number) => string;
 
-  /** صفحه‌بندی */
   pagination?: PaginationProps | false;
 
-  /** سورت */
   sortBy?: SortState;
   onSortChange?: (sort: SortState) => void;
 
-  /** ظاهر */
   striped?: boolean;
   bordered?: boolean;
   size?: "sm" | "md" | "lg";

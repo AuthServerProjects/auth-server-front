@@ -1,12 +1,18 @@
 import type { User } from "../userTypes";
+import type { Column } from "../../../components/tables";
 import Switch from "../../../components/Switch";
 import UserPopUpMenu from "./UserPopUpMenu";
-import type { Column } from "../../../components/tables";
 
 export const getColumns = (
   onStatusChange: (id: number, checked: boolean) => void,
 ): Column<User>[] => [
-  { key: "id", title: "شناسه", dataIndex: "id", width: 80, align: "center" },
+  {
+    key: "id",
+    title: "شناسه",
+    dataIndex: "id",
+    width: 80,
+    align: "center",
+  },
   {
     key: "userName",
     title: "نام کاربری",
@@ -23,11 +29,11 @@ export const getColumns = (
     title: "وضعیت",
     dataIndex: "status",
     align: "center",
-    render: (value: boolean, record) => (
+    render: (value, row) => (
       <Switch
         label={value ? "فعال" : "غیرفعال"}
         checked={value}
-        onCheckedChange={(checked) => onStatusChange(record.id, checked)}
+        onCheckedChange={(checked) => onStatusChange(row.id, checked)}
       />
     ),
   },
@@ -36,9 +42,8 @@ export const getColumns = (
     title: "نقش‌ها",
     dataIndex: "roles",
     render: (value) => {
-      const roles = (value as string[]) ?? [];
-      if (roles.length === 0) return "-";
-      return roles.join("، ");
+      if (!value || value.length === 0) return "-";
+      return value.join("، ");
     },
   },
   {
