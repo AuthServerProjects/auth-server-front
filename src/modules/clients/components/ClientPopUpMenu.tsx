@@ -1,17 +1,17 @@
 import type { Client } from "../clientTypes";
 import { LuPencil, LuKey } from "react-icons/lu";
 import { useClientActions } from "../hooks/useClientActions";
-import ActionMenu from "../../../components/actionMenu/ActionMenu";
-import type { ActionItem } from "../../../components/actionMenu/types";
+import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
+import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
 
 type Props = {
   client: Client;
 };
 
-const ClientActionsMenu = ({ client }: Props) => {
+const ClientPopUpMenu = ({ client }: Props) => {
   const { handleEdit, handleResetSecret } = useClientActions();
 
-  const items: ActionItem[] = [
+  const items: PopUpMenuItem[] = [
     {
       key: "edit",
       label: "ویرایش",
@@ -27,7 +27,7 @@ const ClientActionsMenu = ({ client }: Props) => {
     },
   ];
 
-  return <ActionMenu items={items} />;
+  return <PopUpMenu items={items} />;
 };
 
-export default ClientActionsMenu;
+export default ClientPopUpMenu;

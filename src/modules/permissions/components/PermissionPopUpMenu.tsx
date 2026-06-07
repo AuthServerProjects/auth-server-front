@@ -1,18 +1,18 @@
 import { LuPencil } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import type { Permission } from "../permissionTypes";
-import ActionMenu from "../../../components/actionMenu/ActionMenu";
 import { usePermissionActions } from "../hooks/usePermissionActions";
-import type { ActionItem } from "../../../components/actionMenu/types";
+import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
+import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 
 type Props = {
   permission: Permission;
 };
 
-const UserActionsMenu = ({ permission }: Props) => {
+const PermissionPopUpMenu = ({ permission }: Props) => {
   const { handleEdit, handleRemove } = usePermissionActions();
 
-  const items: ActionItem[] = [
+  const items: PopUpMenuItem[] = [
     {
       key: "edit",
       label: "ویرایش",
@@ -28,7 +28,7 @@ const UserActionsMenu = ({ permission }: Props) => {
     },
   ];
 
-  return <ActionMenu items={items} />;
+  return <PopUpMenu items={items} />;
 };
 
-export default UserActionsMenu;
+export default PermissionPopUpMenu;

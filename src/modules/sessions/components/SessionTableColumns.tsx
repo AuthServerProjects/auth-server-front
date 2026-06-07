@@ -1,6 +1,6 @@
 import type { Session } from "../sessionTypes";
 import Badge from "../../../components/Badge/Badge";
-import SessionActionsMenu from "./SessionActionsMenu";
+import SessionPopUpMenu from "./SessionPopUpMenu";
 import type { Column } from "../../../components/tables";
 import { renderDate } from "../../../utils/convertDateToPersian";
 
@@ -67,6 +67,6 @@ export const columns: Column<Session>[] = [
     title: "عملیات",
     align: "center",
     width: 100,
-    render: (_, row) => <SessionActionsMenu session={row} />,
+    render: (_, row) => <SessionPopUpMenu session={row} />,
   },
 ];

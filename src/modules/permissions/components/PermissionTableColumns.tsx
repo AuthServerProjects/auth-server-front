@@ -1,6 +1,6 @@
 import type { Permission } from "../permissionTypes";
 import type { Column } from "../../../components/tables";
-import PermissionActionsMenu from "./PermissionActionsMenu";
+import PermissionPopUpMenu from "./PermissionPopUpMenu";
 
 export const columns: Column<Permission>[] = [
   {
@@ -25,6 +25,6 @@ export const columns: Column<Permission>[] = [
     title: "عملیات",
     align: "center",
     width: 100,
-    render: (_, row) => <PermissionActionsMenu permission={row} />,
+    render: (_, row) => <PermissionPopUpMenu permission={row} />,
   },
 ];

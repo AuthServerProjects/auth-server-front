@@ -1,14 +1,14 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { FiMoreVertical } from "react-icons/fi";
-import type { ActionMenuProps } from "./types";
+import type { PopUpMenuProps } from "./types";
 
-const ActionMenu = ({
+const PopUpMenu = ({
   items,
   trigger,
   align = "start",
   side = "bottom",
   className,
-}: ActionMenuProps) => {
+}: PopUpMenuProps) => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -70,4 +70,4 @@ const ActionMenu = ({
   );
 };
 
-export default ActionMenu;
+export default PopUpMenu;

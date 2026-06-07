@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { LuPencil, LuServer, LuShield } from "react-icons/lu";
 
-import UserModal from "./modals/UserModal";
 import type { User } from "../userTypes";
+import UserModal from "./modals/UserModal";
 import ManageRolesModal from "./modals/ManageRolesModal";
 import AssignClientModal from "./modals/AssignClientModal";
 import ConfirmDialog from "../../../components/ConfirmDialog";
-import ActionMenu from "../../../components/actionMenu/ActionMenu";
-import type { ActionItem } from "../../../components/actionMenu/types";
+import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
+import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
 
 type ModalType =
   | "editUser"
@@ -24,7 +24,7 @@ type Props = {
   user: User;
 };
 
-const UserActionsMenu = ({ user }: Props) => {
+const UserPopUpMenu = ({ user }: Props) => {
   const [openModal, setOpenModal] = useState<ModalAction>(null);
   const close = () => setOpenModal(null);
 
@@ -34,7 +34,7 @@ const UserActionsMenu = ({ user }: Props) => {
     close();
   };
 
-  const items: ActionItem[] = [
+  const items: PopUpMenuItem[] = [
     {
       key: "edit",
       label: "ویرایش",
@@ -64,7 +64,7 @@ const UserActionsMenu = ({ user }: Props) => {
 
   return (
     <>
-      <ActionMenu items={items} />
+      <PopUpMenu items={items} />
 
       {openModal?.type === "editUser" && (
         <UserModal
@@ -106,4 +106,4 @@ const UserActionsMenu = ({ user }: Props) => {
   );
 };
 
-export default UserActionsMenu;
+export default UserPopUpMenu;

@@ -1,6 +1,6 @@
 import type { User } from "../userTypes";
 import Switch from "../../../components/Switch";
-import UserActionsMenu from "./UserActionsMenu";
+import UserPopUpMenu from "./UserPopUpMenu";
 import type { Column } from "../../../components/tables";
 
 export const getColumns = (
@@ -46,6 +46,6 @@ export const getColumns = (
     title: "عملیات",
     align: "center",
     width: 100,
-    render: (_, row) => <UserActionsMenu user={row} />,
+    render: (_, row) => <UserPopUpMenu user={row} />,
   },
 ];

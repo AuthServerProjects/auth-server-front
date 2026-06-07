@@ -1,17 +1,18 @@
 import type { Session } from "../sessionTypes";
 import { TiDeleteOutline } from "react-icons/ti";
+
 import { useSessionActions } from "../hooks/useSessionActions";
-import ActionMenu from "../../../components/actionMenu/ActionMenu";
-import type { ActionItem } from "../../../components/actionMenu/types";
+import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
+import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
 
 type Props = {
   session: Session;
 };
 
-const SessionActionsMenu = ({ session }: Props) => {
+const SessionPopUpMenu = ({ session }: Props) => {
   const { handleCancel, handleCancelAll } = useSessionActions();
 
-  const items: ActionItem[] = [
+  const items: PopUpMenuItem[] = [
     {
       key: "cancel",
       label: "لغو نشست",
@@ -28,7 +29,7 @@ const SessionActionsMenu = ({ session }: Props) => {
     },
   ];
 
-  return <ActionMenu items={items} />;
+  return <PopUpMenu items={items} />;
 };
 
-export default SessionActionsMenu;
+export default SessionPopUpMenu;

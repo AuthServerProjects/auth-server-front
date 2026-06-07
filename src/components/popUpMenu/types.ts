@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type ActionItem = {
+export type PopUpMenuItem = {
   /** Unique key for the item */
   key: string;
   /** Label text shown in the menu */
@@ -17,9 +17,9 @@ export type ActionItem = {
   divider?: boolean;
 };
 
-export type ActionMenuProps = {
+export type PopUpMenuProps = {
   /** Array of menu items */
-  items: ActionItem[];
+  items: PopUpMenuItem[];
   /** Optional custom trigger element (defaults to a 3-dots button) */
   trigger?: ReactNode;
   /** Menu alignment relative to the trigger */

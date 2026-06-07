@@ -1,6 +1,6 @@
 import type { Client } from "../clientTypes";
 import Switch from "../../../components/Switch";
-import ClientActionsMenu from "./ClientActionsMenu";
+import ClientPopUpMenu from "./ClientPopUpMenu";
 import type { Column } from "../../../components/tables";
 
 export const getColumns = (
@@ -49,6 +49,6 @@ export const getColumns = (
   {
     key: "actions",
     title: "عملیات",
-    render: (_, row) => <ClientActionsMenu client={row} />,
+    render: (_, row) => <ClientPopUpMenu client={row} />,
   },
 ];
