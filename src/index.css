@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "tailwind-scrollbar";
 
 @theme {
   --color-gray-30: #f8fafc;
@@ -12,9 +13,9 @@
   --color-black-80: #1e2939;
   --color-black-100: #0f172a;
 
+  --color-green-5: #DCFCE7;
   --color-green-10: #13c999;
   --color-green-20: #13c99914;
-  --color-green-30: #13c999;
 }
 
 @font-face {
