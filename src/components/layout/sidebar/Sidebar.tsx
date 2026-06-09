@@ -1,14 +1,15 @@
+import {
+  LuKey,
+  LuLayoutDashboard,
+  LuUserCog,
+  LuBuilding2,
+} from "react-icons/lu";
 import { useState } from "react";
-import { LuLayoutDashboard } from "react-icons/lu";
-import { FiUsers } from "react-icons/fi";
-import { FiServer } from "react-icons/fi";
-import { FiClock } from "react-icons/fi";
-import { LuBuilding2 } from "react-icons/lu";
-import { RiUserSettingsLine } from "react-icons/ri";
-import { LuKey } from "react-icons/lu";
-import { CgFileDocument } from "react-icons/cg";
-import SelectBox from "../../selectBox/SelectBox";
 import { useNavigate } from "react-router-dom";
+import { CgFileDocument } from "react-icons/cg";
+import { FiServer, FiClock, FiUsers } from "react-icons/fi";
+
+import SelectBox from "../../selectBox/SelectBox";
 
 const Sidebar = () => {
   const generalMenu = [
@@ -31,7 +32,7 @@ const Sidebar = () => {
       label: "داشبورد",
     },
     { id: 6, href: "/users", icon: <FiUsers />, label: "کاربران" },
-    { id: 7, href: "/roles", icon: <RiUserSettingsLine />, label: "نقش ها" },
+    { id: 7, href: "/roles", icon: <LuUserCog />, label: "نقش ها" },
     { id: 8, href: "/permissions", icon: <LuKey />, label: "مجوزها" },
     { id: 9, href: "/sessions", icon: <FiClock />, label: "نشست ها" },
     { id: 10, href: "/logs", icon: <CgFileDocument />, label: "لاگ ها" },

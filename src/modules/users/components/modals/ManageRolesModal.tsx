@@ -1,7 +1,8 @@
-import { RiUserSettingsLine } from "react-icons/ri";
+import { LuUserCog } from "react-icons/lu";
 
 import Card from "../CardComponent";
 import Modal from "../../../../components/Modal";
+import SVG from "../../../../components/SVG/SVG";
 
 const clients = [
   { id: 1, name: "SuperAdmin" },
@@ -21,14 +22,22 @@ const ManageRolesModal = ({
 }) => {
   return (
     <div>
-      <Modal open onClose={onClose} title="مدیریت نقش‌ها" maxWidth="max-w-xl">
+      <Modal
+        open
+        onClose={onClose}
+        title="مدیریت نقش‌ها"
+        maxWidth="max-w-xl"
+        icon={<LuUserCog size={24} />}
+      >
         <form>
           <div className="w-full grid grid-cols-2">
             {clients.map((client) => (
               <Card
                 id={client.id}
                 name={client.name}
-                icon={<RiUserSettingsLine size={24} />}
+                icon={
+                  <SVG name="UserOctagonIcon" size={24} color="text-gray-50" />
+                }
               />
             ))}
           </div>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { LuPencil, LuServer, LuShield } from "react-icons/lu";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { LuUserCog, LuPencil, LuServer } from "react-icons/lu";
 
 import type { User } from "../userTypes";
 import UserModal from "./modals/UserModal";
@@ -50,13 +51,13 @@ const UserPopUpMenu = ({ user }: Props) => {
     {
       key: "roles",
       label: "مدیریت نقش‌ها",
-      icon: <LuShield />,
+      icon: <LuUserCog />,
       onClick: () => setOpenModal({ type: "manageRoles", user }),
     },
     {
       key: "unassignFromClient",
       label: "حذف کاربر از کلاینت",
-      icon: <LuShield />,
+      icon: <RiDeleteBin6Line />,
       onClick: () => setOpenModal({ type: "unassignFromClient", user }),
       danger: true,
     },

@@ -6,6 +6,7 @@ type ModalProps = {
   onClose: () => void;
   onCancel?: () => void;
   title?: string;
+  icon?: ReactNode;
   children: ReactNode;
   maxWidth?: string;
 };
@@ -15,6 +16,7 @@ const Modal = ({
   onClose,
   onCancel,
   title,
+  icon,
   children,
   maxWidth = "max-w-md",
 }: ModalProps) => {
@@ -39,10 +41,13 @@ const Modal = ({
       >
         {title && (
           <div className="flex items-center justify-between pb-2 mb-6 border-b border-gray-50">
-            <h2 className="text-lg ">{title}</h2>
+            <div className="flex items-center gap-2 text-gray-300 text-xl">
+              {icon}
+              {title}
+            </div>
             <button
               onClick={onCancel ?? onClose}
-              className="text-gray-500 hover:text-gray-800"
+              className="text-gray-500 hover:text-gray-800 cursor-pointer"
             >
               <IoClose size={24} />
             </button>

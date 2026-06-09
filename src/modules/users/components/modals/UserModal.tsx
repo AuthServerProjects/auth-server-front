@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TbUserPlus } from "react-icons/tb";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import type { Control, FieldPath } from "react-hook-form";
@@ -54,7 +55,13 @@ const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
   };
 
   return (
-    <Modal open onClose={onClose} onCancel={onCancel} title={title}>
+    <Modal
+      open
+      onClose={onClose}
+      onCancel={onCancel}
+      title={title}
+      icon={<TbUserPlus size={24} />}
+    >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         {/* Username */}
         <div>
@@ -123,14 +130,14 @@ const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-5 py-2 w-full rounded-lg bg-green-10 text-white disabled:opacity-50"
+            className="px-5 py-2 w-full rounded-lg bg-green-10 text-white disabled:opacity-50 cursor-pointer"
           >
             ذخیره
           </button>
           <button
             type="button"
             onClick={onCancel ?? onClose}
-            className="px-5 py-2 rounded-lg bg-gray-80 text-black-80"
+            className="px-5 py-2 rounded-lg bg-gray-80 text-black-80 cursor-pointer"
           >
             انصراف
           </button>

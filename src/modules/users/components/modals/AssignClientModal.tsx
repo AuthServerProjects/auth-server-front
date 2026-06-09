@@ -1,6 +1,8 @@
-import Modal from "../../../../components/Modal";
-import SVG from "../../../../components/SVG/SVG";
+import { FiServer } from "react-icons/fi";
+
 import Card from "../CardComponent";
+import SVG from "../../../../components/SVG/SVG";
+import Modal from "../../../../components/Modal";
 
 const clients = [
   { id: 1, name: "AdminPanel" },
@@ -26,6 +28,7 @@ const AssignClientModal = ({
         onClose={onClose}
         title="تخصیص کاربر به کلاینت"
         maxWidth="max-w-xl"
+        icon={<FiServer size={24} />}
       >
         <form>
           <div className="w-full grid grid-cols-2">

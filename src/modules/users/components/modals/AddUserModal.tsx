@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { TbUsersPlus } from "react-icons/tb";
 
 import SVG from "../../../../components/SVG/SVG";
 import Modal from "../../../../components/Modal";
@@ -29,7 +30,12 @@ const AddUserModal = ({ onClose, onAddNew, title }: Props) => {
   };
 
   return (
-    <Modal open onClose={onClose} title={title}>
+    <Modal
+      open
+      onClose={onClose}
+      title={title}
+      icon={<TbUsersPlus size={24} />}
+    >
       <div className="flex flex-col">
         <label className="flex item-start mb-3 text-black">
           جستجو کاربران موجود
@@ -72,7 +78,7 @@ const AddUserModal = ({ onClose, onAddNew, title }: Props) => {
             <SVG name="AddIcon" />
             ایجاد کاربر جدید
           </button>
-          <div className="flex justify-end gap-2">
+          <div className="flex gap-2">
             <button
               type="button"
               onClick={handleSubmit}
