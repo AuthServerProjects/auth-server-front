@@ -1,6 +1,6 @@
+import { LuSearch, LuUserCog } from "react-icons/lu";
+
 import { mockRole } from "./roleData";
-import { LuSearch } from "react-icons/lu";
-import { LuShield } from "react-icons/lu";
 import SVG from "../../components/SVG/SVG";
 import RolesTable from "./components/RolesTable";
 
@@ -9,7 +9,7 @@ const RolesMainPage = () => {
     <div className="flex flex-col w-full p-6">
       <div className="flex justify-between">
         <div className="flex text-black-100 space-x-3 font-bold">
-          <LuShield size={24} />
+          <LuUserCog size={24} />
           <h2>مدیریت نقش‌ها</h2>
         </div>
         <button

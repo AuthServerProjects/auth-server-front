@@ -1,6 +1,6 @@
-import type { Session } from "../sessionTypes";
-import { TiDeleteOutline } from "react-icons/ti";
+import { FcCancel } from "react-icons/fc";
 
+import type { Session } from "../sessionTypes";
 import { useSessionActions } from "../hooks/useSessionActions";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
@@ -16,14 +16,14 @@ const SessionPopUpMenu = ({ session }: Props) => {
     {
       key: "cancel",
       label: "لغو نشست",
-      icon: <TiDeleteOutline />,
+      icon: <FcCancel size={24} />,
       onClick: () => handleCancel(session),
       danger: true,
     },
     {
       key: "cancelALl",
       label: "لغو همه نشست ها",
-      icon: <TiDeleteOutline />,
+      icon: <FcCancel size={24} />,
       onClick: () => handleCancelAll(session),
       danger: true,
     },

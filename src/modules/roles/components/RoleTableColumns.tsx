@@ -1,4 +1,5 @@
 import type { Role } from "../roleTypes";
+import RolePopUpMenu from "./RolePopUpMenu";
 import Switch from "../../../components/Switch";
 import type { Column } from "../../../components/tables";
 
@@ -34,5 +35,12 @@ export const getColumns = (
     key: "permissions",
     title: "مجوزها",
     dataIndex: "permissions",
+  },
+  {
+    key: "action",
+    title: "عملیات",
+    align: "center",
+    width: 100,
+    render: (_, row) => <RolePopUpMenu role={row} />,
   },
 ];

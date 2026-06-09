@@ -1,5 +1,5 @@
 import { LuSearch } from "react-icons/lu";
-import { FiServer } from "react-icons/fi";
+import { FiClock } from "react-icons/fi";
 import SVG from "../../components/SVG/SVG";
 import { mockSession } from "./sessionsData";
 import { LuRefreshCcw } from "react-icons/lu";
@@ -10,7 +10,7 @@ const SessionsMainPage = () => {
     <div className="flex flex-col w-full p-6">
       <div className="flex justify-between">
         <div className="flex text-black-100 space-x-3 font-bold">
-          <FiServer size={24} />
+          <FiClock size={24} />
           <h2>مدیریت نشست‌ها</h2>
         </div>
         <button
