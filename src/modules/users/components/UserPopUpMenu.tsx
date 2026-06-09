@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { LuUserCog, LuPencil, LuServer } from "react-icons/lu";
+import { LuUserPen, LuUserCog, LuServer } from "react-icons/lu";
 
 import type { User } from "../userTypes";
 import UserModal from "./modals/UserModal";
@@ -39,7 +39,7 @@ const UserPopUpMenu = ({ user }: Props) => {
     {
       key: "edit",
       label: "ویرایش",
-      icon: <LuPencil />,
+      icon: <LuUserPen size={24} />,
       onClick: () => setOpenModal({ type: "editUser", user }),
     },
     {
@@ -51,7 +51,7 @@ const UserPopUpMenu = ({ user }: Props) => {
     {
       key: "roles",
       label: "مدیریت نقش‌ها",
-      icon: <LuUserCog />,
+      icon: <LuUserCog size={24} />,
       onClick: () => setOpenModal({ type: "manageRoles", user }),
     },
     {

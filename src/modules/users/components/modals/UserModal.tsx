@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { LuUserPen } from "react-icons/lu";
 import { TbUserPlus } from "react-icons/tb";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
@@ -60,7 +61,7 @@ const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
       onClose={onClose}
       onCancel={onCancel}
       title={title}
-      icon={<TbUserPlus size={24} />}
+      icon={isEdit ? <LuUserPen size={24} /> : <TbUserPlus size={24} />}
     >
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         {/* Username */}
