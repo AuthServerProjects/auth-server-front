@@ -123,7 +123,7 @@ const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-5 py-2 rounded-lg bg-green-10 text-white disabled:opacity-50"
+            className="px-5 py-2 w-full rounded-lg bg-green-10 text-white disabled:opacity-50"
           >
             ذخیره
           </button>
