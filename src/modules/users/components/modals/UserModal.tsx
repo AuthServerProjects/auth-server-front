@@ -88,7 +88,7 @@ const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
           </label>
           <input
             {...register("phoneNumber")}
-            className="w-full text-gray-600 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-70"
+            className="w-full text-gray-600 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-gray-70"
             placeholder="98XXXXXXXXXX"
           />
           {errors.phoneNumber && (
