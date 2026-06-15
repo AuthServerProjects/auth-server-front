@@ -1,35 +1,77 @@
+import { useState } from "react";
 import { LuPencil } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
+import RoleModal from "./RoleModal";
 import type { Role } from "../roleTypes";
-import { useRoleActions } from "../hooks/useRoleActions";
+import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
+
+type ModalAction = {
+  type: "editRole" | "removeRole";
+  role: Role;
+} | null;
 
 type Props = {
   role: Role;
 };
 
 const RolePopUpMenu = ({ role }: Props) => {
-  const { handleEdit, handleRemove } = useRoleActions();
+  const [openModal, setOpenModal] = useState<ModalAction>(null);
+  const close = () => setOpenModal(null);
+
+  const handleRemove = () => {
+    console.log("remove role!", openModal?.role.id);
+    // TODO: API call
+    close();
+  };
 
   const items: PopUpMenuItem[] = [
     {
       key: "edit",
       label: "ویرایش",
       icon: <LuPencil />,
-      onClick: () => handleEdit(role),
+      onClick: () => setOpenModal({ type: "editRole", role }),
     },
     {
       key: "remove",
       label: "حذف",
       icon: <RiDeleteBin6Line />,
-      onClick: () => handleRemove(role),
+      onClick: () => setOpenModal({ type: "removeRole", role }),
       danger: true,
     },
   ];
 
-  return <PopUpMenu items={items} />;
+  return (
+    <>
+      <PopUpMenu items={items} />
+      {openModal?.type === "editRole" && (
+        <RoleModal
+          isEdit
+          onClose={close}
+          role={openModal.role}
+          title="ویرایش نقش"
+        />
+      )}
+      {openModal?.type === "removeRole" && (
+        <ConfirmDialog
+          open
+          variant="danger"
+          title="حذف نقش"
+          description={
+            <p>
+              آیا از حذف مجوز <strong>{openModal.role.roleName}</strong> مطمئن
+              هستید؟
+            </p>
+          }
+          confirmText="حذف"
+          onConfirm={handleRemove}
+          onClose={close}
+        />
+      )}
+    </>
+  );
 };
 
 export default RolePopUpMenu;
