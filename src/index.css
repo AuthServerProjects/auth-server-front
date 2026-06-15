@@ -1,7 +1,11 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/forms";
 @plugin "tailwind-scrollbar";
 
 @theme {
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
   --color-gray-30: #f8fafc;
   --color-gray-50: #e5e7eb;
   --color-gray-70: #64748b;
@@ -16,6 +20,24 @@
   --color-green-5: #dcfce7;
   --color-green-10: #13c999;
   --color-green-20: #13c99914;
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 
 @font-face {
