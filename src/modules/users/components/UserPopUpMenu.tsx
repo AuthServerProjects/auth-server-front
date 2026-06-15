@@ -10,14 +10,8 @@ import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
 
-type ModalType =
-  | "editUser"
-  | "assignClient"
-  | "manageRoles"
-  | "unassignFromClient";
-
 type ModalAction = {
-  type: ModalType;
+  type: "editUser" | "assignClient" | "manageRoles" | "unassignFromClient";
   user: User;
 } | null;
 

@@ -8,10 +8,8 @@ import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
 import PermissionModal from "./PermissionModal";
 
-type ModalType = "editPermission" | "removePermission";
-
 type ModalAction = {
-  type: ModalType;
+  type: "editPermission" | "removePermission";
   permission: Permission;
 } | null;
 
