@@ -11,9 +11,9 @@ export const columns: Column<Permission>[] = [
     align: "center",
   },
   {
-    key: "permissionName",
+    key: "name",
     title: "نام مجوز",
-    dataIndex: "permissionName",
+    dataIndex: "name",
   },
   {
     key: "description",

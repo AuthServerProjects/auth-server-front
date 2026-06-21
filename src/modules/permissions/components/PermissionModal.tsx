@@ -7,7 +7,7 @@ import Modal from "../../../components/Modal";
 import type { Permission } from "../permissionTypes";
 
 const schema = z.object({
-  permissionName: z.string().min(3, "نام مجوز حداقل ۳ کاراکتر باشد"),
+  name: z.string().min(3, "نام مجوز حداقل ۳ کاراکتر باشد"),
   description: z.string(),
 });
 
@@ -29,7 +29,7 @@ const PermissionModal = ({ isEdit, onClose, permission, title }: Props) => {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      permissionName: permission?.permissionName ?? "",
+      name: permission?.name ?? "",
       description: permission?.description ?? "",
     },
   });
@@ -51,13 +51,13 @@ const PermissionModal = ({ isEdit, onClose, permission, title }: Props) => {
             نام مجوز
           </label>
           <input
-            {...register("permissionName")}
+            {...register("name")}
             className="w-full text-gray-600 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-gray-70"
             placeholder="فرمت: resource:action"
           />
-          {errors.permissionName && (
+          {errors.name && (
             <p className="text-red-500 text-xs pt-2">
-              {errors.permissionName.message}
+              {errors.name.message}
             </p>
           )}
         </div>

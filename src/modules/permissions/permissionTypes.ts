@@ -1,5 +1,10 @@
 export type Permission = {
   id: number;
-  permissionName: string;
+  name: string;
   description: string;
+};
+
+export type PermissionGroup = {
+  name: string;
+  permissions: Permission[];
 };

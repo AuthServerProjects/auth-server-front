@@ -62,7 +62,7 @@ const PermissionPopUpMenu = ({ permission }: Props) => {
           description={
             <p>
               آیا از حذف مجوز{" "}
-              <strong>{openModal.permission.permissionName}</strong> مطمئن
+              <strong>{openModal.permission.name}</strong> مطمئن
               هستید؟
             </p>
           }
