@@ -3,8 +3,11 @@ import { LuSearch, LuUserCog } from "react-icons/lu";
 import { mockRole } from "./roleData";
 import SVG from "../../components/SVG/SVG";
 import RolesTable from "./components/RolesTable";
+import { useNavigate } from "react-router-dom";
 
 const RolesMainPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col w-full p-6">
       <div className="flex justify-between">
@@ -14,7 +17,7 @@ const RolesMainPage = () => {
         </div>
         <button
           type="button"
-          onClick={() => console.log("clicked")}
+          onClick={() => navigate("/role/create")}
           className="flex items-center gap-2 bg-gray-100 text-white px-4 py-2 rounded-lg whitespace-nowrap cursor-pointer"
         >
           <SVG name="AddIcon" />

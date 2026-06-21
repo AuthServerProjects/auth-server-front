@@ -2,14 +2,14 @@ import { useState } from "react";
 import { LuPencil } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-import RoleModal from "./RoleModal";
 import type { Role } from "../roleTypes";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
+import { useNavigate } from "react-router-dom";
 
 type ModalAction = {
-  type: "editRole" | "removeRole";
+  type: "removeRole";
   role: Role;
 } | null;
 
@@ -27,12 +27,14 @@ const RolePopUpMenu = ({ role }: Props) => {
     close();
   };
 
+  const navigate = useNavigate();
+
   const items: PopUpMenuItem[] = [
     {
       key: "edit",
       label: "ویرایش",
       icon: <LuPencil />,
-      onClick: () => setOpenModal({ type: "editRole", role }),
+      onClick: () => navigate(`/role/edit`, { state: { role } }),
     },
     {
       key: "remove",
@@ -46,14 +48,6 @@ const RolePopUpMenu = ({ role }: Props) => {
   return (
     <>
       <PopUpMenu items={items} />
-      {openModal?.type === "editRole" && (
-        <RoleModal
-          isEdit
-          onClose={close}
-          role={openModal.role}
-          title="ویرایش نقش"
-        />
-      )}
       {openModal?.type === "removeRole" && (
         <ConfirmDialog
           open

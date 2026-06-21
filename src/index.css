@@ -20,6 +20,9 @@
   --color-green-5: #dcfce7;
   --color-green-10: #13c999;
   --color-green-20: #13c99914;
+
+  --color-orange-5: #feebcd;
+  --color-orange-10: #f99c04;
 }
 
 @keyframes accordion-down {
