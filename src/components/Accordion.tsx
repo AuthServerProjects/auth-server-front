@@ -12,6 +12,8 @@ type AccordionProps = {
   items: AccordionItem[];
   type?: "single" | "multiple";
   defaultValue?: string | string[];
+  defaultOpenAll?: boolean;
+  layout?: "stack" | "grid";
   className?: string;
 };
 
@@ -19,14 +21,20 @@ const Accordion = ({
   items,
   type = "multiple",
   defaultValue,
+  defaultOpenAll = false,
+  layout = "stack",
   className,
 }: AccordionProps) => {
-  console.log(items);
+  const initialOpen = defaultOpenAll ? items.map((i) => i.value) : defaultValue;
+  const layoutClass =
+    layout === "grid"
+      ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+      : "flex flex-col gap-4";
   return (
     <RadixAccordion.Root
       type={type as "multiple"}
-      defaultValue={defaultValue as string[]}
-      className={`flex flex-col gap-3 ${className ?? ""}`}
+      defaultValue={initialOpen as string[]}
+      className={`${layoutClass} ${className ?? ""}`}
     >
       {items.map((item) => (
         <RadixAccordion.Item
@@ -42,7 +50,7 @@ const Accordion = ({
           </RadixAccordion.Header>
 
           <RadixAccordion.Content
-            className=" data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up max-h-40 overflow-y-scroll 
+            className="flex flex-col data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up max-h-46 overflow-y-scroll 
             scrollbar-thin scrollbar-thumb-gray-50 scrollbar-track-transparent hover:scrollbar-thumb-gray-80 scrollbar-thumb-rounded-full"
           >
             <div className="border-t border-gray-50">{item.content}</div>
