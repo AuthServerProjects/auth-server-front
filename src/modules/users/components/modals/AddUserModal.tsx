@@ -60,6 +60,7 @@ const AddUserModal = ({ onClose, onAddNew, title }: Props) => {
                         prev.filter((u) => u.id !== user.id),
                       )
                     }
+                    className="hover:bg-green-10/10 rounded-full p-0.5 cursor-pointer"
                   >
                     <IoClose size={16} />
                   </button>
