@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import type { Client } from "../clientTypes";
 import  { getColumns } from "./ClientTableColumns";
 import Table, { type SortState } from "../../../components/tables";
