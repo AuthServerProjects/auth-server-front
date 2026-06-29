@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { LuPencil } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 import type { Role } from "../roleTypes";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
-import { useNavigate } from "react-router-dom";
 
 type ModalAction = {
   type: "removeRole";
