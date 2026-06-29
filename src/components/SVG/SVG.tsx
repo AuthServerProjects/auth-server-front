@@ -1,8 +1,9 @@
 import type { SVGProps as ReactSVGProps } from "react";
 
 import AddIcon from "../../assets/icons/add.svg?react";
-import userIcon from "../../assets/icons/user-square.svg?react";
+import squareIcon from "../../assets/icons/square.svg?react";
 import tickIcon from "../../assets/icons/tick-square.svg?react";
+import userIcon from "../../assets/icons/user-square.svg?react";
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import UserOctagonIcon from "../../assets/icons/user-octagon.svg?react";
 
@@ -10,8 +11,9 @@ export const icons = {
   DownloadIcon,
   AddIcon,
   userIcon,
+  squareIcon,
   tickIcon,
-  UserOctagonIcon
+  UserOctagonIcon,
 } as const;
 
 type SVGProps = {
@@ -46,7 +48,6 @@ const SVG = ({
       {...props}
     />
   );
-}
-
+};
 
 export default SVG;
