@@ -1,7 +1,7 @@
 import { type ReactNode } from "react";
+import { TbInfoHexagon } from "react-icons/tb";
 
 import Modal from "./Modal";
-import { LuTriangleAlert } from "react-icons/lu";
 
 type ConfirmDialogProps = {
   open: boolean;
@@ -18,15 +18,15 @@ type ConfirmDialogProps = {
 const variantStyles = {
   danger: {
     icon: "text-red-500",
-    button: "bg-red-600",
+    button: "bg-red-500",
   },
   warning: {
-    icon: "text-yellow-500",
-    button: "bg-yellow-600 hover:bg-yellow-700",
+    icon: "text-orange-500",
+    button: "bg-orange-500",
   },
   info: {
     icon: "text-blue-500",
-    button: "bg-blue-600 hover:bg-blue-700",
+    button: "bg-blue-500",
   },
 };
 
@@ -47,12 +47,11 @@ const ConfirmDialog = ({
 
   return (
     <Modal open={open} onClose={onClose} title="">
-      <div className="flex flex-col items-center text-center gap-4 py-2">
-        <div className={`p-3 rounded-full bg-gray-50 ${styles.icon}`}>
-          <LuTriangleAlert size={32} />
-        </div>
-
+      <div className="flex flex-col items-center text-center gap-5 py-2">
         <h3 className="text-lg font-semibold text-gray-800">{title}</h3>
+        <div className={`${styles.icon}`}>
+          <TbInfoHexagon size={80} />
+        </div>
 
         {description && <p className="text-sm text-gray-600">{description}</p>}
 
@@ -69,7 +68,7 @@ const ConfirmDialog = ({
             type="button"
             onClick={onClose}
             disabled={loading}
-            className="flex-1 px-4 py-2 rounded-lg bg-gray-50 text-black-80 disabled:opacity-50"
+            className="flex-1 px-4 py-2.5 rounded-lg bg-gray-50 text-black-80 disabled:opacity-50"
           >
             {cancelText}
           </button>
