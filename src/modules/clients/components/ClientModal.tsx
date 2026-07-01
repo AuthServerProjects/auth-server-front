@@ -13,6 +13,7 @@ import type { Client } from "../clientTypes";
 import Modal from "../../../components/Modal";
 import Switch from "../../../components/Switch";
 import MultiSelect from "../../../components/MultiSelect";
+import Button from "../../../components/Button/Button";
 
 const schema = z.object({
   clientId: z.string().min(1, "شناسه کلاینت الزامی است"),
@@ -114,6 +115,7 @@ const ClientModal = ({ isEdit, onClose, client, title }: Props) => {
                   options={AUTHORIZATION_GRANT_TYPES}
                   value={field.value}
                   onChange={field.onChange}
+                  variant="success"
                 />
               )}
             />
@@ -135,6 +137,7 @@ const ClientModal = ({ isEdit, onClose, client, title }: Props) => {
                   options={SCOPES}
                   value={field.value}
                   onChange={field.onChange}
+                  variant="danger"
                 />
               )}
             />
@@ -156,6 +159,7 @@ const ClientModal = ({ isEdit, onClose, client, title }: Props) => {
                   options={CLIENT_AUTHENTICATION_METHODS}
                   value={field.value}
                   onChange={field.onChange}
+                  variant="info"
                 />
               )}
             />
@@ -233,20 +237,17 @@ const ClientModal = ({ isEdit, onClose, client, title }: Props) => {
           </div>
 
           <div className="flex gap-2 mt-4">
-            <button
+            <Button
               type="submit"
+              variant="success"
               disabled={isSubmitting}
-              className="px-5 py-2 w-full rounded-lg bg-green-10 text-white disabled:opacity-50 cursor-pointer"
+              className="w-full justify-center"
             >
               ذخیره
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-5 py-2 rounded-lg bg-gray-80 text-black-80 cursor-pointer"
-            >
+            </Button>
+            <Button variant="ghost" onClick={onClose}>
               انصراف
-            </button>
+            </Button>
           </div>
         </div>
       </form>

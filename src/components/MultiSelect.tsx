@@ -1,9 +1,10 @@
 import { Command } from "cmdk";
-import { IoClose } from "react-icons/io5";
 import { LuChevronDown } from "react-icons/lu";
 import { useEffect, useRef, useState } from "react";
 
 import SVG from "./SVG/SVG";
+import Chip from "./Chip";
+import { variantSoft, type Variant } from "../utils/variantStyles";
 
 type Props = {
   options: readonly string[];
@@ -11,6 +12,7 @@ type Props = {
   onChange: (value: string[]) => void;
   placeholder?: string;
   emptyText?: string;
+  variant?: Variant;
 };
 
 const MultiSelect = ({
@@ -19,6 +21,7 @@ const MultiSelect = ({
   onChange,
   placeholder = "انتخاب کنید",
   emptyText = "موردی یافت نشد",
+  variant,
 }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -60,32 +63,19 @@ const MultiSelect = ({
       className="relative w-full"
       ref={containerRef}
     >
-      {/* Trigger: chevron on the left (RTL), chips + input fill the rest */}
       <div
         onClick={() => setIsOpen(true)}
         className="flex items-center gap-2 w-full min-h-10 border border-gray-50 rounded-lg px-3 py-1.5 cursor-text focus-within:ring-1 focus-within:ring-gray-70 bg-white"
       >
         <div className="flex flex-wrap items-center gap-1.5 flex-1 min-w-0">
           {value.map((val) => (
-            <div
+            <Chip
               key={val}
-              className="flex items-center gap-1 bg-green-5 text-green-10 text-xs rounded-md px-2 py-0.5"
-            >
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  remove(val);
-                }}
-                aria-label={`حذف ${val}`}
-                className="hover:bg-green-10/10 rounded-full cursor-pointer"
-              >
-                <IoClose size={14} />
-              </button>
-              <span>{val}</span>
-            </div>
+              label={val}
+              onRemove={() => remove(val)}
+              variant={variant}
+            />
           ))}
-
           {(value.length === 0 || query.length > 0 || isOpen) && (
             <Command.Input
               value={query}
@@ -95,7 +85,8 @@ const MultiSelect = ({
               }}
               onFocus={() => setIsOpen(true)}
               placeholder={value.length === 0 ? placeholder : ""}
-              className="flex-1 min-w-32 h-1 max-h-2 bg-transparent text-gray-600 text-sm focus:outline-none focus:ring-1 focus:ring-white border border-white"
+              className="flex-1 min-w-32 h-1 max-h-2 bg-transparent text-gray-600 
+              text-sm focus:outline-none focus:ring-1 focus:ring-white border border-white"
             />
           )}
         </div>
@@ -125,8 +116,8 @@ const MultiSelect = ({
                   key={opt}
                   value={opt}
                   onSelect={() => toggle(opt)}
-                  className={`flex items-center gap-2 p-2.5 m-2 border border-gray-50 rounded-lg cursor-pointer transition-colors ${
-                    isSelected ? "bg-green-20" : ""
+                  className={`flex items-center gap-2 p-2.5 m-1 border border-gray-50 rounded-lg cursor-pointer transition-colors ${
+                    isSelected ? variantSoft[variant ?? "success"] : ""
                   }`}
                 >
                   {isSelected ? (
