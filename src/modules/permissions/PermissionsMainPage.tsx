@@ -1,10 +1,11 @@
-import { LuKey } from "react-icons/lu";
-import { LuSearch } from "react-icons/lu";
-import SVG from "../../components/SVG/SVG";
-import { mockPermission } from "./permissionsData";
-import PermissionsTable from "./components/PermissionsTable";
-import PermissionModal from "./components/PermissionModal";
 import { useState } from "react";
+import { LuKey } from "react-icons/lu";
+
+import { mockPermission } from "./permissionsData";
+import PagesHeader from "../../components/PagesHeader";
+import TablesHeader from "../../components/TablesHeader";
+import PermissionModal from "./components/PermissionModal";
+import PermissionsTable from "./components/PermissionsTable";
 
 const PermissionsMainPage = () => {
   const [openModal, setOpenModal] = useState<boolean>();
@@ -20,40 +21,14 @@ const PermissionsMainPage = () => {
       )}
 
       <div className="flex flex-col w-full p-6">
-        <div className="flex justify-between">
-          <div className="flex text-black-100 space-x-3 font-bold">
-            <LuKey size={24} />
-            <h2>مدیریت مجوزها</h2>
-          </div>
-          <button
-            type="button"
-            onClick={() => setOpenModal(true)}
-            className="flex items-center gap-2 bg-gray-100 text-white px-4 py-2 rounded-lg whitespace-nowrap cursor-pointer"
-          >
-            <SVG name="AddIcon" />
-            ایجاد مجوز
-          </button>
-        </div>
-
+        <PagesHeader
+          title="مدیریت مجوزها"
+          icon={<LuKey size={24} />}
+          buttonLabel="افزودن مجوز"
+          modalHandling={() => setOpenModal(true)}
+        />
         <div className="flex flex-col w-full border border-gray-50 bg-white rounded-lg mt-4">
-          <div className="flex justify-between p-4">
-            <div className="relative">
-              <LuSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="جستجو با نام مجوز"
-                className="w-full py-2 pl-4 pr-10 border rounded-lg"
-              />
-            </div>
-            <button
-              type="button"
-              onClick={() => console.log("clicked")}
-              className="flex items-center gap-2 bg-green-10 text-white px-4 py-2 rounded-lg whitespace-nowrap cursor-pointer"
-            >
-              <SVG name="DownloadIcon" />
-              خروجی اکسل
-            </button>
-          </div>
+          <TablesHeader placeHolder="جستجو با نام مجوز" />
           <PermissionsTable data={mockPermission} />
         </div>
       </div>
