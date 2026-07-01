@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { BiMessageSquareAdd } from "react-icons/bi";
 
-import Button from "./Button";
+import Button from "./Button/Button";
 
 type Props = {
   title: string;
@@ -15,7 +15,7 @@ const PagesHeader = ({
   title,
   icon,
   buttonLabel,
-  buttonIcon = <BiMessageSquareAdd />,
+  buttonIcon = <BiMessageSquareAdd size={24} />,
   modalHandling,
 }: Props) => (
   <div className="flex justify-between">

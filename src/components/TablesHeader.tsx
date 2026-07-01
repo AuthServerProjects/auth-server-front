@@ -1,7 +1,7 @@
 import { LuSearch } from "react-icons/lu";
 
 import SVG from "./SVG/SVG";
-import Button from "./Button";
+import Button from "./Button/Button";
 
 type Props = {
   placeHolder: string;
@@ -20,7 +20,7 @@ const TablesHeader = ({ placeHolder }: Props) => {
           />
         </div>
         <Button
-          variant="primary"
+          variant="success"
           icon={<SVG name="DownloadIcon" />}
           onClick={() => console.log("clicked")}
         >
