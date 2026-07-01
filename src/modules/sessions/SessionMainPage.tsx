@@ -12,7 +12,7 @@ const SessionsMainPage = () => {
         title="مدیریت نشست‌ها"
         icon={<LuRefreshCcw size={24} />}
         buttonLabel="بازخوانی"
-        buttonIcon={<LuRefreshCcw />}
+        buttonIcon={<LuRefreshCcw size={20} />}
         modalHandling={() => console.log("Reload sessions clicked")}
       />
       <div className="flex flex-col w-full border border-gray-50 bg-white rounded-lg mt-4">

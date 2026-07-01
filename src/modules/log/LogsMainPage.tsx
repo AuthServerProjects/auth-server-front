@@ -13,7 +13,7 @@ const LogsMainPage = () => {
         title="مدیریت لاگها"
         icon={<CgFileDocument size={24} />}
         buttonLabel="بازخوانی"
-        buttonIcon={<LuRefreshCcw />}
+        buttonIcon={<LuRefreshCcw size={20} />}
         modalHandling={() => console.log("Reload logs clicked")}
       />
       <div className="flex flex-col w-full border border-gray-50 bg-white rounded-lg mt-4">
