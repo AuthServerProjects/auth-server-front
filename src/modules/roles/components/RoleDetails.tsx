@@ -5,12 +5,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
-import Box from "../../../components/Box/Box";
-import PermissionsBoxList from "./PermissionsBoxList";
 import type {
   Permission,
   PermissionGroup,
 } from "../../permissions/permissionTypes";
+import Chip from "../../../components/Chip";
+import Box from "../../../components/Box/Box";
+import PermissionsBoxList from "./PermissionsBoxList";
+import Button from "../../../components/Button/Button";
 
 const mockGroups: PermissionGroup[] = [
   {
@@ -201,47 +203,32 @@ const RoleDetails = () => {
             ) : (
               <div className="flex flex-wrap gap-2">
                 {selectedPermissions.map((permission) => (
-                  <div
+                  <Chip
                     key={permission.id}
-                    className="flex items-center gap-1 bg-green-5 text-green-10 text-sm rounded-lg px-2 py-1"
-                  >
-                    <span>{permission.name}</span>
-                    <button
-                      type="button"
-                      onClick={() => removePermission(permission.id)}
-                      aria-label={`حذف ${permission.name}`}
-                      className="hover:bg-green-10/10 rounded-full p-0.5 cursor-pointer"
-                    >
-                      <IoClose size={16} />
-                    </button>
-                  </div>
+                    label={permission.name}
+                    onRemove={() => removePermission(permission.id)}
+                    variant="success"
+                  />
                 ))}
               </div>
             )}
           </Box>
 
           <div className="flex gap-2 w-full">
-            <button
+            <Button
               type="submit"
+              variant="success"
               disabled={isSubmitting}
-              className="px-5 py-2 w-34 rounded-lg bg-green-10 text-white disabled:opacity-50 cursor-pointer transition-colors"
+              className="w-full justify-center"
             >
               ذخیره
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("/roles")}
-              className="px-5 py-2 rounded-lg bg-gray-80 text-black-80 cursor-pointer transition-colors"
-            >
+            </Button>
+            <Button variant="ghost" onClick={() => navigate("/roles")}>
               انصراف
-            </button>
-            <button
-              type="button"
-              onClick={clearAll}
-              className="px-5 py-2 rounded-lg bg-orange-5 text-orange-10 cursor-pointer hover:bg-orange-10/10 transition-colors"
-            >
+            </Button>
+            <Button variant="softWarning" onClick={clearAll}>
               پاک کردن همه
-            </button>
+            </Button>
           </div>
         </div>
 

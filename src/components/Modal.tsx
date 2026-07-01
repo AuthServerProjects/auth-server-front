@@ -1,6 +1,8 @@
 import { IoClose } from "react-icons/io5";
 import { type ReactNode, useEffect } from "react";
 
+import IconButton from "./Button/IconButton";
+
 type ModalProps = {
   open: boolean;
   onClose: () => void;
@@ -45,12 +47,11 @@ const Modal = ({
               {icon}
               {title}
             </div>
-            <button
+            <IconButton
+              icon={<IoClose size={24} />}
               onClick={onCancel ?? onClose}
-              className="text-gray-500 hover:text-gray-800 cursor-pointer"
-            >
-              <IoClose size={24} />
-            </button>
+              aria-label="بستن"
+            />
           </div>
         )}
         <div>{children}</div>

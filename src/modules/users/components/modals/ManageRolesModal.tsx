@@ -3,6 +3,7 @@ import { LuUserCog } from "react-icons/lu";
 import Card from "../CardComponent";
 import Modal from "../../../../components/Modal";
 import SVG from "../../../../components/SVG/SVG";
+import Button from "../../../../components/Button/Button";
 
 const clients = [
   { id: 1, name: "SuperAdmin" },
@@ -42,20 +43,17 @@ const ManageRolesModal = ({
             ))}
           </div>
           <div className="flex justify-end gap-2 mt-4">
-            <button
+            <Button
               type="submit"
+              variant="success"
               onClick={() => console.log("approved")}
-              className="bg-green-10 text-white w-full py-2 rounded-lg whitespace-nowrap cursor-pointer"
+              className="w-full justify-center"
             >
-              تایید
-            </button>
-            <button
-              type="button"
-              onClick={() => onClose()}
-              className="bg-gray-50 text-black-80 px-8 py-2 rounded-lg whitespace-nowrap cursor-pointer"
-            >
+              ذخیره
+            </Button>
+            <Button variant="ghost" onClick={() => onClose()}>
               انصراف
-            </button>
+            </Button>
           </div>
         </form>
       </Modal>

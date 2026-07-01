@@ -8,6 +8,7 @@ import type { Control, FieldPath } from "react-hook-form";
 import type { User } from "../../userTypes";
 import Modal from "../../../../components/Modal";
 import Switch from "../../../../components/Switch";
+import Button from "../../../../components/Button/Button";
 
 const schema = z.object({
   userName: z.string().min(3, "نام کاربری حداقل ۳ کاراکتر باشد"),
@@ -128,20 +129,18 @@ const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
 
         {/* Actions */}
         <div className="flex gap-2 mt-4">
-          <button
+          <Button
             type="submit"
+            variant="success"
             disabled={isSubmitting}
-            className="px-5 py-2 w-full rounded-lg bg-green-10 text-white disabled:opacity-50 cursor-pointer"
+            onClick={() => console.log("approved")}
+            className="w-full justify-center"
           >
             ذخیره
-          </button>
-          <button
-            type="button"
-            onClick={onCancel ?? onClose}
-            className="px-5 py-2 rounded-lg bg-gray-80 text-black-80 cursor-pointer"
-          >
+          </Button>
+          <Button variant="ghost" onClick={onCancel ?? onClose}>
             انصراف
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>

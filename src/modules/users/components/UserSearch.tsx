@@ -90,7 +90,7 @@ const UserSearch = ({ selectedUsers, onChange }: Props) => {
         onFocus={() => setIsOpen(true)}
         inputMode="numeric"
         placeholder="شماره تلفن را وارد کنید"
-        className="w-full text-gray-100 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-10"
+        className="w-full text-gray-100 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-0"
       />
 
       {showList && (

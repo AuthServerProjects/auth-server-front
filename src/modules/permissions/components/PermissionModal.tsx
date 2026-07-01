@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import Modal from "../../../components/Modal";
 import type { Permission } from "../permissionTypes";
+import Button from "../../../components/Button/Button";
 
 const schema = z.object({
   name: z.string().min(3, "نام مجوز حداقل ۳ کاراکتر باشد"),
@@ -56,9 +57,7 @@ const PermissionModal = ({ isEdit, onClose, permission, title }: Props) => {
             placeholder="فرمت: resource:action"
           />
           {errors.name && (
-            <p className="text-red-500 text-xs pt-2">
-              {errors.name.message}
-            </p>
+            <p className="text-red-500 text-xs pt-2">{errors.name.message}</p>
           )}
         </div>
         <div>
@@ -79,20 +78,17 @@ const PermissionModal = ({ isEdit, onClose, permission, title }: Props) => {
         </div>
 
         <div className="flex gap-2 mt-4">
-          <button
+          <Button
             type="submit"
+            variant="success"
             disabled={isSubmitting}
-            className="px-5 py-2 w-full rounded-lg bg-green-10 text-white disabled:opacity-50 cursor-pointer"
+            className="w-full justify-center"
           >
             ذخیره
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-5 py-2 rounded-lg bg-gray-80 text-black-80 cursor-pointer"
-          >
+          </Button>
+          <Button variant="ghost" onClick={onClose}>
             انصراف
-          </button>
+          </Button>
         </div>
       </form>
     </Modal>

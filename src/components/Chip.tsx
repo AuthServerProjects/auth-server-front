@@ -9,7 +9,7 @@ type ChipProps = {
 
 const Chip = ({ label, onRemove, variant = "success" }: ChipProps) => (
   <div
-    className={`flex items-center gap-1 text-xs rounded-md px-2 py-0.5 ${variantSoft[variant]}`}
+    className={`flex items-center gap-1 text-sm rounded-md px-2 py-0.5 ${variantSoft[variant]}`}
   >
     {onRemove && (
       <button
@@ -19,7 +19,7 @@ const Chip = ({ label, onRemove, variant = "success" }: ChipProps) => (
           onRemove();
         }}
         aria-label={`حذف ${label}`}
-        className="cursor-pointer"
+        className="cursor-pointer p-0.5"
       >
         <IoClose size={14} />
       </button>

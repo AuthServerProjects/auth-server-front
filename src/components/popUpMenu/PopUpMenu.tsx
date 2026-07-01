@@ -1,6 +1,7 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { FiMoreVertical } from "react-icons/fi";
 import type { PopUpMenuProps } from "./types";
+import IconButton from "../Button/IconButton";
 
 const PopUpMenu = ({
   items,
@@ -13,15 +14,12 @@ const PopUpMenu = ({
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
         {trigger ?? (
-          <button
-            type="button"
+          <IconButton
+            icon={<FiMoreVertical />}
             aria-label="منو"
             onClick={(e) => e.stopPropagation()}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-md text-gray-500 hover:bg-gray-50 
-            hover:text-gray-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-100 transition"
-          >
-            <FiMoreVertical />
-          </button>
+            className="w-8 h-8 justify-center"
+          />
         )}
       </DropdownMenu.Trigger>
 

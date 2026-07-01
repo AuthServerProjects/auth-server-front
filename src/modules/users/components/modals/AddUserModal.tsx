@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { IoClose } from "react-icons/io5";
 import { TbUsersPlus } from "react-icons/tb";
 
+import Chip from "../../../../components/Chip";
 import SVG from "../../../../components/SVG/SVG";
 import Modal from "../../../../components/Modal";
+import Button from "../../../../components/Button/Button";
 import UserSearch, { type UserOption } from "../UserSearch";
 
 type Props = {
@@ -48,53 +49,42 @@ const AddUserModal = ({ onClose, onAddNew, title }: Props) => {
           {selectedUsers.length !== 0 && (
             <div className="flex flex-wrap gap-2">
               {selectedUsers.map((user) => (
-                <div
+                <Chip
                   key={user.id}
-                  className="flex items-center justify-content bg-green-5 rounded-lg text-sm text-green-10 rounded-lg px-2 py-1"
-                >
-                  <span>{user.phoneNumber}</span>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setSelectedUsers((prev) =>
-                        prev.filter((u) => u.id !== user.id),
-                      )
-                    }
-                    className="hover:bg-green-10/10 rounded-full p-0.5 cursor-pointer"
-                  >
-                    <IoClose size={16} />
-                  </button>
-                </div>
+                  label={user.phoneNumber}
+                  variant="success"
+                  onRemove={() =>
+                    setSelectedUsers((prev) =>
+                      prev.filter((u) => u.id !== user.id),
+                    )
+                  }
+                />
               ))}
             </div>
           )}
         </div>
         <div className="space-y-6">
           <hr className="border-gray-50" />
-          <button
-            type="button"
+          <Button
+            variant="transparent"
             onClick={onAddNew}
-            className="flex justify-center gap-2 w-full border border-gray-100 text-gray-100 rounded-lg px-3 py-2 whitespace-nowrap cursor-pointer"
+            className="w-full justify-center border border-gray-"
           >
             <SVG name="AddIcon" />
             ایجاد کاربر جدید
-          </button>
-          <div className="flex gap-2">
-            <button
-              type="button"
+          </Button>
+          <div className="flex justify-end gap-2 mt-4">
+            <Button
+              type="submit"
+              variant="success"
               onClick={handleSubmit}
-              disabled={selectedUsers.length === 0 || submitting}
-              className="bg-green-10 text-white w-full py-2 rounded-lg whitespace-nowrap cursor-pointer disabled:opacity-50"
+              className="w-full justify-center"
             >
               {submitting ? "در حال ذخیره..." : "ذخیره"}
-            </button>
-            <button
-              type="button"
-              onClick={onClose}
-              className="bg-gray-50 text-black-80 px-8 py-2 rounded-lg whitespace-nowrap cursor-pointer"
-            >
+            </Button>
+            <Button variant="ghost" onClick={() => onClose()}>
               انصراف
-            </button>
+            </Button>
           </div>
         </div>
       </div>
