@@ -19,7 +19,12 @@ const Sidebar = () => {
       icon: <LuLayoutDashboard />,
       label: "داشبورد",
     },
-    { id: 2, href: "/users", icon: <FiUsers />, label: "کاربران" },
+    {
+      id: 2,
+      href: "/users?isFromClient=false",
+      icon: <FiUsers />,
+      label: "کاربران",
+    },
     { id: 3, href: "/clients", icon: <FiServer />, label: "کلاینت ها" },
     { id: 4, href: "/sessions", icon: <FiClock />, label: "نشست ها" },
   ];
@@ -31,7 +36,12 @@ const Sidebar = () => {
       icon: <LuLayoutDashboard />,
       label: "داشبورد",
     },
-    { id: 6, href: "/users", icon: <FiUsers />, label: "کاربران" },
+    {
+      id: 6,
+      href: "/users?isFromClient=true",
+      icon: <FiUsers />,
+      label: "کاربران",
+    },
     { id: 7, href: "/roles", icon: <LuUserCog />, label: "نقش ها" },
     { id: 8, href: "/permissions", icon: <LuKey />, label: "مجوزها" },
     { id: 9, href: "/sessions", icon: <FiClock />, label: "نشست ها" },

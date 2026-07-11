@@ -17,15 +17,19 @@ type ModalAction = {
 
 type Props = {
   user: User;
+  isFromClient: boolean;
 };
 
-const UserPopUpMenu = ({ user }: Props) => {
+const UserPopUpMenu = ({ user, isFromClient }: Props) => {
   const [openModal, setOpenModal] = useState<ModalAction>(null);
   const close = () => setOpenModal(null);
 
   const handleUnassign = () => {
-    console.log("unassigned!", openModal?.user.id);
-    // TODO: API call
+    if (isFromClient) {
+      console.log("unassigned!", openModal?.user.id);
+    } else {
+      console.log("remove!", openModal?.user.id);
+    }
     close();
   };
 
@@ -42,15 +46,19 @@ const UserPopUpMenu = ({ user }: Props) => {
       icon: <LuServer />,
       onClick: () => setOpenModal({ type: "assignClient", user }),
     },
+    ...(isFromClient
+      ? [
+          {
+            key: "roles",
+            label: "مدیریت نقش‌ها",
+            icon: <LuUserCog size={24} />,
+            onClick: () => setOpenModal({ type: "manageRoles", user }),
+          },
+        ]
+      : []),
     {
-      key: "roles",
-      label: "مدیریت نقش‌ها",
-      icon: <LuUserCog size={24} />,
-      onClick: () => setOpenModal({ type: "manageRoles", user }),
-    },
-    {
-      key: "unassignFromClient",
-      label: "حذف کاربر از کلاینت",
+      key: isFromClient ? "unassignFromClient" : "removeUser",
+      label: isFromClient ? "حذف کاربر از کلاینت" : "حذف کاربر",
       icon: <RiDeleteBin6Line />,
       onClick: () => setOpenModal({ type: "unassignFromClient", user }),
       danger: true,

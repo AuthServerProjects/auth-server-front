@@ -1,13 +1,15 @@
 import { useState } from "react";
+
 import type { User } from "../userTypes";
 import { getColumns } from "./UserTableColumns";
 import Table, { type SortState } from "../../../components/tables";
 
 type Props = {
   data: User[];
+  isFromClient: boolean;
 };
 
-const UsersTable = ({ data }: Props) => {
+const UsersTable = ({ data, isFromClient }: Props) => {
   const [page, setPage] = useState(1);
   const [sortBy, setSortBy] = useState<SortState>();
   const [users, setUsers] = useState<User[]>(data);
@@ -20,7 +22,7 @@ const UsersTable = ({ data }: Props) => {
     console.log("toggle", id, checked);
   };
 
-  const columns = getColumns(handleStatusChange);
+  const columns = getColumns(handleStatusChange, isFromClient);
 
   return (
     <Table<User>

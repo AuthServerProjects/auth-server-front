@@ -1,10 +1,11 @@
 import type { User } from "../userTypes";
-import type { Column } from "../../../components/tables";
-import Switch from "../../../components/Switch";
 import UserPopUpMenu from "./UserPopUpMenu";
+import Switch from "../../../components/Switch";
+import type { Column } from "../../../components/tables";
 
 export const getColumns = (
   onStatusChange: (id: number, checked: boolean) => void,
+  isFromClient: boolean,
 ): Column<User>[] => [
   {
     key: "id",
@@ -51,6 +52,8 @@ export const getColumns = (
     title: "عملیات",
     align: "center",
     width: 100,
-    render: (_, row) => <UserPopUpMenu user={row} />,
+    render: (_, row) => (
+      <UserPopUpMenu user={row} isFromClient={isFromClient} />
+    ),
   },
 ];

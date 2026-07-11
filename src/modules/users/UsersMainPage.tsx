@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiUsers } from "react-icons/fi";
+import { useSearchParams } from "react-router-dom";
 
 import { mockUsers } from "./usersData";
 import UsersTable from "./components/UsersTable";
@@ -11,6 +12,9 @@ import AddUserModal from "./components/modals/AddUserModal";
 type ActiveModal = "search" | "create" | null;
 
 const UsersMainPage = () => {
+  const [searchParams] = useSearchParams();
+  const isFromClient = searchParams.get("isFromClient") === "true";
+
   const [active, setActive] = useState<ActiveModal>(null);
 
   return (
@@ -43,7 +47,7 @@ const UsersMainPage = () => {
 
         <div className="flex flex-col w-full border border-gray-50 bg-white rounded-lg mt-4">
           <TablesHeader placeHolder="جستجو با نام کاربری" />
-          <UsersTable data={mockUsers} />
+          <UsersTable data={mockUsers} isFromClient={isFromClient} />
         </div>
       </div>
     </>
