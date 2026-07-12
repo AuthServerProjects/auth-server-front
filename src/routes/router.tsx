@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 
 import ErrorPage from "./ErrorPage";
 import RootLayout from "./RootLayout";
+import OtpPage from "../modules/auth/OtpPage";
+import LoginPage from "../modules/auth/LoginPage";
 import LogsMainPage from "../modules/log/LogsMainPage";
 import UsersMainPage from "../modules/users/UsersMainPage";
 import RolesMainPage from "../modules/roles/RolesMainPage";
@@ -12,6 +14,16 @@ import DashboardMainPage from "../modules/dashboard/DashboardMainPage";
 import PermissionsMainPage from "../modules/permissions/PermissionsMainPage";
 
 export const router = createBrowserRouter([
+  {
+    path: "login",
+    element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "login/verify",
+    element: <OtpPage />,
+    errorElement: <ErrorPage />,
+  },
   {
     path: "/",
     element: <RootLayout />,
