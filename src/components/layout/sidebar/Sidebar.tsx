@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { CgFileDocument } from "react-icons/cg";
 import { FiServer, FiClock, FiUsers } from "react-icons/fi";
 
-import SelectBox from "../../selectBox/SelectBox";
+import SelectBox, { type SelectOption } from "../../selectBox/SelectBox";
 
 const Sidebar = () => {
   const generalMenu = [
@@ -55,7 +55,9 @@ const Sidebar = () => {
   ];
 
   const [activeItem, setActiveItem] = useState<number | null>(null);
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
+    null,
+  );
 
   const navigate = useNavigate();
 
@@ -94,8 +96,9 @@ const Sidebar = () => {
 
           <SelectBox
             options={clientListOptions}
-            selectedOption={selectedOption}
-            setSelectedOption={setSelectedOption}
+            value={selectedOption}
+            onChange={setSelectedOption}
+            placeholder="انتخاب کلاینت"
           />
 
           <div className="pt-1.5">
