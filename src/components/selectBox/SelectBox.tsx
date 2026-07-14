@@ -1,5 +1,4 @@
 import { Command } from "cmdk";
-import { FiServer } from "react-icons/fi";
 import { LuChevronDown } from "react-icons/lu";
 import { useEffect, useRef, useState } from "react";
 
@@ -11,6 +10,7 @@ export type SelectOption = {
 type Props = {
   options: SelectOption[];
   value: SelectOption | null;
+  icon?: React.ReactNode;
   onChange: (option: SelectOption | null) => void;
   placeholder?: string;
   emptyText?: string;
@@ -20,6 +20,7 @@ type Props = {
 const SelectBox = ({
   options,
   value,
+  icon,
   onChange,
   placeholder = "انتخاب کنید",
   emptyText = "موردی یافت نشد",
@@ -67,17 +68,21 @@ const SelectBox = ({
       >
         <div className="flex items-center flex-1 min-w-0">
           {isOpen && searchable ? (
-            <Command.Input
-              value={query}
-              onValueChange={setQuery}
-              autoFocus
-              placeholder={value?.label ?? placeholder}
-              className="w-full text-sm text-gray-100 border border-white rounded-lg px-1 focus:outline-none focus:ring-0"
-            />
+            <div className="flex items-center gap-3 flex-1 min-w-0 text-gray-300">
+              {icon}
+              <Command.Input
+                value={query}
+                onValueChange={setQuery}
+                autoFocus
+                placeholder={value?.label ?? placeholder}
+                className="flex-1 min-w-0 text-sm text-gray-100 border border-white rounded-lg px-1 focus:outline-none focus:ring-0"
+              />
+            </div>
           ) : (
             <span
-              className={`text-sm ${value ? "text-gray-300" : "text-gray-70"}`}
+              className={`flex gap-3 text-sm ${value ? "text-gray-300" : "text-gray-70"}`}
             >
+              {icon}
               {value?.label ?? placeholder}
             </span>
           )}
@@ -114,7 +119,7 @@ const SelectBox = ({
                     isSelected ? "bg-gray-50 hover:bg-gray-50" : ""
                   }`}
                 >
-                  <FiServer size={18} />
+                  {icon}
                   <span>{opt.label}</span>
                 </Command.Item>
               );

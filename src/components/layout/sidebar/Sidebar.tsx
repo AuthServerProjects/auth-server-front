@@ -99,6 +99,7 @@ const Sidebar = () => {
             value={selectedOption}
             onChange={setSelectedOption}
             placeholder="انتخاب کلاینت"
+            icon={<FiServer size={18} />}
           />
 
           <div className="pt-1.5">
