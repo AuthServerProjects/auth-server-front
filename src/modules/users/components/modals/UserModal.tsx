@@ -27,9 +27,17 @@ type Props = {
   onCancel?: () => void;
   user?: User;
   title: string;
+  isFromClient?: boolean;
 };
 
-const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
+const UserModal = ({
+  isEdit,
+  onClose,
+  onCancel,
+  user,
+  title,
+  isFromClient,
+}: Props) => {
   const {
     register,
     handleSubmit,
@@ -109,21 +117,25 @@ const UserModal = ({ isEdit, onClose, onCancel, user, title }: Props) => {
 
           <div className="flex flex-col gap-3 item-start">
             <SwitchRow control={control} name="status" title="فعال" />
-            <SwitchRow
-              control={control}
-              name="notLocked"
-              title="حساب قفل نشده"
-            />
-            <SwitchRow
-              control={control}
-              name="notExpired"
-              title="حساب منقضی نشده"
-            />
-            <SwitchRow
-              control={control}
-              name="credentialsNotExpired"
-              title="اعتبارنامه منقضی نشده"
-            />
+            {isFromClient && (
+              <>
+                <SwitchRow
+                  control={control}
+                  name="notLocked"
+                  title="حساب قفل نشده"
+                />
+                <SwitchRow
+                  control={control}
+                  name="notExpired"
+                  title="حساب منقضی نشده"
+                />
+                <SwitchRow
+                  control={control}
+                  name="credentialsNotExpired"
+                  title="اعتبارنامه منقضی نشده"
+                />
+              </>
+            )}
           </div>
         </div>
 

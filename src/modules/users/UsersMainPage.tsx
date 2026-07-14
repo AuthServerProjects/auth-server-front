@@ -34,6 +34,7 @@ const UsersMainPage = () => {
           title="ایجاد کاربر"
           onClose={() => setActive(null)}
           onCancel={() => setActive("search")}
+           isFromClient={isFromClient}
         />
       )}
 
