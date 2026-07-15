@@ -1,3 +1,5 @@
+import type { BaseFilterDto } from "../../utils/types";
+
 export type User = {
   id: number;
   userName: string;
@@ -8,3 +10,8 @@ export type User = {
   credentialsNotExpired: boolean;
   roles: string[];
 };
+
+export interface UserFilter extends BaseFilterDto {
+  username?: string;
+  phoneNumber?: string;
+}
