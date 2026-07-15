@@ -5,15 +5,13 @@ import { SelectedClientProvider } from "../context/SelectedClientContext";
 
 const RootLayout = () => {
   return (
-    <>
-      <SelectedClientProvider>
-        <Header />
-        <div className="flex">
-          <Sidebar />
-          <Outlet />
-        </div>
-      </SelectedClientProvider>
-    </>
+    <SelectedClientProvider>
+      <Header />
+      <div className="flex">
+        <Sidebar />
+        <Outlet />
+      </div>
+    </SelectedClientProvider>
   );
 };
 
