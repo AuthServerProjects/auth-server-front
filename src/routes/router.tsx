@@ -15,12 +15,12 @@ import PermissionsMainPage from "../modules/permissions/PermissionsMainPage";
 
 export const router = createBrowserRouter([
   {
-    path: "login",
+    path: "auth/login",
     element: <LoginPage />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "login/verify",
+    path: "auth/verify",
     element: <OtpPage />,
     errorElement: <ErrorPage />,
   },

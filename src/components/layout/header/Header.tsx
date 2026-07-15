@@ -12,7 +12,7 @@ const Header = () => {
   const handleLogout = () => {
     // TODO: clear tokens / call logout API
     localStorage.removeItem("token");
-    navigate("/login");
+    navigate("auth/login");
   };
 
   const userMenuItems: PopUpMenuItem[] = [
