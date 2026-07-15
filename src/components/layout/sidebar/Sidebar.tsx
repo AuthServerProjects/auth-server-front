@@ -4,12 +4,15 @@ import {
   LuUserCog,
   LuBuilding2,
 } from "react-icons/lu";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CgFileDocument } from "react-icons/cg";
 import { FiServer, FiClock, FiUsers } from "react-icons/fi";
 
 import SelectBox, { type SelectOption } from "../../selectBox/SelectBox";
+import { useSelectedClient } from "../../../context/SelectedClientContext";
+import { clientService } from "../../../modules/clients/clientService";
+import type { ClientDropdown } from "../../../modules/clients/clientTypes";
 
 const Sidebar = () => {
   const generalMenu = [
@@ -48,22 +51,48 @@ const Sidebar = () => {
     { id: 10, href: "/logs", icon: <CgFileDocument />, label: "لاگ ها" },
   ];
 
-  const clientListOptions = [
-    { value: "Wallet", label: "Wallet" },
-    { value: "MyBpm", label: "MyBpm" },
-    { value: "PolPay", label: "PolPay" },
-  ];
-
   const [activeItem, setActiveItem] = useState<number | null>(null);
-  const [selectedOption, setSelectedOption] = useState<SelectOption | null>(
-    null,
-  );
+  const [clients, setClients] = useState<ClientDropdown[]>([]);
+  const { selectedClient, setSelectedClient } = useSelectedClient();
 
   const navigate = useNavigate();
+
+  // Load the admin's clients for the dropdown
+  useEffect(() => {
+    clientService
+      .getMyClients()
+      .then(setClients)
+      .catch((err) => console.error("failed to load clients", err));
+  }, []);
 
   const handleChangeRoute = (id: number, href: string) => {
     setActiveItem(id);
     navigate(href);
+  };
+
+  // Build dropdown options from real API data
+  const clientListOptions: SelectOption[] = clients.map((c) => ({
+    value: String(c.clientId),
+    label: c.clientName,
+  }));
+
+  // Map context -> SelectBox value
+  const selectedOption: SelectOption | null = selectedClient
+    ? {
+        value: String(selectedClient.clientId),
+        label: selectedClient.clientName,
+      }
+    : null;
+
+  const handleClientChange = (option: SelectOption | null) => {
+    if (!option) {
+      setSelectedClient(null);
+      return;
+    }
+    setSelectedClient({
+      clientId: Number(option.value),
+      clientName: option.label,
+    });
   };
 
   return (
@@ -97,7 +126,7 @@ const Sidebar = () => {
           <SelectBox
             options={clientListOptions}
             value={selectedOption}
-            onChange={setSelectedOption}
+            onChange={handleClientChange}
             placeholder="انتخاب کلاینت"
             icon={<FiServer size={18} />}
           />

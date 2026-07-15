@@ -51,3 +51,8 @@ export type Client = {
   isEnabled: boolean;
   setting: ClientSetting;
 };
+
+export type ClientDropdown = {
+  clientId: number; // DB id
+  clientName: string;
+};

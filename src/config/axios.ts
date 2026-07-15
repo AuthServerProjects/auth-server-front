@@ -15,7 +15,6 @@ const api: AxiosInstance = axios.create({
   timeout: 15000,
 });
 
-// Attach token to every request
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const isLoginCall = config.url?.includes("/auth/login");
   const token = isLoginCall
@@ -27,8 +26,18 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   } else {
     delete config.headers.Authorization;
   }
+
+  // Attach selected client DB id for per-client endpoints
+  const clientDbId = localStorage.getItem("selected_client_db_id");
+  if (clientDbId) {
+    config.headers["X-Client-Db-Id"] = clientDbId;
+  } else {
+    delete config.headers["X-Client-Db-Id"];
+  }
+
   return config;
 });
+
 
 // Handle auth failures globally
 api.interceptors.response.use(

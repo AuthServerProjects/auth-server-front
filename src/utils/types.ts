@@ -5,15 +5,15 @@ export type ResponseDto<T> = {
   responses: T;
 };
 
-export type PageableRequestDto<F> = {
+export type PageableRequest<T> = {
   pageNumber?: number;
   pageSize?: number;
   sortBy?: string;
   sortDirection?: "ASC" | "DESC";
-  filters?: F;
+  filters?: T;
 };
 
-export type PageableResponseDto<T> = {
+export type PageableResponse<T> = {
   content: T[];
   totalElements: number;
   totalPages: number;
