@@ -1,23 +1,35 @@
 import { useState } from "react";
 import type { Role } from "../roleTypes";
+import { roleService } from "../roleService";
 import { getColumns } from "./RoleTableColumns";
 import Table, { type SortState } from "../../../components/tables";
 
 type Props = {
   data: Role[];
+  total: number;
+  loading: boolean;
+  page: number;
+  onPageChange: (page: number) => void;
+  onRefresh: () => void;
 };
 
-const RolesTable = ({ data }: Props) => {
-  const [page, setPage] = useState(1);
+const RolesTable = ({
+  data,
+  total,
+  loading,
+  page,
+  onPageChange,
+  onRefresh,
+}: Props) => {
   const [sortBy, setSortBy] = useState<SortState>();
-  const [roles, setRoles] = useState<Role[]>(data);
 
-  const handleStatusChange = (id: number, checked: boolean) => {
-    setRoles((prev) =>
-      prev.map((row) => (row.id === id ? { ...row, status: checked } : row)),
-    );
-    // TODO: API call here
-    console.log("toggle", id, checked);
+  const handleStatusChange = async (id: number) => {
+    try {
+      await roleService.toggleStatus(id);
+      onRefresh();
+    } catch (err) {
+      console.error("toggle failed", err);
+    }
   };
 
   const columns = getColumns(handleStatusChange);
@@ -25,17 +37,18 @@ const RolesTable = ({ data }: Props) => {
   return (
     <Table<Role>
       columns={columns}
-      data={roles}
+      data={data}
       rowKey="id"
       striped
+      loading={loading}
       sortBy={sortBy}
       onSortChange={setSortBy}
       onRowClick={(row) => console.log("clicked", row)}
       pagination={{
         page,
         pageSize: 10,
-        total: 42,
-        onChange: setPage,
+        total,
+        onChange: onPageChange,
         showSizeChanger: true,
         onPageSizeChange: (s) => console.log(s),
       }}

@@ -4,7 +4,7 @@ import Switch from "../../../components/Switch";
 import type { Column } from "../../../components/tables";
 
 export const getColumns = (
-  onStatusChange: (id: number, checked: boolean) => void,
+  onStatusChange: (id: number) => void,
 ): Column<Role>[] => [
   {
     key: "id",
@@ -14,20 +14,20 @@ export const getColumns = (
     align: "center",
   },
   {
-    key: "roleName",
+    key: "name",
     title: "نام نقش",
-    dataIndex: "roleName",
+    dataIndex: "name",
   },
   {
-    key: "status",
+    key: "isEnabled",
     title: "وضعیت",
-    dataIndex: "status",
+    dataIndex: "isEnabled",
     align: "center",
     render: (value, record) => (
       <Switch
         label={value ? "فعال" : "غیرفعال"}
         checked={value}
-        onCheckedChange={(checked) => onStatusChange(record.id, checked)}
+        onCheckedChange={() => onStatusChange(record.id)}
       />
     ),
   },
@@ -35,6 +35,7 @@ export const getColumns = (
     key: "permissions",
     title: "مجوزها",
     dataIndex: "permissions",
+    render: (value) => (Array.isArray(value) ? value.length : 0),
   },
   {
     key: "action",
