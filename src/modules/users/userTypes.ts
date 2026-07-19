@@ -1,4 +1,4 @@
-import type { BaseFilterDto } from "../../utils/types";
+import type { BaseFilter } from "../../utils/types";
 
 export type User = {
   id: number;
@@ -11,7 +11,7 @@ export type User = {
   roles: string[];
 };
 
-export interface UserFilter extends BaseFilterDto {
+export interface UserFilter extends BaseFilter {
   username?: string;
   phoneNumber?: string;
 }

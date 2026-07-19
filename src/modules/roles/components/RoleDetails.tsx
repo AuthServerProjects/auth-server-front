@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { useState, useMemo } from "react";
-import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
@@ -14,98 +13,7 @@ import Box from "../../../components/Box/Box";
 import PermissionsBoxList from "./PermissionsBoxList";
 import Button from "../../../components/Button/Button";
 
-const mockGroups: PermissionGroup[] = [
-  {
-    name: "Audit",
-    permissions: [
-      { id: 1, name: "audit:read", description: "View audit logs" },
-    ],
-  },
-  {
-    name: "Client1",
-    permissions: [
-      { id: 2, name: "client:create", description: "Create clients" },
-      { id: 3, name: "client:delete", description: "Delete/disable clients" },
-      { id: 4, name: "client:read", description: "View clients" },
-      {
-        id: 5,
-        name: "client:regenerate_secret",
-        description: "Regenerate client secret",
-      },
-      { id: 6, name: "client:update", description: "Update clients" },
-    ],
-  },
-  {
-    name: "Client2",
-    permissions: [
-      { id: 7, name: "client:create", description: "Create clients" },
-      { id: 8, name: "client:delete", description: "Delete/disable clients" },
-      { id: 9, name: "client:read", description: "View clients" },
-      {
-        id: 10,
-        name: "client:regenerate_secret",
-        description: "Regenerate client secret",
-      },
-      { id: 11, name: "client:update", description: "Update clients" },
-    ],
-  },
-  {
-    name: "Client3",
-    permissions: [
-      { id: 12, name: "client:create", description: "Create clients" },
-      { id: 13, name: "client:delete", description: "Delete/disable clients" },
-      { id: 14, name: "client:read", description: "View clients" },
-      {
-        id: 15,
-        name: "client:regenerate_secret",
-        description: "Regenerate client secret",
-      },
-      { id: 16, name: "client:update", description: "Update clients" },
-    ],
-  },
-  {
-    name: "Client4",
-    permissions: [
-      { id: 17, name: "client:create", description: "Create clients" },
-      { id: 18, name: "client:delete", description: "Delete/disable clients" },
-      { id: 19, name: "client:read", description: "View clients" },
-      {
-        id: 20,
-        name: "client:regenerate_secret",
-        description: "Regenerate client secret",
-      },
-      { id: 21, name: "client:update", description: "Update clients" },
-    ],
-  },
-  {
-    name: "Client5",
-    permissions: [
-      { id: 22, name: "client:create", description: "Create clients" },
-      { id: 23, name: "client:delete", description: "Delete/disable clients" },
-      { id: 24, name: "client:read", description: "View clients" },
-      {
-        id: 25,
-        name: "client:regenerate_secret",
-        description: "Regenerate client secret",
-      },
-      { id: 26, name: "client:update", description: "Update clients" },
-    ],
-  },
-  {
-    name: "Client6",
-    permissions: [
-      { id: 27, name: "client:create", description: "Create clients" },
-      { id: 28, name: "client:delete", description: "Delete/disable clients" },
-      { id: 29, name: "client:read", description: "View clients" },
-      {
-        id: 30,
-        name: "client:regenerate_secret",
-        description: "Regenerate client secret",
-      },
-      { id: 31, name: "client:update", description: "Update clients" },
-    ],
-  },
-];
+const mockGroups: PermissionGroup[] = [];
 
 const schema = z.object({
   roleName: z.string().min(3, "نام نقش حداقل ۳ کاراکتر باشد"),

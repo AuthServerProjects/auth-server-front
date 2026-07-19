@@ -1,4 +1,4 @@
-export type ResponseDto<T> = {
+export type Response<T> = {
   success: boolean;
   error: string | null;
   message: string;
@@ -21,6 +21,6 @@ export type PageableResponse<T> = {
   pageSize: number;
 };
 
-export type BaseFilterDto = {
+export type BaseFilter = {
   isEnabled?: boolean;
 };

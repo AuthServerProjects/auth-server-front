@@ -28,7 +28,7 @@ export const columns: Column<Session>[] = [
     dataIndex: "status",
     align: "center",
     render: (value) => {
-      const isActive = value === "active";
+      const isActive = value === "Success";
       return (
         <Badge
           variant={isActive ? "success" : "danger"}

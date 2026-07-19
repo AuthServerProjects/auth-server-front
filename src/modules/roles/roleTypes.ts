@@ -1,3 +1,4 @@
+import type { BaseFilter } from "../../utils/types";
 import type { Permission } from "../permissions/permissionTypes";
 
 export type Role = {
@@ -10,9 +11,6 @@ export type Role = {
 
 export type RoleRequest = Omit<Partial<Role>, "name"> & { name: string };
 
-export type RoleFilter = {
+export interface RoleFilter extends BaseFilter {
   name?: string;
-  isEnabled?: boolean;
-  clientId?: number;
-  client?: string;
-};
+}

@@ -1,5 +1,5 @@
 import type {
-  ResponseDto,
+  Response,
   PageableRequest,
   PageableResponse,
 } from "../../utils/types";
@@ -13,7 +13,7 @@ export const roleService = {
   findAll: async (
     request: PageableRequest<RoleFilter>,
   ): Promise<PageableResponse<Role>> => {
-    const { data } = await api.post<ResponseDto<PageableResponse<Role>>>(
+    const { data } = await api.post<Response<PageableResponse<Role>>>(
       `${ROLE}/findAll`,
       request,
     );
@@ -22,22 +22,19 @@ export const roleService = {
 
   // GET /role/find/{id}
   findById: async (id: number): Promise<Role> => {
-    const { data } = await api.get<ResponseDto<Role>>(`${ROLE}/find/${id}`);
+    const { data } = await api.get<Response<Role>>(`${ROLE}/find/${id}`);
     return data.responses;
   },
 
   // POST /role/save
   save: async (request: RoleRequest): Promise<string> => {
-    const { data } = await api.post<ResponseDto<string>>(
-      `${ROLE}/save`,
-      request,
-    );
+    const { data } = await api.post<Response<string>>(`${ROLE}/save`, request);
     return data.responses;
   },
 
   // PUT /role/update/{id}
   update: async (id: number, request: RoleRequest): Promise<string> => {
-    const { data } = await api.put<ResponseDto<string>>(
+    const { data } = await api.put<Response<string>>(
       `${ROLE}/update/${id}`,
       request,
     );
@@ -46,7 +43,7 @@ export const roleService = {
 
   // PATCH /role/toggleStatus/{id}
   toggleStatus: async (id: number): Promise<boolean> => {
-    const { data } = await api.patch<ResponseDto<boolean>>(
+    const { data } = await api.patch<Response<boolean>>(
       `${ROLE}/toggleStatus/${id}`,
     );
     return data.responses;
@@ -54,9 +51,7 @@ export const roleService = {
 
   // DELETE /role/delete/{id}
   delete: async (id: number): Promise<string> => {
-    const { data } = await api.delete<ResponseDto<string>>(
-      `${ROLE}/delete/${id}`,
-    );
+    const { data } = await api.delete<Response<string>>(`${ROLE}/delete/${id}`);
     return data.responses;
   },
 
@@ -65,7 +60,7 @@ export const roleService = {
     roleId: number,
     permissionId: number,
   ): Promise<string> => {
-    const { data } = await api.post<ResponseDto<string>>(
+    const { data } = await api.post<Response<string>>(
       `${ROLE}/${roleId}/addPermission/${permissionId}`,
     );
     return data.responses;
@@ -76,7 +71,7 @@ export const roleService = {
     roleId: number,
     permissionId: number,
   ): Promise<string> => {
-    const { data } = await api.delete<ResponseDto<string>>(
+    const { data } = await api.delete<Response<string>>(
       `${ROLE}/${roleId}/removePermission/${permissionId}`,
     );
     return data.responses;
