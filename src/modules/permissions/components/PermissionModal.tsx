@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Modal from "../../../components/Modal";
 import type { Permission } from "../permissionTypes";
 import Button from "../../../components/Button/Button";
+import { permissionService } from "../permissionService";
+import { useSelectedClient } from "../../../context/SelectedClientContext";
 
 const schema = z.object({
   name: z.string().min(3, "نام مجوز حداقل ۳ کاراکتر باشد"),
@@ -19,13 +21,21 @@ type Props = {
   onClose: () => void;
   permission?: Permission;
   title: string;
+  onSaved?: () => void;
 };
 
-const PermissionModal = ({ isEdit, onClose, permission, title }: Props) => {
+const PermissionModal = ({
+  isEdit,
+  onClose,
+  permission,
+  title,
+  onSaved,
+}: Props) => {
+  const { selectedClient } = useSelectedClient();
+
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
@@ -35,13 +45,25 @@ const PermissionModal = ({ isEdit, onClose, permission, title }: Props) => {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    if (isEdit) {
-      console.log("edit", { ...permission, ...data });
-    } else {
-      console.log("create", data);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      if (isEdit && permission) {
+        await permissionService.update(permission.id, {
+          name: data.name,
+          description: data.description,
+        });
+      } else {
+        await permissionService.save({
+          name: data.name,
+          description: data.description,
+          clientId: selectedClient?.clientId ?? null,
+        });
+      }
+      onSaved?.();
+      onClose();
+    } catch (err) {
+      console.error("save permission failed", err);
     }
-    onClose();
   };
 
   return (

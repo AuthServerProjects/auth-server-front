@@ -3,6 +3,7 @@ import { LuPencil } from "react-icons/lu";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 import type { Permission } from "../permissionTypes";
+import { permissionService } from "../permissionService";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
@@ -15,16 +16,26 @@ type ModalAction = {
 
 type Props = {
   permission: Permission;
+  onChanged?: () => void;
 };
 
-const PermissionPopUpMenu = ({ permission }: Props) => {
+const PermissionPopUpMenu = ({ permission, onChanged }: Props) => {
   const [openModal, setOpenModal] = useState<ModalAction>(null);
+  const [deleting, setDeleting] = useState(false);
   const close = () => setOpenModal(null);
 
-  const handleRemove = () => {
-    console.log("remove permission!", openModal?.permission.id);
-    // TODO: API call
-    close();
+  const handleRemove = async () => {
+    if (!openModal) return;
+    setDeleting(true);
+    try {
+      await permissionService.delete(openModal.permission.id);
+      close();
+      onChanged?.();
+    } catch (err) {
+      console.error("remove permission failed", err);
+    } finally {
+      setDeleting(false);
+    }
   };
 
   const items: PopUpMenuItem[] = [
@@ -52,6 +63,7 @@ const PermissionPopUpMenu = ({ permission }: Props) => {
           onClose={close}
           permission={openModal.permission}
           title="ویرایش مجوز"
+          onSaved={onChanged}
         />
       )}
       {openModal?.type === "removePermission" && (
@@ -61,12 +73,11 @@ const PermissionPopUpMenu = ({ permission }: Props) => {
           title="حذف مجوز"
           description={
             <p>
-              آیا از حذف مجوز{" "}
-              <strong>{openModal.permission.name}</strong> مطمئن
+              آیا از حذف مجوز <strong>{openModal.permission.name}</strong> مطمئن
               هستید؟
             </p>
           }
-          confirmText="حذف"
+          confirmText={deleting ? "در حال حذف..." : "حذف"}
           onConfirm={handleRemove}
           onClose={close}
         />
