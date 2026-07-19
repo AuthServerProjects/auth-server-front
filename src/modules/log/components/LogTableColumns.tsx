@@ -1,6 +1,7 @@
 import type { Log } from "../logTypes";
-import type { Column } from "../../../components/tables";
 import Badge from "../../../components/Badge/Badge";
+import type { Column } from "../../../components/tables";
+import { renderDate } from "../../../utils/convertDateToPersian";
 
 export const columns: Column<Log>[] = [
   {
@@ -11,9 +12,9 @@ export const columns: Column<Log>[] = [
     align: "center",
   },
   {
-    key: "user",
+    key: "username",
     title: "کاربر",
-    dataIndex: "user",
+    dataIndex: "username",
   },
   {
     key: "action",
@@ -21,29 +22,27 @@ export const columns: Column<Log>[] = [
     dataIndex: "action",
   },
   {
-    key: "IpAddress",
+    key: "ipAddress",
     title: "آدرس IP",
-    dataIndex: "IpAddress",
+    dataIndex: "ipAddress",
     sortable: true,
   },
   {
-    key: "time",
+    key: "createdAt",
     title: "زمان",
-    dataIndex: "time",
+    dataIndex: "createdAt",
+    render: (value) => renderDate(value),
   },
   {
-    key: "status",
+    key: "success",
     title: "وضعیت",
-    dataIndex: "status",
-    render: (value) => {
-      const isSuccess = value === "Success";
-      return (
-        <Badge
-          variant={isSuccess ? "success" : "danger"}
-          label={isSuccess ? "موفق" : "ناموفق"}
-        />
-      );
-    },
+    dataIndex: "success",
+    render: (value) => (
+      <Badge
+        variant={value ? "success" : "danger"}
+        label={value ? "موفق" : "ناموفق"}
+      />
+    ),
   },
   {
     key: "details",
