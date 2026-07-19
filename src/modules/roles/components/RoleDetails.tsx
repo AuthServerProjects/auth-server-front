@@ -1,23 +1,25 @@
 import { z } from "zod";
-import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
+import { useState, useMemo, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
+import type { Role } from "../roleTypes";
 import type {
   Permission,
   PermissionGroup,
 } from "../../permissions/permissionTypes";
 import Chip from "../../../components/Chip";
+import { roleService } from "../roleService";
 import Box from "../../../components/Box/Box";
 import PermissionsBoxList from "./PermissionsBoxList";
 import Button from "../../../components/Button/Button";
-
-const mockGroups: PermissionGroup[] = [];
+import { permissionService } from "../../permissions/permissionService";
+import { useSelectedClient } from "../../../context/SelectedClientContext";
 
 const schema = z.object({
-  roleName: z.string().min(3, "نام نقش حداقل ۳ کاراکتر باشد"),
-  status: z.boolean(),
+  name: z.string().min(3, "نام نقش حداقل ۳ کاراکتر باشد"),
+  isEnabled: z.boolean(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -26,6 +28,9 @@ const RoleDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { state } = useLocation();
+  const { selectedClient } = useSelectedClient();
+
+  const role = (state?.role as Role | undefined) ?? undefined;
   const isEdit = params.type === "edit";
 
   const {
@@ -35,26 +40,55 @@ const RoleDetails = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      roleName: state?.role?.roleName ?? "",
-      status: state?.role?.status ?? false,
+      name: role?.name ?? "",
+      isEnabled: role?.isEnabled ?? true,
     },
   });
 
+  const [permissions, setPermissions] = useState<Permission[]>([]);
   const [selectedPermissions, setSelectedPermissions] = useState<Permission[]>(
     [],
   );
 
-  const allPermissions = useMemo(
-    () => mockGroups.flatMap((g) => g.permissions),
-    [],
+  // Load all permissions of the selected client for the picker
+  useEffect(() => {
+    if (!selectedClient) return;
+    permissionService
+      .findAll({
+        pageNumber: 0,
+        pageSize: 100,
+        sortBy: "id",
+        sortDirection: "ASC",
+        filters: {},
+      })
+      .then((res) => setPermissions(res.content))
+      .catch((err) => console.error("failed to load permissions", err));
+  }, [selectedClient]);
+
+  // On edit, prefill selected permissions from the role (fetch full role by id)
+  useEffect(() => {
+    if (isEdit && role?.id) {
+      roleService
+        .findById(role.id)
+        .then((full) => setSelectedPermissions(full.permissions ?? []))
+        .catch((err) => console.error("failed to load role", err));
+    }
+  }, [isEdit, role?.id]);
+
+  // Wrap the flat permission list into a single group for PermissionsBoxList
+  const groups: PermissionGroup[] = useMemo(
+    () =>
+      permissions.length > 0
+        ? [{ name: selectedClient?.clientName ?? "مجوزها", permissions }]
+        : [],
+    [permissions, selectedClient],
   );
 
   const allSelected =
-    allPermissions.length > 0 &&
-    selectedPermissions.length === allPermissions.length;
+    permissions.length > 0 && selectedPermissions.length === permissions.length;
 
   const toggleAll = () => {
-    setSelectedPermissions(allSelected ? [] : allPermissions);
+    setSelectedPermissions(allSelected ? [] : permissions);
   };
 
   const clearAll = () => setSelectedPermissions([]);
@@ -63,12 +97,23 @@ const RoleDetails = () => {
     setSelectedPermissions((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const onSubmit = (data: FormValues) => {
-    const payload = { ...data, permissions: selectedPermissions };
-    if (isEdit) {
-      console.log("edit", { ...state.role, ...payload });
-    } else {
-      console.log("create", payload);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const payload = {
+        name: data.name,
+        isEnabled: data.isEnabled,
+        clientId: selectedClient?.clientId ?? null,
+        permissions: selectedPermissions,
+      };
+
+      if (isEdit && role?.id) {
+        await roleService.update(role.id, payload);
+      } else {
+        await roleService.save(payload);
+      }
+      navigate("/roles");
+    } catch (err) {
+      console.error("save role failed", err);
     }
   };
 
@@ -82,14 +127,12 @@ const RoleDetails = () => {
           <div>
             <h3 className="flex text-black-100 mb-3">نام نقش</h3>
             <input
-              {...register("roleName")}
+              {...register("name")}
               placeholder="فرمت: resource:action"
               className="w-full text-gray-600 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-gray-70"
             />
-            {errors.roleName && (
-              <p className="text-red-500 text-xs pt-2">
-                {errors.roleName.message}
-              </p>
+            {errors.name && (
+              <p className="text-red-500 text-xs pt-2">{errors.name.message}</p>
             )}
           </div>
 
@@ -160,7 +203,7 @@ const RoleDetails = () => {
               hover:scrollbar-thumb-gray-80 scrollbar-thumb-rounded-full"
           >
             <PermissionsBoxList
-              groups={mockGroups}
+              groups={groups}
               selected={selectedPermissions}
               onChange={setSelectedPermissions}
             />
