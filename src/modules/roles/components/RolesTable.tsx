@@ -32,7 +32,7 @@ const RolesTable = ({
     }
   };
 
-  const columns = getColumns(handleStatusChange);
+  const columns = getColumns(handleStatusChange, onRefresh);
 
   return (
     <Table<Role>

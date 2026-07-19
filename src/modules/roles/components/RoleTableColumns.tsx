@@ -5,6 +5,7 @@ import type { Column } from "../../../components/tables";
 
 export const getColumns = (
   onStatusChange: (id: number) => void,
+  onDeleted: () => void,
 ): Column<Role>[] => [
   {
     key: "id",
@@ -42,6 +43,6 @@ export const getColumns = (
     title: "عملیات",
     align: "center",
     width: 100,
-    render: (_, row) => <RolePopUpMenu role={row} />,
+    render: (_, row) => <RolePopUpMenu role={row} onDeleted={onDeleted} />,
   },
 ];

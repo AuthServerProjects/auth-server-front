@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 import type { Role } from "../roleTypes";
+import { roleService } from "../roleService";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
@@ -15,19 +16,29 @@ type ModalAction = {
 
 type Props = {
   role: Role;
+  onDeleted?: () => void;
 };
 
-const RolePopUpMenu = ({ role }: Props) => {
+const RolePopUpMenu = ({ role, onDeleted }: Props) => {
   const [openModal, setOpenModal] = useState<ModalAction>(null);
+  const [deleting, setDeleting] = useState(false);
   const close = () => setOpenModal(null);
 
-  const handleRemove = () => {
-    console.log("remove role!", openModal?.role.id);
-    // TODO: API call
-    close();
-  };
-
   const navigate = useNavigate();
+
+  const handleRemove = async () => {
+    if (!openModal) return;
+    setDeleting(true);
+    try {
+      await roleService.delete(openModal.role.id);
+      close();
+      onDeleted?.();
+    } catch (err) {
+      console.error("remove role failed", err);
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   const items: PopUpMenuItem[] = [
     {
@@ -55,11 +66,10 @@ const RolePopUpMenu = ({ role }: Props) => {
           title="حذف نقش"
           description={
             <p>
-              آیا از حذف مجوز <strong>{openModal.role.roleName}</strong> مطمئن
-              هستید؟
+              آیا از حذف نقش <strong>{openModal.role.name}</strong> مطمئن هستید؟
             </p>
           }
-          confirmText="حذف"
+          confirmText={deleting ? "در حال حذف..." : "حذف"}
           onConfirm={handleRemove}
           onClose={close}
         />
