@@ -1,11 +1,20 @@
 import { FaRegMoon } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";
+import { HiOutlineLockClosed } from "react-icons/hi";
 import { LuArrowLeft, LuArrowRight } from "react-icons/lu";
 import { useNavigate, useLocation, Navigate } from "react-router-dom";
 
 import bpmLogo from "../../assets/BPM.svg";
+
+import {
+  ADMIN_PANEL_CLIENT_ID,
+  ADMIN_PANEL_REDIRECT_URI,
+  PKCE_VERIFIER_KEY,
+  OAUTH_STATE_KEY,
+} from "./authConfig";
+import { authService } from "./authService";
+import { setCookie } from "../../utils/cookies";
 import Button from "../../components/Button/Button";
-import { HiOutlineLockClosed } from "react-icons/hi";
 
 const OTP_LENGTH = 6;
 const RESEND_SECONDS = 90;
@@ -81,7 +90,6 @@ const OtpPage = () => {
     const focusIndex = Math.min(pasted.length, OTP_LENGTH - 1);
     inputsRef.current[focusIndex]?.focus();
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const code = digits.join("");
@@ -90,11 +98,45 @@ const OtpPage = () => {
       return;
     }
     setIsSubmitting(true);
+    setError(null);
     try {
-      console.log("verify", { phoneNumber, code });
-      localStorage.setItem("token", "demo-token");
+      // 1) verify OTP -> get authorization code
+      const verifyRes = await authService.verifyOtp({
+        phoneNumber: phoneNumber!,
+        otp: code,
+        state: sessionStorage.getItem(OAUTH_STATE_KEY) || "",
+      });
+
+      // 2) CSRF: returned state must match what we sent
+      const savedState = sessionStorage.getItem(OAUTH_STATE_KEY);
+      if (verifyRes.state !== savedState) {
+        setError("خطای امنیتی (state نامعتبر)");
+        return;
+      }
+
+      // 3) exchange authorization code -> access token (PKCE)
+      const codeVerifier = sessionStorage.getItem(PKCE_VERIFIER_KEY) ?? "";
+      const token = await authService.exchangeToken({
+        code: verifyRes.authorizationCode,
+        redirectUri: verifyRes.redirectUri || ADMIN_PANEL_REDIRECT_URI,
+        clientId: ADMIN_PANEL_CLIENT_ID,
+        codeVerifier,
+      });
+
+      // 4) store token (cookie — matches axios interceptor; later: httpOnly from backend)
+      setCookie("access_token", token.access_token, {
+        days: token.expires_in / 86400, // expires_in is seconds -> days
+        sameSite: "Lax",
+      });
+
+      // 5) cleanup PKCE + state
+      sessionStorage.removeItem(PKCE_VERIFIER_KEY);
+      sessionStorage.removeItem(OAUTH_STATE_KEY);
+
+      // 6) go to dashboard
       navigate("/dashboard", { replace: true });
-    } catch {
+    } catch (err) {
+      console.error("verify failed", err);
       setError("کد وارد شده صحیح نیست");
     } finally {
       setIsSubmitting(false);

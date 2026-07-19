@@ -7,8 +7,21 @@ import { HiOutlineLockClosed } from "react-icons/hi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LuPhone, LuArrowLeft } from "react-icons/lu";
 
+import {
+  ADMIN_PANEL_CLIENT_ID,
+  ADMIN_PANEL_REDIRECT_URI,
+  ADMIN_PANEL_SCOPE,
+  PKCE_VERIFIER_KEY,
+  OAUTH_STATE_KEY,
+} from "./authConfig";
+import { authService } from "./authService";
 import bpmLogo from "../../assets/BPM.svg";
 import Button from "../../components/Button/Button";
+import {
+  generateCodeVerifier,
+  generateCodeChallenge,
+  generateState,
+} from "./pkce";
 
 const phoneSchema = z.object({
   phoneNumber: z
@@ -33,9 +46,30 @@ const LoginPage = () => {
   });
 
   const onSubmit = async (data: PhoneForm) => {
-    console.log("send code to", data.phoneNumber);
-    setPhoneNumber(data.phoneNumber);
-    navigate("/login/verify", { state: { phoneNumber: data.phoneNumber } });
+    try {
+      const phoneNumber = "98" + data.phoneNumber.slice(1);
+
+      // PKCE + state
+      const codeVerifier = generateCodeVerifier();
+      const codeChallenge = await generateCodeChallenge(codeVerifier);
+      const state = generateState();
+      sessionStorage.setItem(PKCE_VERIFIER_KEY, codeVerifier);
+      sessionStorage.setItem(OAUTH_STATE_KEY, state);
+
+      await authService.sendOtp({
+        phoneNumber,
+        state,
+        clientId: ADMIN_PANEL_CLIENT_ID,
+        redirectUri: ADMIN_PANEL_REDIRECT_URI,
+        codeChallenge,
+        codeChallengeMethod: "S256",
+        scope: ADMIN_PANEL_SCOPE,
+      });
+
+      navigate("/auth/verify", { state: { phoneNumber } });
+    } catch (err) {
+      console.error("send otp failed", err);
+    }
   };
 
   return (
