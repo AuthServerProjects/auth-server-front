@@ -1,10 +1,9 @@
 import type { Session } from "../sessionTypes";
-import Badge from "../../../components/Badge/Badge";
 import SessionPopUpMenu from "./SessionPopUpMenu";
 import type { Column } from "../../../components/tables";
 import { renderDate } from "../../../utils/convertDateToPersian";
 
-export const columns: Column<Session>[] = [
+export const getColumns = (onRefresh: () => void): Column<Session>[] => [
   {
     key: "id",
     title: "شناسه",
@@ -13,29 +12,14 @@ export const columns: Column<Session>[] = [
     align: "center",
   },
   {
-    key: "userName",
+    key: "principalName",
     title: "نام کاربری",
-    dataIndex: "userName",
+    dataIndex: "principalName",
   },
   {
-    key: "client",
+    key: "registeredClientId",
     title: "کلاینت",
-    dataIndex: "client",
-  },
-  {
-    key: "status",
-    title: "وضعیت",
-    dataIndex: "status",
-    align: "center",
-    render: (value) => {
-      const isActive = value === "Success";
-      return (
-        <Badge
-          variant={isActive ? "success" : "danger"}
-          label={isActive ? "فعال" : "غیرفعال"}
-        />
-      );
-    },
+    dataIndex: "registeredClientId",
   },
   {
     key: "accessTokenIssuedAt",
@@ -53,7 +37,6 @@ export const columns: Column<Session>[] = [
     key: "refreshTokenIssuedAt",
     title: "تاریخ صدور رفرش توکن",
     dataIndex: "refreshTokenIssuedAt",
-
     render: renderDate,
   },
   {
@@ -67,6 +50,8 @@ export const columns: Column<Session>[] = [
     title: "عملیات",
     align: "center",
     width: 100,
-    render: (_, row) => <SessionPopUpMenu session={row} />,
+    render: (_, row) => (
+      <SessionPopUpMenu session={row} onRevoked={onRefresh} />
+    ),
   },
 ];

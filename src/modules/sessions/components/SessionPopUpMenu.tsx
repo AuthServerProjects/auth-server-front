@@ -7,10 +7,11 @@ import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
 
 type Props = {
   session: Session;
+  onRevoked?: () => void;
 };
 
-const SessionPopUpMenu = ({ session }: Props) => {
-  const { handleCancel, handleCancelAll } = useSessionActions();
+const SessionPopUpMenu = ({ session, onRevoked }: Props) => {
+  const { handleCancel, handleCancelAll } = useSessionActions(onRevoked);
 
   const items: PopUpMenuItem[] = [
     {
@@ -21,7 +22,7 @@ const SessionPopUpMenu = ({ session }: Props) => {
       danger: true,
     },
     {
-      key: "cancelALl",
+      key: "cancelAll",
       label: "لغو همه نشست ها",
       icon: <FcCancel size={24} />,
       onClick: () => handleCancelAll(session),
