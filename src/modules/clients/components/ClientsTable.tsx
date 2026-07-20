@@ -1,43 +1,55 @@
 import { useState } from "react";
 
 import type { Client } from "../clientTypes";
-import  { getColumns } from "./ClientTableColumns";
+import { clientService } from "../clientService";
+import { getColumns } from "./ClientTableColumns";
 import Table, { type SortState } from "../../../components/tables";
 
 type Props = {
   data: Client[];
+  total: number;
+  loading: boolean;
+  page: number;
+  onPageChange: (page: number) => void;
+  onRefresh: () => void;
 };
 
-const ClientsTable = ({ data }: Props) => {
-  const [page, setPage] = useState(1);
+const ClientsTable = ({
+  data,
+  total,
+  loading,
+  page,
+  onPageChange,
+  onRefresh,
+}: Props) => {
   const [sortBy, setSortBy] = useState<SortState>();
-  const [clients, setClients] = useState<Client[]>(data);
-  
-    const handleStatusChange = (id: number, checked: boolean) => {
-      setClients((prev) =>
-        prev.map((row) => (row.id === id ? { ...row, status: checked } : row)),
-      );
-      // TODO: API call here
-      console.log("toggle", id, checked);
-    };
 
-      const columns = getColumns(handleStatusChange);
-    
+  const handleStatusChange = async (clientId: string) => {
+    try {
+      await clientService.toggleStatus(clientId);
+      onRefresh();
+    } catch (err) {
+      console.error("toggle failed", err);
+    }
+  };
+
+  const columns = getColumns(handleStatusChange, onRefresh);
 
   return (
     <Table<Client>
       columns={columns}
-      data={clients}
+      data={data}
       rowKey="id"
       striped
+      loading={loading}
       sortBy={sortBy}
       onSortChange={setSortBy}
       onRowClick={(row) => console.log("clicked", row)}
       pagination={{
         page,
         pageSize: 10,
-        total: 42,
-        onChange: setPage,
+        total,
+        onChange: onPageChange,
         showSizeChanger: true,
         onPageSizeChange: (s) => console.log(s),
       }}

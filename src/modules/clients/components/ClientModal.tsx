@@ -12,8 +12,9 @@ import {
 import type { Client } from "../clientTypes";
 import Modal from "../../../components/Modal";
 import Switch from "../../../components/Switch";
-import MultiSelect from "../../../components/MultiSelect";
+import { clientService } from "../clientService";
 import Button from "../../../components/Button/Button";
+import MultiSelect from "../../../components/MultiSelect";
 
 const schema = z.object({
   clientId: z.string().min(1, "شناسه کلاینت الزامی است"),
@@ -41,9 +42,10 @@ type Props = {
   onClose: () => void;
   client?: Client;
   title: string;
+  onSaved?: () => void;
 };
 
-const ClientModal = ({ isEdit, onClose, client, title }: Props) => {
+const ClientModal = ({ isEdit, onClose, client, title, onSaved }: Props) => {
   const {
     register,
     handleSubmit,
@@ -69,13 +71,43 @@ const ClientModal = ({ isEdit, onClose, client, title }: Props) => {
     },
   });
 
-  const onSubmit = (data: FormValues) => {
-    if (isEdit) {
-      console.log("edit", { ...client, ...data });
-    } else {
-      console.log("create", data);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      const payload = {
+        clientId: data.clientId,
+        clientAuthenticationMethods:
+          data.clientAuthenticationMethods as Client["clientAuthenticationMethods"],
+        authorizationGrantTypes:
+          data.authorizationGrantTypes as Client["authorizationGrantTypes"],
+        redirectUris: data.redirectUris,
+        scopes: data.scopes as Client["scopes"],
+        isEnabled: data.isEnabled,
+        setting: {
+          id: client?.setting?.id ?? 0,
+          requireProofKey: data.requireProofKey,
+          requireAuthorizationConsent: data.requireAuthorizationConsent,
+          accessTokenTimeToLive: data.accessTokenTimeToLive,
+          refreshTokenTimeToLive: data.refreshTokenTimeToLive,
+          reuseRefreshTokens: data.reuseRefreshTokens,
+          authorizationCodeTimeToLive: data.authorizationCodeTimeToLive,
+          x509CertificateBoundAccessTokens:
+            client?.setting?.x509CertificateBoundAccessTokens ?? false,
+          idTokenSignatureAlgorithm:
+            client?.setting?.idTokenSignatureAlgorithm ?? "RS256",
+          deviceCodeTimeToLive: client?.setting?.deviceCodeTimeToLive ?? 0,
+        },
+      };
+
+      if (isEdit && client) {
+        await clientService.update(client.clientId, payload);
+      } else {
+        await clientService.save(payload);
+      }
+      onSaved?.();
+      onClose();
+    } catch (err) {
+      console.error("save client failed", err);
     }
-    onClose();
   };
 
   return (

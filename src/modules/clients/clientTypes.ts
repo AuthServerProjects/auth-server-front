@@ -1,3 +1,5 @@
+import type { BaseFilter } from "../../utils/types";
+
 export const CLIENT_AUTHENTICATION_METHODS = [
   "CLIENT_SECRET_BASIC",
   "CLIENT_SECRET_POST",
@@ -56,3 +58,7 @@ export type ClientDropdown = {
   clientId: number; // DB id
   clientName: string;
 };
+
+export type ClientRequest = Omit<Client, "id" | "registeredClientId">;
+
+export type ClientFilter = BaseFilter;

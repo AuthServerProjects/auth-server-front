@@ -7,7 +7,8 @@ import Badge from "../../../components/Badge/Badge";
 import type { Column } from "../../../components/tables";
 
 export const getColumns = (
-  onStatusChange: (id: number, checked: boolean) => void,
+  onStatusChange: (clientId: string) => void,
+  onRefresh: () => void,
 ): Column<Client>[] => [
   {
     key: "id",
@@ -147,7 +148,7 @@ export const getColumns = (
       <Switch
         label={value ? "فعال" : "غیرفعال"}
         checked={value}
-        onCheckedChange={(checked) => onStatusChange(record.id, checked)}
+        onCheckedChange={() => onStatusChange(record.clientId)}
       />
     ),
   },
@@ -156,6 +157,6 @@ export const getColumns = (
     title: "عملیات",
     align: "center",
     width: 80,
-    render: (_, row) => <ClientPopUpMenu client={row} />,
+    render: (_, row) => <ClientPopUpMenu client={row} onChanged={onRefresh} />,
   },
 ];

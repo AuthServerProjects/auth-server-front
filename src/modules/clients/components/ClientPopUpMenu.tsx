@@ -3,6 +3,7 @@ import { LuPencil, LuKey } from "react-icons/lu";
 
 import ClientModal from "./ClientModal";
 import type { Client } from "../clientTypes";
+import { clientService } from "../clientService";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
@@ -14,16 +15,29 @@ type ModalAction = {
 
 type Props = {
   client: Client;
+  onChanged?: () => void;
 };
 
-const ClientPopUpMenu = ({ client }: Props) => {
+const ClientPopUpMenu = ({ client, onChanged }: Props) => {
   const [openModal, setOpenModal] = useState<ModalAction>(null);
+  const [loading, setLoading] = useState(false);
   const close = () => setOpenModal(null);
 
-  const handleRemove = () => {
-    console.log("remove role!", openModal?.client.id);
-    // TODO: API call
-    close();
+  const handleRegenerate = async () => {
+    if (!openModal) return;
+    setLoading(true);
+    try {
+      const message = await clientService.regenerateSecret(
+        openModal.client.clientId,
+      );
+      alert(message);
+      close();
+      onChanged?.();
+    } catch (err) {
+      console.error("regenerate secret failed", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const items: PopUpMenuItem[] = [
@@ -51,6 +65,7 @@ const ClientPopUpMenu = ({ client }: Props) => {
           onClose={close}
           client={openModal.client}
           title="ویرایش کلاینت"
+          onSaved={onChanged}
         />
       )}
       {openModal?.type === "secretReset" && (
@@ -64,8 +79,8 @@ const ClientPopUpMenu = ({ client }: Props) => {
               <strong>{openModal.client.clientId}</strong> مطمئن هستید؟
             </p>
           }
-          confirmText="تایید"
-          onConfirm={handleRemove}
+          confirmText={loading ? "در حال انجام..." : "تایید"}
+          onConfirm={handleRegenerate}
           onClose={close}
         />
       )}
