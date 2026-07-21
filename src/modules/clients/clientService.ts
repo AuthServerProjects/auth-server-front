@@ -1,4 +1,3 @@
-import api from "../../config/axios";
 import type {
   Response,
   PageableRequest,
@@ -10,6 +9,7 @@ import type {
   ClientFilter,
   ClientDropdown,
 } from "./clientTypes";
+import api from "../../config/axios";
 
 const CLIENT = "/client";
 

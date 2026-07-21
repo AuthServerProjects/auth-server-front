@@ -7,14 +7,14 @@ import type {
 import axios from "axios";
 import api from "../../config/axios";
 import { API_BASE_URL } from "../../config/BaseUrl";
-import type { ResponseDto } from "../../utils/types";
+import type { Response } from "../../utils/types";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const authService = {
   // POST {API_PREFIX}/otp/send
   sendOtp: async (request: SendOtpRequest): Promise<string> => {
-    const { data } = await api.post<ResponseDto<string>>(
+    const { data } = await api.post<Response<string>>(
       `${API_BASE_URL}/otp/send`,
       request,
     );
@@ -23,7 +23,7 @@ export const authService = {
 
   // POST {API_PREFIX}/otp/verify
   verifyOtp: async (request: VerifyOtpRequest): Promise<VerifyOtpResponse> => {
-    const { data } = await api.post<ResponseDto<VerifyOtpResponse>>(
+    const { data } = await api.post<Response<VerifyOtpResponse>>(
       `${API_BASE_URL}/otp/verify`,
       request,
     );
