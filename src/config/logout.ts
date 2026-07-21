@@ -27,7 +27,7 @@ type LogoutOptions = {
 
 export default async function logout({
   callServer = true,
-  redirectTo = "/login",
+  redirectTo = "auth/login",
 }: LogoutOptions = {}) {
   // Prevent re-entry (e.g., interceptor loops)
   if (isLoggingOut) return;

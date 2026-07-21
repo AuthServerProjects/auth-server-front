@@ -31,7 +31,7 @@ const OtpPage = () => {
 
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
 
-  if (!phoneNumber) return <Navigate to="/login" replace />;
+  if (!phoneNumber) return <Navigate to="auth/login" replace />;
 
   useEffect(() => {
     inputsRef.current[0]?.focus();
@@ -231,7 +231,7 @@ const OtpPage = () => {
             <div className="flex items-center justify-between text-xs">
               <button
                 type="button"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("auth/login")}
                 className="flex items-center gap-1 text-gray-70 hover:text-gray-300 cursor-pointer transition-colors"
               >
                 <LuArrowRight size={14} />
