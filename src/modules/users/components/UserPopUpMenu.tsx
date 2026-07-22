@@ -2,8 +2,8 @@ import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { LuUserPen, LuUserCog, LuServer } from "react-icons/lu";
 
-import type { User } from "../userTypes";
 import UserModal from "./modals/UserModal";
+import type { User } from "../generalUser/userTypes";
 import ManageRolesModal from "./modals/ManageRolesModal";
 import AssignClientModal from "./modals/AssignClientModal";
 import ConfirmDialog from "../../../components/ConfirmDialog";
@@ -40,12 +40,16 @@ const UserPopUpMenu = ({ user, isFromClient }: Props) => {
       icon: <LuUserPen size={24} />,
       onClick: () => setOpenModal({ type: "editUser", user }),
     },
-    {
-      key: "client",
-      label: "تخصیص به کلاینت",
-      icon: <LuServer />,
-      onClick: () => setOpenModal({ type: "assignClient", user }),
-    },
+    ...(!isFromClient
+      ? [
+          {
+            key: "client",
+            label: "تخصیص به کلاینت",
+            icon: <LuServer />,
+            onClick: () => setOpenModal({ type: "assignClient", user }),
+          },
+        ]
+      : []),
     ...(isFromClient
       ? [
           {
@@ -96,7 +100,7 @@ const UserPopUpMenu = ({ user, isFromClient }: Props) => {
           title="حذف کاربر از کلاینت جاری"
           description={
             <>
-              آیا از حذف کاربر <strong>{openModal.user.userName}</strong> از
+              آیا از حذف کاربر <strong>{openModal.user.username}</strong> از
               کلاینت جاری مطمئن هستید؟
             </>
           }
