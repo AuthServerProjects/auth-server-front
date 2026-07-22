@@ -1,12 +1,13 @@
-import type { User } from "../userTypes";
+import type { UserRow } from "../userRow";
 import UserPopUpMenu from "./UserPopUpMenu";
 import Switch from "../../../components/Switch";
 import type { Column } from "../../../components/tables";
 
 export const getColumns = (
-  onStatusChange: (id: number, checked: boolean) => void,
+  onStatusChange: (row: UserRow, checked: boolean) => void,
   isFromClient: boolean,
-): Column<User>[] => [
+  onRefresh: () => void,
+): Column<UserRow>[] => [
   {
     key: "id",
     title: "شناسه",
@@ -15,9 +16,9 @@ export const getColumns = (
     align: "center",
   },
   {
-    key: "userName",
+    key: "username",
     title: "نام کاربری",
-    dataIndex: "userName",
+    dataIndex: "username",
     sortable: true,
   },
   {
@@ -26,34 +27,40 @@ export const getColumns = (
     dataIndex: "phoneNumber",
   },
   {
-    key: "status",
+    key: "isEnabled",
     title: "وضعیت",
-    dataIndex: "status",
+    dataIndex: "isEnabled",
     align: "center",
     render: (value, row) => (
       <Switch
         label={value ? "فعال" : "غیرفعال"}
         checked={value}
-        onCheckedChange={(checked) => onStatusChange(row.id, checked)}
+        onCheckedChange={(checked) => onStatusChange(row, checked)}
       />
     ),
   },
-  {
-    key: "roles",
-    title: "نقش‌ها",
-    dataIndex: "roles",
-    render: (value) => {
-      if (!value || value.length === 0) return "-";
-      return value.join("، ");
-    },
-  },
+  ...(isFromClient
+    ? [
+        {
+          key: "roles",
+          title: "نقش‌ها",
+          dataIndex: "roles",
+          render: (value: string[] | undefined) =>
+            !value || value.length === 0 ? "-" : value.join("، "),
+        } as Column<UserRow>,
+      ]
+    : []),
   {
     key: "actions",
     title: "عملیات",
     align: "center",
     width: 100,
     render: (_, row) => (
-      <UserPopUpMenu user={row} isFromClient={isFromClient} />
+      <UserPopUpMenu
+        user={row}
+        isFromClient={isFromClient}
+        onRefresh={onRefresh}
+      />
     ),
   },
 ];

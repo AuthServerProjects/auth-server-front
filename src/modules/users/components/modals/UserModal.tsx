@@ -5,18 +5,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import type { Control, FieldPath } from "react-hook-form";
 
-import type { User } from "../../userTypes";
+import type { UserRow } from "../../userRow";
 import Modal from "../../../../components/Modal";
 import Switch from "../../../../components/Switch";
 import Button from "../../../../components/Button/Button";
+import { userService } from "../../generalUser/userService";
+import { userClientService } from "../../userClient/userClientService";
 
 const schema = z.object({
-  userName: z.string().min(3, "نام کاربری حداقل ۳ کاراکتر باشد"),
+  username: z.string().min(3, "نام کاربری حداقل ۳ کاراکتر باشد"),
   phoneNumber: z.string().regex(/^\d{10,15}$/, "شماره تلفن معتبر نیست"),
-  status: z.boolean(),
-  notLocked: z.boolean(),
-  notExpired: z.boolean(),
-  credentialsNotExpired: z.boolean(),
+  isEnabled: z.boolean(),
+  isAccountNonLocked: z.boolean(),
+  isAccountNonExpired: z.boolean(),
+  isCredentialsNonExpired: z.boolean(),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -25,7 +27,8 @@ type Props = {
   isEdit: boolean;
   onClose: () => void;
   onCancel?: () => void;
-  user?: User;
+  onSaved?: () => void;
+  user?: UserRow;
   title: string;
   isFromClient?: boolean;
 };
@@ -34,6 +37,7 @@ const UserModal = ({
   isEdit,
   onClose,
   onCancel,
+  onSaved,
   user,
   title,
   isFromClient,
@@ -42,26 +46,72 @@ const UserModal = ({
     register,
     handleSubmit,
     control,
+    setError,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
-      userName: user?.userName ?? "",
+      username: user?.username ?? "",
       phoneNumber: user?.phoneNumber ?? "",
-      status: user?.status ?? true,
-      notLocked: user?.notLocked ?? true,
-      notExpired: user?.notExpired ?? true,
-      credentialsNotExpired: user?.credentialsNotExpired ?? true,
+      isEnabled: user?.isEnabled ?? true,
+      isAccountNonLocked: true,
+      isAccountNonExpired: true,
+      isCredentialsNonExpired: true,
     },
   });
-
-  const onSubmit = (data: FormValues) => {
-    if (isEdit) {
-      console.log("edit", { ...user, ...data });
-    } else {
-      console.log("create", data);
+  const onSubmit = async (data: FormValues) => {
+    try {
+      if (isEdit && user) {
+        if (isFromClient) {
+          // per-client edit → update membership (account flags live here)
+          const full = await userClientService.findById(user.id);
+          await userClientService.update(user.id, {
+            ...full,
+            isEnabled: data.isEnabled,
+            isAccountNonLocked: data.isAccountNonLocked,
+            isAccountNonExpired: data.isAccountNonExpired,
+            isCredentialsNonExpired: data.isCredentialsNonExpired,
+            user: {
+              ...full.user,
+              username: data.username,
+              phoneNumber: data.phoneNumber,
+            },
+          });
+        } else {
+          // general edit → update global user
+          await userService.update(user.id, {
+            id: user.id,
+            username: data.username,
+            phoneNumber: data.phoneNumber,
+            isEnabled: data.isEnabled,
+          });
+        }
+      } else {
+        // CREATE
+        if (isFromClient) {
+          // atomic: backend creates global user + attaches to client-from-context
+          await userClientService.save({
+            newUser: {
+              username: data.username,
+              phoneNumber: data.phoneNumber,
+              isEnabled: data.isEnabled,
+            },
+          });
+        } else {
+          // general: create global user only
+          await userService.save({
+            username: data.username,
+            phoneNumber: data.phoneNumber,
+            isEnabled: data.isEnabled,
+          });
+        }
+      }
+      onSaved?.();
+      onClose();
+    } catch (err) {
+      console.error("save user failed", err);
+      setError("username", { message: "ذخیره با خطا مواجه شد" });
     }
-    onClose();
   };
 
   return (
@@ -79,13 +129,13 @@ const UserModal = ({
             نام کاربری
           </label>
           <input
-            {...register("userName")}
+            {...register("username")}
             className="w-full text-gray-600 border border-gray-50 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-gray-70"
             placeholder="نام کاربری را وارد کنید"
           />
-          {errors.userName && (
+          {errors.username && (
             <p className="text-red-500 text-xs pt-2">
-              {errors.userName.message}
+              {errors.username.message}
             </p>
           )}
         </div>
@@ -116,22 +166,22 @@ const UserModal = ({
           </h3>
 
           <div className="flex flex-col gap-3 item-start">
-            <SwitchRow control={control} name="status" title="فعال" />
-            {isFromClient && (
+            <SwitchRow control={control} name="isEnabled" title="فعال" />
+            {isFromClient && isEdit && (
               <>
                 <SwitchRow
                   control={control}
-                  name="notLocked"
+                  name="isAccountNonLocked"
                   title="حساب قفل نشده"
                 />
                 <SwitchRow
                   control={control}
-                  name="notExpired"
+                  name="isAccountNonExpired"
                   title="حساب منقضی نشده"
                 />
                 <SwitchRow
                   control={control}
-                  name="credentialsNotExpired"
+                  name="isCredentialsNonExpired"
                   title="اعتبارنامه منقضی نشده"
                 />
               </>
@@ -145,10 +195,9 @@ const UserModal = ({
             type="submit"
             variant="success"
             disabled={isSubmitting}
-            onClick={() => console.log("approved")}
             className="w-full justify-center"
           >
-            ذخیره
+            {isSubmitting ? "در حال ذخیره..." : "ذخیره"}
           </Button>
           <Button variant="ghost" onClick={onCancel ?? onClose}>
             انصراف

@@ -1,43 +1,69 @@
 import { useState } from "react";
 
-import type { User } from "../userTypes";
+import type { UserRow } from "../userRow";
 import { getColumns } from "./UserTableColumns";
+import { userService } from "../generalUser/userService";
 import Table, { type SortState } from "../../../components/tables";
+import { userClientService } from "../userClient/userClientService";
 
 type Props = {
-  data: User[];
+  data: UserRow[];
+  total: number;
+  loading: boolean;
+  page: number;
   isFromClient: boolean;
+  onPageChange: (page: number) => void;
+  onRefresh: () => void;
 };
 
-const UsersTable = ({ data, isFromClient }: Props) => {
-  const [page, setPage] = useState(1);
+const UsersTable = ({
+  data,
+  total,
+  loading,
+  page,
+  isFromClient,
+  onPageChange,
+  onRefresh,
+}: Props) => {
   const [sortBy, setSortBy] = useState<SortState>();
-  const [users, setUsers] = useState<User[]>(data);
 
-  const handleStatusChange = (id: number, checked: boolean) => {
-    setUsers((prev) =>
-      prev.map((row) => (row.id === id ? { ...row, status: checked } : row)),
-    );
-    // TODO: API call here
-    console.log("toggle", id, checked);
+  // general: enable/disable via user.update(isEnabled)
+  // per-client: ban/unban the membership
+  const handleStatusChange = async (row: UserRow, checked: boolean) => {
+    try {
+      if (isFromClient) {
+        if (checked) await userClientService.unbanUser(row.id);
+        else await userClientService.banUser(row.id);
+      } else {
+        await userService.update(row.id, {
+          id: row.id,
+          username: row.username,
+          phoneNumber: row.phoneNumber,
+          isEnabled: checked,
+        });
+      }
+      onRefresh();
+    } catch (err) {
+      console.error("toggle failed", err);
+    }
   };
 
-  const columns = getColumns(handleStatusChange, isFromClient);
+  const columns = getColumns(handleStatusChange, isFromClient, onRefresh);
 
   return (
-    <Table<User>
+    <Table<UserRow>
       columns={columns}
-      data={users}
+      data={data}
       rowKey="id"
       striped
+      loading={loading}
       sortBy={sortBy}
       onSortChange={setSortBy}
-      onRowClick={(row) => console.log("clicked", row)}
       pagination={{
         page,
         pageSize: 10,
-        total: 42,
-        onChange: setPage,
+        total,
+        onChange: onPageChange,
         showSizeChanger: true,
         onPageSizeChange: (s) => console.log(s),
       }}

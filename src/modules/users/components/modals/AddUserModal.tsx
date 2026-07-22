@@ -6,37 +6,38 @@ import SVG from "../../../../components/SVG/SVG";
 import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button/Button";
 import UserSearch, { type UserOption } from "../UserSearch";
+import { userClientService } from "../../userClient/userClientService";
 
 type Props = {
   onClose: () => void;
   onAddNew: () => void;
+  onSaved?: () => void;
   title: string;
 };
 
-const AddUserModal = ({ onClose, onAddNew, title }: Props) => {
+const AddUserModal = ({ onClose, onAddNew, onSaved, title }: Props) => {
   const [selectedUsers, setSelectedUsers] = useState<UserOption[]>([]);
   const [submitting, setSubmitting] = useState(false);
 
-  console.log("save", selectedUsers);
-
+  // attach existing global users to the current client (userClient.save({ userId }))
   const handleSubmit = async () => {
     if (selectedUsers.length === 0) return;
     setSubmitting(true);
     try {
-      console.log("save", selectedUsers);
+      for (const u of selectedUsers) {
+        await userClientService.save({ userId: u.id });
+      }
+      onSaved?.();
       onClose();
+    } catch (err) {
+      console.error("attach user(s) failed", err);
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <Modal
-      open
-      onClose={onClose}
-      title={title}
-      icon={<TbUsersPlus size={24} />}
-    >
+    <Modal open onClose={onClose} title={title} icon={<TbUsersPlus size={24} />}>
       <div className="flex flex-col">
         <label className="flex item-start mb-3 text-black">
           جستجو کاربران موجود
@@ -75,9 +76,10 @@ const AddUserModal = ({ onClose, onAddNew, title }: Props) => {
           </Button>
           <div className="flex justify-end gap-2 mt-4">
             <Button
-              type="submit"
+              type="button"
               variant="success"
               onClick={handleSubmit}
+              disabled={submitting || selectedUsers.length === 0}
               className="w-full justify-center"
             >
               {submitting ? "در حال ذخیره..." : "ذخیره"}

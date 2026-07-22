@@ -2,35 +2,49 @@ import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { LuUserPen, LuUserCog, LuServer } from "react-icons/lu";
 
+import type { UserRow } from "../userRow";
 import UserModal from "./modals/UserModal";
-import type { User } from "../generalUser/userTypes";
+import { userService } from "../generalUser/userService";
 import ManageRolesModal from "./modals/ManageRolesModal";
 import AssignClientModal from "./modals/AssignClientModal";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import PopUpMenu from "../../../components/popUpMenu/PopUpMenu";
+import { userClientService } from "../userClient/userClientService";
 import type { PopUpMenuItem } from "../../../components/popUpMenu/types";
 
 type ModalAction = {
   type: "editUser" | "assignClient" | "manageRoles" | "unassignFromClient";
-  user: User;
+  user: UserRow;
 } | null;
 
 type Props = {
-  user: User;
+  user: UserRow;
   isFromClient: boolean;
+  onRefresh: () => void;
 };
 
-const UserPopUpMenu = ({ user, isFromClient }: Props) => {
+const UserPopUpMenu = ({ user, isFromClient, onRefresh }: Props) => {
   const [openModal, setOpenModal] = useState<ModalAction>(null);
+  const [loading, setLoading] = useState(false);
   const close = () => setOpenModal(null);
 
-  const handleUnassign = () => {
-    if (isFromClient) {
-      console.log("unassigned!", openModal?.user.id);
-    } else {
-      console.log("remove!", openModal?.user.id);
+  // general: delete global user  |  per-client: unassign membership
+  const handleRemove = async () => {
+    if (!openModal) return;
+    setLoading(true);
+    try {
+      if (isFromClient) {
+        await userClientService.delete(openModal.user.id);
+      } else {
+        await userService.delete(openModal.user.id);
+      }
+      close();
+      onRefresh();
+    } catch (err) {
+      console.error("remove failed", err);
+    } finally {
+      setLoading(false);
     }
-    close();
   };
 
   const items: PopUpMenuItem[] = [
@@ -77,35 +91,43 @@ const UserPopUpMenu = ({ user, isFromClient }: Props) => {
         <UserModal
           isEdit
           onClose={close}
+          onSaved={onRefresh}
           user={openModal.user}
           title="ویرایش کاربر"
+          isFromClient={isFromClient}
         />
       )}
 
       {openModal?.type === "assignClient" && (
         <AssignClientModal
           userId={openModal.user.id}
-          clientId={0}
           onClose={close}
+          onSaved={onRefresh}
         />
       )}
+
       {openModal?.type === "manageRoles" && (
-        <ManageRolesModal userId={openModal.user.id} onClose={close} />
+        <ManageRolesModal
+          userClientId={openModal.user.id}
+          onClose={close}
+          onSaved={onRefresh}
+        />
       )}
 
       {openModal?.type === "unassignFromClient" && (
         <ConfirmDialog
           open
           variant="danger"
-          title="حذف کاربر از کلاینت جاری"
+          loading={loading}
+          title={isFromClient ? "حذف کاربر از کلاینت جاری" : "حذف کاربر"}
           description={
             <>
-              آیا از حذف کاربر <strong>{openModal.user.username}</strong> از
-              کلاینت جاری مطمئن هستید؟
+              آیا از حذف کاربر <strong>{openModal.user.username}</strong>{" "}
+              {isFromClient ? "از کلاینت جاری " : ""}مطمئن هستید؟
             </>
           }
           confirmText="حذف"
-          onConfirm={handleUnassign}
+          onConfirm={handleRemove}
           onClose={close}
         />
       )}
